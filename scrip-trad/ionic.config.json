@@ -1,0 +1,7 @@
+{
+  "name": "ScripTrad",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
