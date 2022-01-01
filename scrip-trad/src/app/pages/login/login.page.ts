@@ -5,6 +5,7 @@ import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AutenticadorJwtService } from '../../providers/autenticador-jwt.service';
 import { ComunicacionDeAlertasService } from '../../providers/comunicacion-de-alertas.service';
+import { Usuario } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginPage implements OnInit {
 
   waiting: boolean = false;
   loginForm: FormGroup; //para comprobaciones formulario html
-
+  usu: Usuario;
   /**
    * 
    * @param usuarioService 
@@ -50,7 +51,17 @@ export class LoginPage implements OnInit {
         this.waiting = false;
         if (data.jwt != undefined) {
           this.autenticadorJwtService.almacenaJWT(data.jwt); // Almaceno un nuevo JWT
-          this.navControler.navigateForward('/listado-proyectos-gestor'); // Navego hasta el listado de mensajes
+          //dependiendo del tipo de usuario redirigiremos a un sitio u otro
+          this.usuarioService.getUsuarioAutenticado(true).subscribe(usuAutenticado => {
+            this.usu = usuAutenticado;
+            console.log(this.usu);
+            if(this.usu.idTipoProfesional==1){
+              this.navControler.navigateForward('/listado-proyectos-traductor'); // Navego hasta el listado de mensajes
+            } else {
+              this.navControler.navigateForward('/listado-proyectos-gestor'); // Navego hasta el listado de mensajes
+            }
+          })
+          
         }
         else {
           this.comunicacionAlertas.mostrarAlerta("Usuario y/o contraseña incorrecta");

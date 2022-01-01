@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'listado-proyectos-gestor',
     loadChildren: () => import('./pages/listado-proyectos-gestor/listado-proyectos-gestor.module').then( m => m.ListadoProyectosGestorPageModule)
+  },
+  {
+    path: 'listado-proyectos-traductor',
+    loadChildren: () => import('./pages/listado-proyectos-traductor/listado-proyectos-traductor.module').then( m => m.ListadoProyectosTraductorPageModule)
   }
 ];
 @NgModule({
