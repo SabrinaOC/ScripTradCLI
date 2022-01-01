@@ -25,7 +25,7 @@ export class UsuarioService {
     };
 
     // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.
-    return this.http.post<DatosConJwt>('/usuario/autentica', jsonObject).toPromise(); 
+    return this.http.post<DatosConJwt>('/usuario/autentica', jsonObject).toPromise();
 
   }
 
@@ -73,6 +73,7 @@ export class UsuarioService {
     return null;
   }
 
+  
 
     /**
    * Permite obtener un usuario autenticado en el servidor.

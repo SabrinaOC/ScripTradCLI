@@ -20,7 +20,7 @@ export interface Usuario {
     password: string;
     email: string;
     tipoProfesional: number;
-    imagen: string;
+    img: string;
 }
 
 // Mínimos datos sobre un usuario

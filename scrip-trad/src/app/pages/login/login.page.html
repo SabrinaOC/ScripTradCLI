@@ -3,17 +3,30 @@
     <!--
     <ion-thumbnail slot="start">
       <ion-img [src]="assets/icon/favicon.png"></ion-img>
-    </ion-thumbnail>-->
-    <ion-title>ScripTrad</ion-title>
+    </ion-thumbnail>
+    <ion-row class="ion-align-items-center ion-justify-content-start">
+      <ion-col size-lg="1" ><ion-title>ScripTrad </ion-title></ion-col>
+      <ion-col size-lg="1" ><img src="../../../assets/icon/favicon.png" style="width:45px" /></ion-col>
+    </ion-row>-->
+    
+    
+     <ion-title>ScripTrad </ion-title>
+      
+   
+    
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen>
 
-  <ion-card>
+  <ion-card class="ion-justify-content-center"> <!--background-color: #EBECED;-->
+    <div class="ion-justify-content-center">
+     <!-- <img src="../../../assets/icon/favicon.png" style="width:5%" />-->
+    </div>
+    
     <ion-card-header>
       <ion-card-title text-center>
-        <ion-icon name="mail-outline"></ion-icon>Login
+        Login
       </ion-card-title>
     </ion-card-header>
 
@@ -30,7 +43,7 @@
 
         <ion-item>
           <ion-label position="floating">Contraseña</ion-label>
-          <ion-input type="password" formControlName="password"></ion-input>
+          <ion-input type="password" formControlName="pass"></ion-input>
           <ng-container *ngIf="loginForm.controls.pass.errors != undefined">
             <div class="errorEnValidacion" *ngIf="loginForm.controls.pass.errors.required">Campo obligatorio
             </div>
@@ -38,7 +51,7 @@
         </ion-item>
       </form>
       <!--(click)="autenticaUsuario()"-->
-      <ion-button [disabled]="waiting || loginForm.invalid" expand="block">Acceder <ion-spinner *ngIf="waiting"
+      <ion-button [disabled]="waiting || loginForm.invalid" (click)="autenticaUsuario()" expand="block">Acceder <ion-spinner *ngIf="waiting"
           color="success"></ion-spinner>
       </ion-button>
     </ion-card-content>
