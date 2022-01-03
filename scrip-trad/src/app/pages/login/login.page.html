@@ -50,7 +50,11 @@
           </ng-container>
         </ion-item>
       </form>
-      <!--(click)="autenticaUsuario()"-->
+      <!--Boton a enviar email pass-->
+      <ion-item button (click)="passForgotten()" style="color: rgb(0, 60, 255); text-decoration: underline;">
+        <ion-label>¿Has olvidado tu contraseña?</ion-label>
+      </ion-item>
+      <!--Boton acceso-->
       <ion-button [disabled]="waiting || loginForm.invalid" (click)="autenticaUsuario()" expand="block">Acceder <ion-spinner *ngIf="waiting"
           color="success"></ion-spinner>
       </ion-button>

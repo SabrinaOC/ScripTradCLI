@@ -84,4 +84,6 @@ export class UsuarioService {
     return this.http.get<Usuario>('/usuario/getAutenticado?imagen=' + incluirImagen);
   }
 
+
+
 }

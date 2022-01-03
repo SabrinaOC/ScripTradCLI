@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+import { EmailService } from './email.service';
+
 
 
 @Injectable({
@@ -19,7 +21,8 @@ export class ComunicacionDeAlertasService {
 
   // Necesito un componente de tipo MatDialog (de Angular) para mostrar en pantalla un diálogo
   constructor(public alertController: AlertController,
-    private loadingController: LoadingController){}
+    private loadingController: LoadingController,
+    private emailService: EmailService){}
 
   /**
    * Método que permite mostrar, en Ionic, un cuadro de diálogo de alerta.
@@ -87,12 +90,56 @@ export class ComunicacionDeAlertasService {
         }, {
           text: 'Sí',
           handler: () => { // Al pulsar sobre este botón se llama a la función de "ok"
-            okFunction();
+            //okFunction();
           }
         }
       ]
     });
 
+    await alert.present();
+  }
+
+  async mostrarMensajeConInput(mensaje: string){ //okFunction: Function, cancelFunction: Function
+    const alert = await this.alertController.create({
+      message: mensaje,
+      //ponemos un input para recoger info de correo y enviar un correo de confirmacion
+      inputs: [
+        {
+          type: "email",
+          placeholder: "Ej. ejemplo@gmail.com",
+          name: "emailUsuario"
+        }
+      ],
+      //botones enviar / canclar
+      buttons: [ // array de botones
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => { // Cuando se pulsa este botón, se llama a la función de "cancel"
+            //cancelFunction();
+          }
+        }, {
+          text: 'Sí',
+          handler: (alertData) => { // Al pulsar sobre este botón se llama al email service
+            console.log(alertData.emailUsuario);
+            //le pasamos el el valor del input para enviar mensaje
+            this.emailService.sendEmailPassForgotten(alertData.emailUsuario).then(data => {
+              if(data.result == "success"){
+                console.log('correo enviado correctamente')
+                this.mostrarAlerta('Correo enviado con éxito, comprueba tu bandeja de entrada');
+                
+              } else {
+                console.log('error al enviar el correo')
+                this.mostrarAlerta('Correo no registrado, introduce el correo utilizado en el registro');
+              }
+            });
+            
+           
+          }
+        }
+      ]
+    })
     await alert.present();
   }
 

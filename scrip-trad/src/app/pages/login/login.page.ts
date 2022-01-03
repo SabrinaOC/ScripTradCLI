@@ -35,8 +35,8 @@ export class LoginPage implements OnInit {
     //Formgroup para formulario reactivo (validacion)
     this.loginForm = new FormGroup({
       //aqui ponemos los campos del formulario
-      usuario: new FormControl('Sab94', [Validators.required]), //lo marcamos como campo obligatorio
-      pass: new FormControl('sabrina', [Validators.required])
+      usuario: new FormControl('Aislinn93', [Validators.required]), //lo marcamos como campo obligatorio
+      pass: new FormControl('aislinn', [Validators.required])
     });
   }
 
@@ -73,4 +73,12 @@ export class LoginPage implements OnInit {
 
 
   }
+
+  //Event listener para olvido contra
+  passForgotten(){
+    
+    this.comunicacionAlertas.mostrarMensajeConInput("Introduce el mismo email que has usado para registrarte para cambiar tu contraseña.")
+    
+  }
+
 }
