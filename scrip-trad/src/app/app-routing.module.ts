@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'listado-proyectos-traductor',
     loadChildren: () => import('./pages/listado-proyectos-traductor/listado-proyectos-traductor.module').then( m => m.ListadoProyectosTraductorPageModule)
+  },
+  {
+    path: 'registro',
+    loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule)
   }
 ];
 @NgModule({

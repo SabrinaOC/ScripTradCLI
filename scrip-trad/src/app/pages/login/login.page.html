@@ -9,15 +9,11 @@
       <ion-col size-lg="1" ><img src="../../../assets/icon/favicon.png" style="width:45px" /></ion-col>
     </ion-row>-->
     
-    
      <ion-title>ScripTrad </ion-title>
-      
-   
-    
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
+<ion-content [fullscreen]="true">
 
   <ion-card class="ion-justify-content-center"> <!--background-color: #EBECED;-->
     <div class="ion-justify-content-center">
@@ -50,14 +46,24 @@
           </ng-container>
         </ion-item>
       </form>
-      <!--Boton a enviar email pass-->
+      <!--Enlace a enviar email pass-->
       <ion-item button (click)="passForgotten()" style="color: rgb(0, 60, 255); text-decoration: underline;">
         <ion-label>¿Has olvidado tu contraseña?</ion-label>
       </ion-item>
+      <!--Enlace a registro-->
+      <ion-item  button (click)="irRegistro()" style="color: rgb(0, 60, 255); text-decoration: underline;">
+        <ion-label>Registrarme</ion-label>
+      </ion-item>
       <!--Boton acceso-->
-      <ion-button [disabled]="waiting || loginForm.invalid" (click)="autenticaUsuario()" expand="block">Acceder <ion-spinner *ngIf="waiting"
-          color="success"></ion-spinner>
+      <ion-button [disabled]="waiting || loginForm.invalid" (click)="autenticaUsuario()" expand="block" color="success">Acceder <ion-spinner *ngIf="waiting"
+          ></ion-spinner>
       </ion-button>
+      
+      <ion-item-divider></ion-item-divider>
+      
+      <!--Botones de inicio con Google y Facebook-->
+      <ion-button expand="block" color="tertiary"><ion-icon name="logo-facebook" style="padding-right: 5px;"></ion-icon>Continuar con Facebook</ion-button>
+      <ion-button expand="block" color="light" style="margin-top: 10px;"><ion-icon name="logo-google" style="padding-right: 5px;"></ion-icon>Continuar con Google</ion-button>
     </ion-card-content>
   </ion-card>
 

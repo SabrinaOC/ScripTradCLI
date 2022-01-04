@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <ion-button fill="clear" (click)="volverLogin()"><ion-icon name="arrow-back-outline" style="padding-right: 5px; color: black;"></ion-icon></ion-button>
+      Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-card class="ion-justify-content-center"> <!--background-color: #EBECED;-->
+
+    <ion-card-header>
+      <ion-card-title text-center>
+        Login
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form [formGroup]="registerForm">
+        <ion-item>
+          <ion-label position="floating">Nombre completo</ion-label>
+          <ion-input type="text" formControlName="nombre" placeholder="Ej. Sabrina Ojea Chapelet"></ion-input>
+          <ng-container *ngIf="registerForm.controls.nombre.errors != undefined">
+            <div class="errorEnValidacion" *ngIf="registerForm.controls.usuario.errors.required">Campo obligatorio
+            </div>
+          </ng-container>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Nombre de usuario</ion-label>
+          <ion-input type="text" formControlName="usuario" placeholder="Ej. Sab94"></ion-input>
+          <ng-container *ngIf="registerForm.controls.usuario.errors != undefined">
+            <div class="errorEnValidacion" *ngIf="registerForm.controls.usuario.errors.required">Campo obligatorio
+            </div>
+          </ng-container>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" formControlName="email" placeholder="Ej. Sabrina.ojcha@gmail.com"></ion-input>
+          <ng-container *ngIf="registerForm.controls.email.errors != undefined">
+            <div class="errorEnValidacion" *ngIf="registerForm.controls.email.errors.required">Campo obligatorio
+            </div>
+            <div class="errorEnValidacion" *ngIf="registerForm.controls.email.errors.email">Formato email incorrecto
+            </div>
+          </ng-container>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input type="password" formControlName="pass"></ion-input>
+          <ng-container *ngIf="registerForm.controls.pass.errors != undefined">
+            <div class="errorEnValidacion" *ngIf="registerForm.controls.pass.errors.required">Campo obligatorio
+            </div>
+          </ng-container>
+        </ion-item>
+      </form>
+      
+      <!--Boton registro (click)=""-->
+      <ion-button [disabled]="waiting || registerForm.invalid"  expand="block" color="secondary">Registrar <ion-spinner *ngIf="waiting"
+          ></ion-spinner>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

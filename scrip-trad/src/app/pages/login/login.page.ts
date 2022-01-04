@@ -74,11 +74,15 @@ export class LoginPage implements OnInit {
 
   }
 
-  //Event listener para olvido contra
+  /**
+   * Funcion para recuperar contrasena
+   */
   passForgotten(){
-    
     this.comunicacionAlertas.mostrarMensajeConInput("Introduce el mismo email que has usado para registrarte para cambiar tu contraseña.")
-    
+  }
+
+  irRegistro(){
+    this.navControler.navigateForward('registro');
   }
 
 }
