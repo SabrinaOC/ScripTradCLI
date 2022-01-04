@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>
       <ion-button fill="clear" (click)="volverLogin()"><ion-icon name="arrow-back-outline" style="padding-right: 5px; color: black;"></ion-icon></ion-button>
-      Registro</ion-title>
+      Scriptrad</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,14 +12,14 @@
 
     <ion-card-header>
       <ion-card-title text-center>
-        Login
+        Registro
       </ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
       <form [formGroup]="registerForm">
         <ion-item>
-          <ion-label position="floating">Nombre completo</ion-label>
+          <ion-label position="floating">Nombre</ion-label>
           <ion-input type="text" formControlName="nombre" placeholder="Ej. Sabrina Ojea Chapelet"></ion-input>
           <ng-container *ngIf="registerForm.controls.nombre.errors != undefined">
             <div class="errorEnValidacion" *ngIf="registerForm.controls.usuario.errors.required">Campo obligatorio
@@ -28,7 +28,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Nombre de usuario</ion-label>
+          <ion-label position="floating">Usuario</ion-label>
           <ion-input type="text" formControlName="usuario" placeholder="Ej. Sab94"></ion-input>
           <ng-container *ngIf="registerForm.controls.usuario.errors != undefined">
             <div class="errorEnValidacion" *ngIf="registerForm.controls.usuario.errors.required">Campo obligatorio
@@ -48,6 +48,18 @@
         </ion-item>
 
         <ion-item>
+          <ion-label>Rol</ion-label>
+          <ion-select value="rol"  formControlName="idTipoProfesional">
+            <ion-select-option value="1">Traductor</ion-select-option>
+            <ion-select-option value="2">Gestor</ion-select-option>
+          </ion-select>
+          <ng-container *ngIf="registerForm.controls.idTipoProfesional != undefined">
+            <div class="errorEnValidacion" *ngIf="registerForm.controls.idTipoProfesional.errors.required">Campo obligatorio
+            </div>
+          </ng-container>
+        </ion-item>
+
+        <ion-item>
           <ion-label position="floating">Contraseña</ion-label>
           <ion-input type="password" formControlName="pass"></ion-input>
           <ng-container *ngIf="registerForm.controls.pass.errors != undefined">
@@ -58,7 +70,7 @@
       </form>
       
       <!--Boton registro (click)=""-->
-      <ion-button [disabled]="waiting || registerForm.invalid"  expand="block" color="secondary">Registrar <ion-spinner *ngIf="waiting"
+      <ion-button [disabled]="waiting || registerForm.invalid"  expand="block" color="secondary">Registrarme<ion-spinner *ngIf="waiting"
           ></ion-spinner>
       </ion-button>
     </ion-card-content>

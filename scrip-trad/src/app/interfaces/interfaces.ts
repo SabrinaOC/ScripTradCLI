@@ -17,11 +17,12 @@ export interface Usuario {
     id: number;
     nombre: string;
     usuario: string;
-    password: string;
+    pass: string;
     email: string;
     idTipoProfesional: number;
     img: string;
 }
+
 
 // Mínimos datos sobre un usuario
 export interface UsuarioMinimo {

@@ -30,6 +30,23 @@ export class UsuarioService {
   }
 
 
+  /**
+   * Método para registrar nuevo usuario, recibiendo todos sus datos.
+   */
+   registroUsuario (nombre: string, email: string, pass: string, usuario: string, idTipoProfesional: number) : Promise<any> {
+    const md5 = new Md5(); // Creo un objeto que permite codificar en MD5
+    var jsonObject = {
+      nombre: nombre,
+      email: email,
+      pass: md5.appendStr(pass).end().toString(),  // Codificamos en MD5 el password recibido
+      usuario: usuario,
+      idTipoProfesional: idTipoProfesional
+    };
+
+    // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.
+    return this.http.post<any>('/usuario/registro', jsonObject).toPromise();
+
+  }
 
 
     /**

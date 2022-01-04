@@ -51,19 +51,19 @@
         <ion-label>¿Has olvidado tu contraseña?</ion-label>
       </ion-item>
       <!--Enlace a registro-->
-      <ion-item  button (click)="irRegistro()" style="color: rgb(0, 60, 255); text-decoration: underline;">
+      <ion-item button (click)="irRegistro()" style="color: rgb(0, 60, 255); text-decoration: underline;">
         <ion-label>Registrarme</ion-label>
       </ion-item>
       <!--Boton acceso-->
-      <ion-button [disabled]="waiting || loginForm.invalid" (click)="autenticaUsuario()" expand="block" color="success">Acceder <ion-spinner *ngIf="waiting"
+      <ion-button [disabled]="waiting || loginForm.invalid" (click)="autenticaUsuario()" expand="block" color="light">Acceder <ion-spinner *ngIf="waiting"
           ></ion-spinner>
       </ion-button>
+      <!-- <ion-item-divider></ion-item-divider> -->
       
-      <ion-item-divider></ion-item-divider>
       
       <!--Botones de inicio con Google y Facebook-->
-      <ion-button expand="block" color="tertiary"><ion-icon name="logo-facebook" style="padding-right: 5px;"></ion-icon>Continuar con Facebook</ion-button>
-      <ion-button expand="block" color="light" style="margin-top: 10px;"><ion-icon name="logo-google" style="padding-right: 5px;"></ion-icon>Continuar con Google</ion-button>
+      <ion-button expand="block" color="tertiary" style="margin-top: 20px;"><ion-icon name="logo-facebook" style="padding-right: 5px;"></ion-icon>Continuar con Facebook</ion-button>
+      <ion-button expand="block" color="primary" style="margin-top: 10px;"><ion-icon name="logo-google" style="padding-right: 5px;"></ion-icon>Continuar con Google</ion-button>
     </ion-card-content>
   </ion-card>
 
