@@ -19,7 +19,7 @@ export interface Usuario {
     usuario: string;
     pass: string;
     email: string;
-    idTipoProfesional: number;
+    idTipoUsuario: number;
     img: string;
 }
 

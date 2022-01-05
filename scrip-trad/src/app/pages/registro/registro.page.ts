@@ -29,11 +29,11 @@ export class RegistroPage implements OnInit {
   ngOnInit() {
     //formulario reactivo
     this.registerForm = new FormGroup({
-      nombre: new FormControl('',[Validators.required]),
-      usuario: new FormControl('',[Validators.required]),
-      email: new FormControl('',[Validators.required, Validators.email]),
-      pass: new FormControl('', [Validators.required]),
-      idTipoProfesional: new FormControl('', [Validators.required])
+      nombre: new FormControl('Rafael Muñoz',[Validators.required]),
+      usuario: new FormControl('Rafa77',[Validators.required]),
+      email: new FormControl('rafa@rafa.com',[Validators.required, Validators.email]),
+      pass: new FormControl('1234', [Validators.required]),
+      idTipoProfesional: new FormControl()
     })
   }
 

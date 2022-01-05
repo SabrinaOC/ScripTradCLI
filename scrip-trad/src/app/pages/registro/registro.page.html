@@ -50,13 +50,13 @@
         <ion-item>
           <ion-label>Rol</ion-label>
           <ion-select value="rol"  formControlName="idTipoProfesional">
-            <ion-select-option value="1">Traductor</ion-select-option>
+            <ion-select-option value="1" selcted>Traductor</ion-select-option>
             <ion-select-option value="2">Gestor</ion-select-option>
           </ion-select>
-          <ng-container *ngIf="registerForm.controls.idTipoProfesional != undefined">
+        <!--  <ng-container *ngIf="registerForm.controls.idTipoProfesional != undefined">
             <div class="errorEnValidacion" *ngIf="registerForm.controls.idTipoProfesional.errors.required">Campo obligatorio
             </div>
-          </ng-container>
+          </ng-container> -->
         </ion-item>
 
         <ion-item>
@@ -69,8 +69,8 @@
         </ion-item>
       </form>
       
-      <!--Boton registro (click)=""-->
-      <ion-button [disabled]="waiting || registerForm.invalid"  expand="block" color="secondary">Registrarme<ion-spinner *ngIf="waiting"
+      <!--Boton registro -->
+      <ion-button [disabled]="waiting || registerForm.invalid" (click)="registrarUsuario();" expand="block" color="primary">Registrarme<ion-spinner *ngIf="waiting"
           ></ion-spinner>
       </ion-button>
     </ion-card-content>
