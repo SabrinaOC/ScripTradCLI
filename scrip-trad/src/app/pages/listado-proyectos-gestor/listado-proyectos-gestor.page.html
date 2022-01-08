@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Proyectos Gestor</ion-title>
+    <ion-badge slot="end" class="badgeTotalMensajes">{{totalProyectos}}</ion-badge>
   </ion-toolbar>
 </ion-header>
 
@@ -10,16 +11,20 @@
 <!-- Creo un ion-list, cada mensaje será un ion-item -->
 <ion-list *ngIf="totalProyectos > 0" id="list">
   <!-- Creo un ion-item por cada elemento del array "mensajes" //  (click)="detalleMensaje(mensaje)" class="{{mensaje.leido ? '' : 'noLeido'}}"-->
-  <ion-item *ngFor="let proyecto of proyectos">
+  <ion-item *ngFor="let proyecto of proyectos" (click)="mostrarInformacion(proyecto)">
     <!-- Llamada al componente de imagen de usuario
     <app-imagen-usuario [idUsuario]="mensaje.remitente.id"></app-imagen-usuario>-->
+    
     <ion-label id="label">
       <ion-text>
         <ion-label>{{proyecto.titulo}}</ion-label>
-        <ion-label button (click) = mostrarInformacion()>Info</ion-label>
+        <ion-label>Info</ion-label>
         
       </ion-text>
   </ion-label>
+  <!-- Utilizo un pipe de tipo date para la fecha del mensaje -->
+  <ion-note id="note">{{proyecto.fechaEntrega | date:'dd MMM YYYY'}}</ion-note>
+  <ion-icon name="trash-outline"></ion-icon>
   </ion-item>
 </ion-list>
 </ion-content>

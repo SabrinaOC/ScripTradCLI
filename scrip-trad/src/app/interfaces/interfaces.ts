@@ -8,10 +8,10 @@ export interface DatosConJwt {
 // Datos completos de un proyecto
 export interface ProyectoG {
     id: number,
-    traductor: string,
-    gestor: string,
-    lo: string,
-    lm: string,
+    traductor: Usuario,
+    gestor: Usuario,
+    lo: Idioma,
+    lm: Idioma,
     fechaEntrega: Date,
     descripcion: string,
     //fechaEliminacion: Date,
@@ -49,4 +49,12 @@ export interface UsuarioMinimo {
 export interface TipoUsuario {
     id: number;
     descripcion: string;
+}
+
+
+// Datos idiomas
+export interface Idioma {
+    id: number;
+    nombre: string;
+    img: string;
 }

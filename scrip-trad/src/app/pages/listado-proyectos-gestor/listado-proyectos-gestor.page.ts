@@ -59,7 +59,8 @@ export class ListadoProyectosGestorPage implements OnInit {
     })
   }
 
-  mostrarInformacion(){
-    this.comunicacionAlertas.mostrarAlerta("Encargo info ")
+  mostrarInformacion(proyecto : ProyectoG){
+    this.comunicacionAlertas.mostrarAlerta("Encargo: " + proyecto.descripcion + "<br>Traductor: " + proyecto.traductor.nombre
+    + "<br>Combinación lingüística: " + proyecto.lo.nombre + "-" + proyecto.lm.nombre)
   }
 }
