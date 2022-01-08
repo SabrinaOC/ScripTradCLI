@@ -6,10 +6,23 @@ export interface DatosConJwt {
 
 
 // Datos completos de un proyecto
-export interface Proyecto {
-    id: number;
-    remitente: UsuarioMinimo,  // Sólo me interesa nombre e id
-    
+export interface ProyectoG {
+    id: number,
+    traductor: string,
+    idGestor: number,
+    lo: string,
+    lm: string,
+    fechaEntrega: Date,
+    descripcion: string,
+    //fechaEliminacion: Date,
+    //comentarios: string,
+    titulo: string
+}
+
+// Datos de un listado de proyectos, en el que se incluyen el listado y la cantidad total
+export interface ListadoProyectos {
+    proyectos: ProyectoG[];
+    totalProyectos: number;
 }
 
 // Datos de un usuario

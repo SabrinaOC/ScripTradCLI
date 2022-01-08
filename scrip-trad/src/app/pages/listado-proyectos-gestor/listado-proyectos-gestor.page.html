@@ -1,10 +1,24 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>listadoProyectosGestor</ion-title>
+    <ion-title>Proyectos Gestor</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 Aqui se muestra el historial de proyectos de ese gestor
 
+<!-- Creo un ion-list, cada mensaje será un ion-item -->
+<ion-list *ngIf="totalProyectos > 0" id="list">
+  <!-- Creo un ion-item por cada elemento del array "mensajes" //  (click)="detalleMensaje(mensaje)" class="{{mensaje.leido ? '' : 'noLeido'}}"-->
+  <ion-item *ngFor="let proyecto of proyectos">
+    <!-- Llamada al componente de imagen de usuario
+    <app-imagen-usuario [idUsuario]="mensaje.remitente.id"></app-imagen-usuario>-->
+    <ion-label id="label">
+      <ion-text>
+        <ion-label>{{proyecto.titulo}}</ion-label>
+        <p>Info}</p>
+      </ion-text>
+  </ion-label>
+  </ion-item>
+</ion-list>
 </ion-content>
