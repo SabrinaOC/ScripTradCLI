@@ -9,7 +9,7 @@ export interface DatosConJwt {
 export interface ProyectoG {
     id: number,
     traductor: string,
-    idGestor: number,
+    gestor: string,
     lo: string,
     lm: string,
     fechaEntrega: Date,
