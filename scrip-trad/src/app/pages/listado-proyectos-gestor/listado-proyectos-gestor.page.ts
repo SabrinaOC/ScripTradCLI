@@ -9,6 +9,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.service';
 import { ListadoProyectos, Usuario, ProyectoG } from 'src/app/interfaces/interfaces';
 
+
 @Component({
   selector: 'app-listado-proyectos-gestor',
   templateUrl: './listado-proyectos-gestor.page.html',
@@ -36,7 +37,7 @@ export class ListadoProyectosGestorPage implements OnInit {
     this.usuarioService.getUsuarioAutenticado(true).subscribe(usuAutenticado => {
       this.usuarioAutenticado = usuAutenticado;
     })
-
+    //this.tabs;
     this.cargarProyecto();
   }
 
