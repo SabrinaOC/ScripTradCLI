@@ -90,7 +90,7 @@ export class ComunicacionDeAlertasService {
         }, {
           text: 'Sí',
           handler: () => { // Al pulsar sobre este botón se llama a la función de "ok"
-            //okFunction();
+            okFunction();
           }
         }
       ]

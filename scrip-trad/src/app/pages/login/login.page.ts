@@ -55,7 +55,7 @@ export class LoginPage implements OnInit {
           this.usuarioService.getUsuarioAutenticado(true).subscribe(usuAutenticado => {
             this.usu = usuAutenticado;
             console.log(this.usu);
-            if(this.usu.idTipoUsuario==1){
+            if(this.usu.idTipoUsuario===1){
               this.navControler.navigateForward('/listado-proyectos-traductor'); // Navego hasta el listado de mensajes
             } else {
               this.navControler.navigateForward('/listado-proyectos-gestor'); // Navego hasta el listado de mensajes

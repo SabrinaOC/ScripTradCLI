@@ -18,10 +18,10 @@ export class ProyectoService {
    * @param email 
    */
   getProyectosGestor(pagina: number, proyectosPorPagina: number) : Observable<ListadoProyectos> {
-    console.log("entra en getProyectosGestor")
     return this.http.get<ListadoProyectos>('/gestorProyectos?pagina=' + pagina +'&proyectosPorPagina=' + proyectosPorPagina).pipe();
-
   }
   
-
+  eliminarProyecto(idProyecto: number) : Observable<any> {
+    return this.http.get<any>('/eliminarProyecto?idProyecto=' + idProyecto).pipe();
+  }
 }
