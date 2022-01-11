@@ -167,12 +167,12 @@ export class ListadoProyectosGestorPage implements OnInit {
  * Metodo para mostrar menu de opciones con action sheet al clicar sobre la imagen de usuario
  */
 async mostrarMenu(){
-  /*const menu = await this.actionSheetController.create({
+  const actionSheet = await this.actionSheetController.create({
     header: 'Menú',
 //      cssClass: 'my-custom-class',
     buttons: [{
-      text: 'Recibidos',
-      icon: 'mail',
+      text: 'Gestionar cuenta',
+      icon: 'settings',
       handler: () => {
         
       }
@@ -186,8 +186,8 @@ async mostrarMenu(){
     }]
   });
   await actionSheet.present();
-*/
-await this.menu.open();
+
+//await this.menu.open();
 }
 
 
