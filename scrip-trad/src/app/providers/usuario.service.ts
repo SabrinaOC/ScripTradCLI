@@ -102,6 +102,12 @@ export class UsuarioService {
     return this.http.get<Usuario>('/usuario/getAutenticado?imagen=' + incluirImagen);
   }
 
-
+  /**
+   * 
+   * 
+   */
+   getAllTraductores() : Observable<any> {
+    return this.http.get<any>('/getTraductores').pipe();
+  }
 
 }
