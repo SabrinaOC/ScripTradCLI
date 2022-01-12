@@ -147,6 +147,17 @@ export class ListadoProyectosGestorPage implements OnInit {
   }, 500); // Retardo de 500 milisegundos antes de cargar más mensajes.
 }
 
+/**
+ * Metodo para ir a pantalla de inicio de vista gestor
+ */
+irInicioGestor(){
+  this.navController.navigateForward('/listado-proyectos-gestor');
+}
+
+crearNuevoProyecto(){
+  this.navController.navigateForward('crear-proyecto');
+}
+
  /**
    * Cierra la sesión de usuario, se llega aquí tras la correspondiente opción del menú lateral
    */
@@ -187,8 +198,8 @@ async mostrarMenu(){
   });
   await actionSheet.present();
 
-//await this.menu.open();
 }
+
 
 
 }
