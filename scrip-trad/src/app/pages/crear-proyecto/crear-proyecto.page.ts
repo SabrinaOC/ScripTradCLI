@@ -51,10 +51,11 @@ export class CrearProyectoPage implements OnInit {
 
     this.newProjectForm = new FormGroup({
       //aqui ponemos los campos del formulario
-      nombreProyecto: new FormControl(' ', [Validators.required]), //lo marcamos como campo obligatorio
+      nombreProyecto: new FormControl('', [Validators.required]), //lo marcamos como campo obligatorio
       lenguaOrigen: new FormControl,
       lenguaMeta: new FormControl,
       trad: new FormControl,
+      descrProyecto: new FormControl('', [Validators.required]),
     });
    
   }
