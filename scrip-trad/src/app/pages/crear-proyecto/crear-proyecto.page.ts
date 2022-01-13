@@ -8,6 +8,7 @@ import { ComunicacionDeAlertasService } from '../../providers/comunicacion-de-al
 import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.service';
 import { Usuario, ProyectoG, Idioma, UsuarioMinimo } from 'src/app/interfaces/interfaces';
 import { IdiomaService } from 'src/app/providers/idioma.service';
+import { format, parseISO } from 'date-fns';
 
 
 
@@ -25,6 +26,10 @@ export class CrearProyectoPage implements OnInit {
   newProjectForm: FormGroup; //para comprobaciones formulario html
   idiomas: Idioma[]=[];
   traductores: UsuarioMinimo[]=[];
+  mostrarCalendario = false;
+  fechaEntrega = format(new Date(), 'yyyy-MM-dd');
+  fechaMostrada = '';
+
 
   constructor(private navController: NavController,
    private usuarioService: UsuarioService,
@@ -42,6 +47,7 @@ export class CrearProyectoPage implements OnInit {
     //cargamos opciones select
     this.cargarAllIdiomas();
     this.cargarAllTraductores();
+    this.cargarHoy();
 
     this.newProjectForm = new FormGroup({
       //aqui ponemos los campos del formulario
@@ -78,6 +84,22 @@ export class CrearProyectoPage implements OnInit {
       }
     })
   }
+
+  cargarHoy(){
+    this.fechaMostrada = format(parseISO(format(new Date(), 'yyyy-MM-dd')), 'MM-d-yyyy');
+  }
+
+  /**
+   * Metodo para elegir fecha en calendario y guardarlo en variable para mandarlo a bbdd
+   * @param fecha 
+   */
+ elegirFecha(fecha){
+    console.log(fecha)
+    //this.fechaEntrega = format(fecha, 'MM-d-yyyy');
+    this.fechaMostrada = format(parseISO(fecha), 'MM-d-yyyy');
+    console.log('\nFecha para bbdd: ' + this.fechaEntrega)
+    this.mostrarCalendario=false;
+ }
 
   /**
    * Metodo para ir a pantalla de inicio de vista gestor

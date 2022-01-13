@@ -68,7 +68,17 @@
   </ion-row>
   
   <!--Cuarta fila, fecha de entrega-->
-  
+  <ion-row>
+    <ion-col size="12">
+      <ion-item (click)="mostrarCalendario = !mostrarCalendario">
+        <ion-label>Fecha de entrega</ion-label>
+        <ion-text slot="end">{{fechaMostrada}}</ion-text>
+      </ion-item>
+      <ion-datetime *ngIf="mostrarCalendario" presentation="date" 
+      #datetime (ionChange)="elegirFecha(datetime.value)" showDefaultButtons="true"
+      (ionCancel)="mostrarCalendario = false"></ion-datetime>
+    </ion-col>
+  </ion-row>
 
   </form>
   </ion-card-content>
