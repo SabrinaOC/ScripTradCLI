@@ -86,6 +86,9 @@ export class CrearProyectoPage implements OnInit {
     })
   }
 
+  /**
+   * Cargamos fecha de hoy en calendario
+   */
   cargarHoy(){
     this.fechaMostrada = format(parseISO(format(new Date(), 'yyyy-MM-dd')), 'MM-d-yyyy');
   }
@@ -102,13 +105,22 @@ export class CrearProyectoPage implements OnInit {
     this.mostrarCalendario=false;
  }
 
+ mostrarVistaPrevia(){
+   console.log('entra en metodo mostrar vista previa');
+   
+   //cuando detectemos cambio en iput file cargaremos vista previa de archivo seleccionado
+   let vista = document.getElementById('vistaPrevia'); //.setAttribute('scr', './././assets/temp/pruebaTabla.pdf');
+    vista.setAttribute('src', './././assets/temp/pruebaTabla.pdf');
+  
+ }
+
   /**
    * Metodo para ir a pantalla de inicio de vista gestor
    */
   irInicioGestor(){
     this.navController.navigateForward('/listado-proyectos-gestor');
+    
   }
-
   /**
    * Redireccionamiento
    */
