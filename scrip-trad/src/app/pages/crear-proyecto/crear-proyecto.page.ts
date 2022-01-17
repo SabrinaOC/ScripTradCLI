@@ -10,6 +10,8 @@ import { Usuario, ProyectoG, Idioma, UsuarioMinimo } from 'src/app/interfaces/in
 import { IdiomaService } from 'src/app/providers/idioma.service';
 import { format, parseISO } from 'date-fns';
 
+import { getOriginPrivateDirectory, showSaveFilePicker } from 'native-file-system-adapter';
+
 
 
 
@@ -30,13 +32,16 @@ export class CrearProyectoPage implements OnInit {
   fechaEntrega = format(new Date(), 'yyyy-MM-dd');
   fechaMostrada = '';
 
+  fileHandle;
+
 
   constructor(private navController: NavController,
    private usuarioService: UsuarioService,
    private idiomaService: IdiomaService,
    private autenticacionPorJWT: AutenticadorJwtService,
    private comunicacionAlertas: ComunicacionDeAlertasService,
-   private actionSheetController: ActionSheetController) { }
+   private actionSheetController: ActionSheetController,
+   ) { }
 
   ngOnInit() {
     // Cargamos el usuario autenticado
@@ -105,14 +110,19 @@ export class CrearProyectoPage implements OnInit {
     this.mostrarCalendario=false;
  }
 
- mostrarVistaPrevia(){
-   console.log('entra en metodo mostrar vista previa');
+  mostrarVistaPrevia(){
    
-   //cuando detectemos cambio en iput file cargaremos vista previa de archivo seleccionado
+   /*
+   //cuando detectemos cambio en iput file cargaremos vista previa de archivo seleccionado*/
    let vista = document.getElementById('vistaPrevia'); //.setAttribute('scr', './././assets/temp/pruebaTabla.pdf');
     vista.setAttribute('src', './././assets/temp/pruebaTabla.pdf');
+   
   
  }
+
+ 
+
+
 
   /**
    * Metodo para ir a pantalla de inicio de vista gestor

@@ -1,9 +1,68 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Encargos Traductor</ion-title>
+    <!--Imagen de usuario logueado-->
+    <ion-avatar slot="end" id="usu" button (click)="mostrarMenu()">
+      <img src="{{ usuarioAutenticado != null && usuarioAutenticado.img != null ? 'data:image/png;base64,' + usuarioAutenticado.img : 'assets/img/genericUser.jpg'}}" alt="Imagen usuario">
+    </ion-avatar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-<div>Aquí se muestran los encargos del traductor logueado</div>
+<ion-content [fullscreen]="true">
+  <!-- Creo un ion-list, cada mensaje será un ion-item -->
+<ion-list *ngIf="totalProyectos > 0" id="list">
+  <!-- Creo un ion-item por cada elemento del array "mensajes" //  (click)="detalleMensaje(mensaje)" class="{{mensaje.leido ? '' : 'noLeido'}}"-->
+  <ion-item *ngFor="let proyecto of proyectos" >
+    <!-- Llamada al componente de imagen de usuario
+    <app-imagen-usuario [idUsuario]="mensaje.remitente.id"></app-imagen-usuario>-->
+    <ion-avatar slot="start">
+      <img src="{{ proyecto.traductor.img != null ? 'data:image/png;base64,' + proyecto.traductor.img : 'assets/img/genericUser.jpg'}}" alt="">
+    </ion-avatar>
+    <ion-label id="label" button (click)="mostrarInformacion(proyecto)">
+      <ion-text >
+        <ion-label>{{proyecto.titulo}}</ion-label>
+        <ion-label style="color: rgba(46, 46, 48, 0.788); font-weight: bold;">Info</ion-label>
+        
+      </ion-text>
+  </ion-label>
+  <div class="ion-text-center">
+      <!-- Utilizo un pipe de tipo date para la fecha del mensaje -->
+      <ion-note id="note" >{{proyecto.fechaEntrega | date:'dd MMM YYYY'}}</ion-note>
+      <ion-icon name="pencil-outline" style="padding-left: 5px;"></ion-icon>
+  </div>
+  </ion-item>
+</ion-list>
+
+<!-- Un ion-infinite-scroll simplemente vigila el momento en que llegamos hasta el final
+  de la lista. Cuando se llega, se dispara un evento, se muestra un mensaje y una animación.
+  El evento lanzado llama a un método para cargar más mensajes.-->
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="scrollInfinito($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando proyectos...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
+
+
+<ion-footer>
+  <ion-toolbar >
+    <ion-tabs>
+  
+      <ion-tab-bar slot="bottom" class="ion-justify-content-around">
+        <ion-tab-button tab="listado-proyectos-gestor" (click)="irEditor();">
+          <ion-icon name="pencil-outline"></ion-icon>
+        </ion-tab-button>
+    
+        <ion-tab-button tab="tab2" (click)="irInicioTraductor();">
+          <ion-icon name="home-outline"></ion-icon>
+        </ion-tab-button>
+    <!--
+        <ion-tab-button tab="tab3">
+          <ion-icon name="menu-outline"></ion-icon>
+          
+        </ion-tab-button>-->
+      </ion-tab-bar>
+    
+    </ion-tabs>
+  </ion-toolbar>
+
+</ion-footer>

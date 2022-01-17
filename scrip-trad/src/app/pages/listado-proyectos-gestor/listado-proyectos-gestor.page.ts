@@ -48,7 +48,7 @@ export class ListadoProyectosGestorPage implements OnInit {
    * 
    */
   ngOnInit() {
-    this.cargarProyecto();
+    this.cargarProyectos();
     // Cargamos el usuario autenticado
     this.usuarioService.getUsuarioAutenticado(true).subscribe(usuAutenticado => {
       this.usuarioAutenticado = usuAutenticado;
@@ -58,7 +58,7 @@ export class ListadoProyectosGestorPage implements OnInit {
   /**
    * Metodo para cargar proyectos de gestor de bbdd
    */
-  cargarProyecto(){
+  cargarProyectos(){
     //mostramos spinner carga
     this.comunicacionAlertas.mostrarCargando();
     
@@ -74,7 +74,7 @@ export class ListadoProyectosGestorPage implements OnInit {
         this.pagina++;
       }
 
-    })
+    });
   }
 
   /**
@@ -104,7 +104,7 @@ export class ListadoProyectosGestorPage implements OnInit {
           //mostramos mensaje
           this.presentToast(proyecto);
           //recargamos pagina de proyectos
-          this.cargarProyecto();
+          this.cargarProyectos();
           //document.location.reload();
           
         }
@@ -137,7 +137,7 @@ export class ListadoProyectosGestorPage implements OnInit {
     event.target.complete();
 
     // Cargamos más mensajes en la lista
-    this.cargarProyecto();
+    this.cargarProyectos();
     // Si la cantidad de mensajes cargados, poco a poco, coincide con el total de mensajes
     // totales a mostrar, deshabilitamos los futuros eventos de scroll infinito
     if (this.proyectos.length == this.totalProyectos) {

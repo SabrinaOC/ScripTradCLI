@@ -15,12 +15,29 @@ export class ProyectoService {
 
   /**
    * 
-   * @param email 
+   * @param pagina 
+   * @param proyectosPorPagina 
+   * @returns 
    */
   getProyectosGestor(pagina: number, proyectosPorPagina: number) : Observable<ListadoProyectos> {
     return this.http.get<ListadoProyectos>('/gestorProyectos?pagina=' + pagina +'&proyectosPorPagina=' + proyectosPorPagina).pipe();
   }
+
+  /**
+   * 
+   * @param pagina 
+   * @param proyectosPorPagina 
+   * @returns 
+   */
+  getProyectosTraductor(pagina: number, proyectosPorPagina: number) : Observable<ListadoProyectos> {
+    return this.http.get<ListadoProyectos>('/traductorProyectos?pagina=' + pagina +'&proyectosPorPagina=' + proyectosPorPagina).pipe();
+  }
   
+  /**
+   * 
+   * @param idProyecto 
+   * @returns 
+   */
   eliminarProyecto(idProyecto: number) : Observable<any> {
     return this.http.get<any>('/eliminarProyecto?idProyecto=' + idProyecto).pipe();
   }
