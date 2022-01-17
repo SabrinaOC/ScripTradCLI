@@ -13,11 +13,17 @@
 <ion-list *ngIf="totalProyectos > 0" id="list">
   <!-- Creo un ion-item por cada elemento del array "mensajes" //  (click)="detalleMensaje(mensaje)" class="{{mensaje.leido ? '' : 'noLeido'}}"-->
   <ion-item *ngFor="let proyecto of proyectos" >
-    <!-- Llamada al componente de imagen de usuario
-    <app-imagen-usuario [idUsuario]="mensaje.remitente.id"></app-imagen-usuario>-->
-    <ion-avatar slot="start">
-      <img src="{{ proyecto.traductor.img != null ? 'data:image/png;base64,' + proyecto.traductor.img : 'assets/img/genericUser.jpg'}}" alt="">
-    </ion-avatar>
+    <!--Imagenes de los idiomas involucrados en la traduccion-->
+    <ion-item class="imgIdiomas">
+      <ion-thumbnail slot="start" class="imgIdiomas">
+        <img src="{{ proyecto.lo.img != null ? 'data:image/png;base64,' + proyecto.lo.img : 'assets/img/genericUser.jpg'}}" alt="">
+      </ion-thumbnail>
+      <ion-icon name="arrow-forward-outline" style="padding-left: 5px;" class="imgIdiomas"></ion-icon>
+      <ion-thumbnail slot="end" class="imgIdiomas">
+        <img src="{{ proyecto.lm.img != null ? 'data:image/png;base64,' + proyecto.lm.img : 'assets/img/genericUser.jpg'}}" alt="">
+      </ion-thumbnail>
+    </ion-item>
+    
     <ion-label id="label" button (click)="mostrarInformacion(proyecto)">
       <ion-text >
         <ion-label>{{proyecto.titulo}}</ion-label>
