@@ -9,20 +9,41 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!--toolbar para ver distintas clasificaciones de proyectos, nuevos, terminados
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button> Nuevos </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button> Terminados </ion-button>
+    </ion-buttons>
+  </ion-toolbar>-->
+
+  <ion-toolbar>
+    <ion-segment value="tipo">
+      <ion-segment-button value="urgente" (click)="cargarProyectosUrgentes();" ngSelected="selected">Urgente</ion-segment-button>
+      <ion-segment-button value="proceso">En proceso</ion-segment-button>
+      <ion-segment-button value="nuevos">Nuevos</ion-segment-button>
+      <ion-segment-button value="todos" (click)="cargarProyectos();">Todos</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+
   <!-- Creo un ion-list, cada mensaje será un ion-item -->
 <ion-list *ngIf="totalProyectos > 0" id="list">
   <!-- Creo un ion-item por cada elemento del array "mensajes" //  (click)="detalleMensaje(mensaje)" class="{{mensaje.leido ? '' : 'noLeido'}}"-->
   <ion-item *ngFor="let proyecto of proyectos" >
     <!--Imagenes de los idiomas involucrados en la traduccion-->
-    <ion-item class="imgIdiomas">
-      <ion-thumbnail slot="start" class="imgIdiomas">
+    
+      <ion-thumbnail slot="start">
         <img src="{{ proyecto.lo.img != null ? 'data:image/png;base64,' + proyecto.lo.img : 'assets/img/genericUser.jpg'}}" alt="">
       </ion-thumbnail>
-      <ion-icon name="arrow-forward-outline" style="padding-left: 5px;" class="imgIdiomas"></ion-icon>
-      <ion-thumbnail slot="end" class="imgIdiomas">
+      
+      <ion-icon name="arrow-forward-outline" slot="start" style="margin-right: 15px;"></ion-icon>
+      <ion-thumbnail slot="start">
         <img src="{{ proyecto.lm.img != null ? 'data:image/png;base64,' + proyecto.lm.img : 'assets/img/genericUser.jpg'}}" alt="">
       </ion-thumbnail>
-    </ion-item>
+    
     
     <ion-label id="label" button (click)="mostrarInformacion(proyecto)">
       <ion-text >
@@ -34,7 +55,7 @@
   <div class="ion-text-center">
       <!-- Utilizo un pipe de tipo date para la fecha del mensaje -->
       <ion-note id="note" >{{proyecto.fechaEntrega | date:'dd MMM YYYY'}}</ion-note>
-      <ion-icon name="pencil-outline" style="padding-left: 5px;"></ion-icon>
+      <ion-icon name="pencil-outline" style="padding-left: 5px; margin-left: 20px;" (click)="irEditor();"></ion-icon>
   </div>
   </ion-item>
 </ion-list>

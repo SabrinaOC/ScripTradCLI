@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'crear-proyecto',
     loadChildren: () => import('./pages/crear-proyecto/crear-proyecto.module').then( m => m.CrearProyectoPageModule)
+  },
+  {
+    path: 'editor',
+    loadChildren: () => import('./pages/editor/editor.module').then( m => m.EditorPageModule)
   }
 ];
 @NgModule({

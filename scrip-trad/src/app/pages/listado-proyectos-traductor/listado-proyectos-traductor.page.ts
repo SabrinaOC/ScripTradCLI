@@ -21,6 +21,7 @@ export class ListadoProyectosTraductorPage implements OnInit {
  usuarioAutenticado: Usuario;
  //listaProyectos: ListadoProyectos;
  proyectos: ProyectoG[]= [];
+ proyectosUrgentes: ProyectoG[]= [];
  totalProyectos: number;
  pagina = 0;
  proyectosPorPagina = 25;
@@ -58,6 +59,29 @@ export class ListadoProyectosTraductorPage implements OnInit {
       } else {
         this.totalProyectos = data.totalProyectos;
         data.proyectos.forEach(proyecto => this.proyectos.push(proyecto));
+        // La próxima vez que se carguen mensajes se cargará la siguiente "página"
+        this.pagina++;
+      }
+
+    });
+  }
+
+  /**
+   * Metodo para cargar todos los proyectos urgentes (1 semana) del traductor logueado
+   */
+  cargarProyectosUrgentes(){
+    //mostramos spinner carga
+    this.comunicacionAlertas.mostrarCargando();
+    //limpiamos lista de proyectos para meter los urgentes
+    //this.proyectos.splice(0, this.proyectos.length);
+    this.proyectoService.getProyectosTraductorUrgentes(this.pagina, this.proyectosPorPagina).subscribe(data => {
+      //ocultamos carga
+      this.comunicacionAlertas.ocultarCargando();
+      if(data["result"] == 'fail'){
+        this.comunicacionAlertas.mostrarAlerta('No se ha podido obtener la lista de proyectos.')
+      } else {
+        this.totalProyectos = data.totalProyectos;
+        data.proyectos.forEach(proyecto => this.proyectosUrgentes.push(proyecto));
         // La próxima vez que se carguen mensajes se cargará la siguiente "página"
         this.pagina++;
       }

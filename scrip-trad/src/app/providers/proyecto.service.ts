@@ -32,6 +32,16 @@ export class ProyectoService {
   getProyectosTraductor(pagina: number, proyectosPorPagina: number) : Observable<ListadoProyectos> {
     return this.http.get<ListadoProyectos>('/traductorProyectos?pagina=' + pagina +'&proyectosPorPagina=' + proyectosPorPagina).pipe();
   }
+
+  /**
+   * 
+   * @param pagina 
+   * @param proyectosPorPagina 
+   * @returns 
+   */
+  getProyectosTraductorUrgentes(pagina: number, proyectosPorPagina: number) : Observable<ListadoProyectos> {
+    return this.http.get<ListadoProyectos>('/traductorProyectosUrgentes?pagina=' + pagina +'&proyectosPorPagina=' + proyectosPorPagina).pipe();
+  }
   
   /**
    * 
