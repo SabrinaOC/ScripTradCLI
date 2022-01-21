@@ -61,7 +61,7 @@
       <ion-item>
         <ion-label>Traductor</ion-label>
         <ion-select value="trad" formControlName="trad">
-          <ion-select-option *ngFor="let traductor of traductores" value="{{traductor.id}}">{{traductor.nombre}}</ion-select-option>
+          <ion-select-option *ngFor="let traductor of traductores" value="{{traductor.id}}">{{traductor.nombre}} - {{traductor.email}}</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-col>

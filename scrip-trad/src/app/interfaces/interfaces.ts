@@ -41,6 +41,7 @@ export interface Usuario {
 export interface UsuarioMinimo {
     id: number;
     nombre: string;
+    email: string;
 }
 
 

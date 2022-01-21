@@ -21,7 +21,6 @@ export class ListadoProyectosTraductorPage implements OnInit {
  usuarioAutenticado: Usuario;
  //listaProyectos: ListadoProyectos;
  proyectos: ProyectoG[]= [];
- proyectosUrgentes: ProyectoG[]= [];
  totalProyectos: number;
  pagina = 0;
  proyectosPorPagina = 25;
@@ -41,13 +40,16 @@ export class ListadoProyectosTraductorPage implements OnInit {
       this.usuarioAutenticado = usuAutenticado;
     });
     //cargamos proyectos
-    this.cargarProyectos();
+    //this.cargarProyectosUrgentes();
+    this.cargarProyectos()
   }
 
   /**
    * Metodo para cargar todos los proyectos del traductor
    */
   cargarProyectos(){
+    console.log('cargando proyectos');
+    
     //mostramos spinner carga
     this.comunicacionAlertas.mostrarCargando();
     
@@ -61,6 +63,8 @@ export class ListadoProyectosTraductorPage implements OnInit {
         data.proyectos.forEach(proyecto => this.proyectos.push(proyecto));
         // La próxima vez que se carguen mensajes se cargará la siguiente "página"
         this.pagina++;
+        console.log(this.proyectos);
+        
       }
 
     });
@@ -81,12 +85,26 @@ export class ListadoProyectosTraductorPage implements OnInit {
         this.comunicacionAlertas.mostrarAlerta('No se ha podido obtener la lista de proyectos.')
       } else {
         this.totalProyectos = data.totalProyectos;
-        data.proyectos.forEach(proyecto => this.proyectosUrgentes.push(proyecto));
+        data.proyectos.forEach(proyecto => this.proyectos.push(proyecto));
         // La próxima vez que se carguen mensajes se cargará la siguiente "página"
         this.pagina++;
       }
 
     });
+  }
+
+  segmentChanged(){
+    console.log(event.target);
+    //si urgente esta a true cargamos todos, si no, cargamos urgentes
+   if(document.getElementsByTagName('ion-segment-button')[0].ariaSelected == "true"){
+      this.cargarProyectos();
+      
+    } else {
+      console.log('Urgente seleccionado');
+      this.cargarProyectosUrgentes();
+    }
+    
+    
   }
 
   /**

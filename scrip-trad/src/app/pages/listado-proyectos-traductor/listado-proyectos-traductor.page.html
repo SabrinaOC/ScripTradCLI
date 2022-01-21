@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Encargos Traductor</ion-title>
+    <ion-title>Encargos</ion-title>
     <!--Imagen de usuario logueado-->
     <ion-avatar slot="end" id="usu" button (click)="mostrarMenu()">
       <img src="{{ usuarioAutenticado != null && usuarioAutenticado.img != null ? 'data:image/png;base64,' + usuarioAutenticado.img : 'assets/img/genericUser.jpg'}}" alt="Imagen usuario">
@@ -9,22 +9,31 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!--toolbar para ver distintas clasificaciones de proyectos, nuevos, terminados
+  <!--toolbar para ver distintas clasificaciones de proyectos, nuevos, terminados -->
   <ion-toolbar>
-    <ion-buttons slot="start">
+    <!--<ion-buttons slot="start">
       <ion-button> Nuevos </ion-button>
     </ion-buttons>
     <ion-buttons slot="start">
       <ion-button> Terminados </ion-button>
     </ion-buttons>
-  </ion-toolbar>-->
+  </ion-toolbar>
 
   <ion-toolbar>
     <ion-segment value="tipo">
-      <ion-segment-button value="urgente" (click)="cargarProyectosUrgentes();" ngSelected="selected">Urgente</ion-segment-button>
+      <ion-segment-button value="urgente" ngSelected="selected" (click)="cargarProyectosUrgentes();" >Urgente</ion-segment-button>
       <ion-segment-button value="proceso">En proceso</ion-segment-button>
       <ion-segment-button value="nuevos">Nuevos</ion-segment-button>
       <ion-segment-button value="todos" (click)="cargarProyectos();">Todos</ion-segment-button>
+    </ion-segment>-->
+
+    <ion-segment (ionChange)="segmentChanged()" value="urgente">
+      <ion-segment-button value="urgente">
+        <ion-label>Urgente</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="todos">
+        <ion-label>Todos</ion-label>
+      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 
@@ -34,16 +43,16 @@
   <!-- Creo un ion-item por cada elemento del array "mensajes" //  (click)="detalleMensaje(mensaje)" class="{{mensaje.leido ? '' : 'noLeido'}}"-->
   <ion-item *ngFor="let proyecto of proyectos" >
     <!--Imagenes de los idiomas involucrados en la traduccion-->
-    
-      <ion-thumbnail slot="start">
+    <div class="ion-wrap" >
+      <ion-thumbnail slot="start" style="margin-bottom: 1%;">
         <img src="{{ proyecto.lo.img != null ? 'data:image/png;base64,' + proyecto.lo.img : 'assets/img/genericUser.jpg'}}" alt="">
       </ion-thumbnail>
       
-      <ion-icon name="arrow-forward-outline" slot="start" style="margin-right: 15px;"></ion-icon>
+      <!--<ion-icon name="arrow-forward-outline" slot="start" style="margin-right: 1%;"></ion-icon> -->
       <ion-thumbnail slot="start">
         <img src="{{ proyecto.lm.img != null ? 'data:image/png;base64,' + proyecto.lm.img : 'assets/img/genericUser.jpg'}}" alt="">
       </ion-thumbnail>
-    
+    </div>
     
     <ion-label id="label" button (click)="mostrarInformacion(proyecto)">
       <ion-text >
@@ -52,11 +61,16 @@
         
       </ion-text>
   </ion-label>
-  <div class="ion-text-center">
+  <ion-row class="ion-text-center">
       <!-- Utilizo un pipe de tipo date para la fecha del mensaje -->
-      <ion-note id="note" >{{proyecto.fechaEntrega | date:'dd MMM YYYY'}}</ion-note>
-      <ion-icon name="pencil-outline" style="padding-left: 5px; margin-left: 20px;" (click)="irEditor();"></ion-icon>
-  </div>
+      <ion-col size-lg="6">
+        <ion-note id="note" >{{proyecto.fechaEntrega | date:'dd MMM YYYY'}}</ion-note>
+      </ion-col>
+      <ion-col size-lg="6">
+        <ion-icon name="pencil-outline" style="padding-left: 2%; margin-left: 2%;" (click)="irEditor();"></ion-icon>
+      </ion-col>
+      
+  </ion-row>
   </ion-item>
 </ion-list>
 
