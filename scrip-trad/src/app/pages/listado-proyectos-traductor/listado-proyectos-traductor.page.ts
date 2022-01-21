@@ -24,6 +24,7 @@ export class ListadoProyectosTraductorPage implements OnInit {
  totalProyectos: number;
  pagina = 0;
  proyectosPorPagina = 25;
+ tipoProyecto = 1; //1 urgente, 0 todos
 
 
   constructor(private proyectoService: ProyectoService,
@@ -41,7 +42,7 @@ export class ListadoProyectosTraductorPage implements OnInit {
     });
     //cargamos proyectos
     //this.cargarProyectosUrgentes();
-    this.cargarProyectos()
+    this.cargarProyectosUrgentes()
   }
 
   /**
@@ -93,19 +94,38 @@ export class ListadoProyectosTraductorPage implements OnInit {
     });
   }
 
+  /**
+   * Recarga de los mensajes, se llegará aquí tras pulsar una opción del menú lateral
+   * @param nuevoTipo 
+   */
+   recargarListadoProyectos(tipo: number) {
+    this.tipoProyecto = tipo;
+    this.proyectos = [];
+    this.pagina = 0;
+    if(this.tipoProyecto == 1){
+      this.cargarProyectosUrgentes();
+    } 
+    if(this.tipoProyecto == 0) {
+      this.cargarProyectos();
+    }
+    
+  }
+
+  /**
+   * Metodo para ver segment seleccionado y actuar al respecto
+   */
   segmentChanged(){
     console.log(event.target);
     //si urgente esta a true cargamos todos, si no, cargamos urgentes
    if(document.getElementsByTagName('ion-segment-button')[0].ariaSelected == "true"){
-      this.cargarProyectos();
+      this.recargarListadoProyectos(0);
       
     } else {
       console.log('Urgente seleccionado');
-      this.cargarProyectosUrgentes();
+      this.recargarListadoProyectos(1);
     }
-    
-    
   }
+
 
   /**
    * Metodo para mostrar informacion de proyecto al hacer clic sobre el
