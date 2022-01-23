@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActionSheetController, IonInfiniteScroll, NavController, ToastController } from '@ionic/angular';
+import { ActionSheetController, NavController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
 import { ProyectoService } from '../../providers/proyecto.service';
 import { UsuarioService } from '../../providers/usuario.service';
@@ -14,6 +15,8 @@ import { Usuario, ProyectoG } from 'src/app/interfaces/interfaces';
 })
 export class EditorPage implements OnInit {
 
+  idPr: string;
+
   //cargamos usuario autenticado para realizar búsqueda de proyectos
   usuarioAutenticado: Usuario;
   constructor(
@@ -23,7 +26,7 @@ export class EditorPage implements OnInit {
     private usuarioService: UsuarioService,
     private actionSheetController: ActionSheetController,
     private autenticacionPorJWT: AutenticadorJwtService,
-    private toast: ToastController
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -31,7 +34,16 @@ export class EditorPage implements OnInit {
     this.usuarioService.getUsuarioAutenticado(true).subscribe(usuAutenticado => {
       this.usuarioAutenticado = usuAutenticado;
     });
+
+    //cargamos parametros enviados
+    this.route.paramMap.subscribe(params => {
+      var idProyecto = params.get('id');
+      this.idPr = idProyecto;
+    })
   }
+
+
+
 
  /**
    * Cierra la sesión de usuario, se llega aquí tras la correspondiente opción del menú lateral

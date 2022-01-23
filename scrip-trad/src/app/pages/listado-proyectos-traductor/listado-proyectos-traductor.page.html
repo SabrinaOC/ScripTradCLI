@@ -11,22 +11,6 @@
 <ion-content [fullscreen]="true">
   <!--toolbar para ver distintas clasificaciones de proyectos, nuevos, terminados -->
   <ion-toolbar>
-    <!--<ion-buttons slot="start">
-      <ion-button> Nuevos </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="start">
-      <ion-button> Terminados </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-
-  <ion-toolbar>
-    <ion-segment value="tipo">
-      <ion-segment-button value="urgente" ngSelected="selected" (click)="cargarProyectosUrgentes();" >Urgente</ion-segment-button>
-      <ion-segment-button value="proceso">En proceso</ion-segment-button>
-      <ion-segment-button value="nuevos">Nuevos</ion-segment-button>
-      <ion-segment-button value="todos" (click)="cargarProyectos();">Todos</ion-segment-button>
-    </ion-segment>-->
-
     <ion-segment (ionChange)="segmentChanged()" value="urgente">
       <ion-segment-button value="urgente">
         <ion-label>Urgente</ion-label>
@@ -37,6 +21,11 @@
     </ion-segment>
   </ion-toolbar>
 
+
+  <div *ngIf="totalProyectos == 0 && selected == 1">   
+    <p>No hay traducciones urgentes pendientes, ¡buen trabajo!</p>
+    <p id="quote"></p>
+  </div>
 
   <!-- Creo un ion-list, cada mensaje será un ion-item -->
 <ion-list *ngIf="totalProyectos > 0" id="list">
@@ -67,12 +56,13 @@
         <ion-note id="note" >{{proyecto.fechaEntrega | date:'dd MMM YYYY'}}</ion-note>
       </ion-col>
       <ion-col size-lg="6">
-        <ion-icon name="pencil-outline" style="padding-left: 2%; margin-left: 2%;" (click)="irEditor();"></ion-icon>
+        <ion-icon name="pencil-outline" style="padding-left: 2%; margin-left: 2%;" (click)="irEditor(proyecto)"></ion-icon>
       </ion-col>
       
   </ion-row>
   </ion-item>
 </ion-list>
+
 
 <!-- Un ion-infinite-scroll simplemente vigila el momento en que llegamos hasta el final
   de la lista. Cuando se llega, se dispara un evento, se muestra un mensaje y una animación.
@@ -89,7 +79,7 @@
     <ion-tabs>
   
       <ion-tab-bar slot="bottom" class="ion-justify-content-around">
-        <ion-tab-button tab="listado-proyectos-gestor" (click)="irEditor();">
+        <ion-tab-button tab="listado-proyectos-gestor" (click)="irEditorConPrimerProyectoDeLista();">
           <ion-icon name="pencil-outline"></ion-icon>
         </ion-tab-button>
     

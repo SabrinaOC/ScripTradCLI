@@ -8,6 +8,8 @@ import { UsuarioService } from '../../providers/usuario.service';
 import { ComunicacionDeAlertasService } from '../../providers/comunicacion-de-alertas.service';
 import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.service';
 import { Usuario, ProyectoG } from 'src/app/interfaces/interfaces';
+import { Axios } from 'axios';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listado-proyectos-traductor',
@@ -25,6 +27,7 @@ export class ListadoProyectosTraductorPage implements OnInit {
  pagina = 0;
  proyectosPorPagina = 25;
  tipoProyecto = 1; //1 urgente, 0 todos
+ selected = 1; //1 urgente, 0 todos
 
 
   constructor(private proyectoService: ProyectoService,
@@ -33,7 +36,9 @@ export class ListadoProyectosTraductorPage implements OnInit {
     private usuarioService: UsuarioService,
     private actionSheetController: ActionSheetController,
     private autenticacionPorJWT: AutenticadorJwtService,
-    private toast: ToastController) { }
+    private toast: ToastController,
+    private router: Router
+    /*private axios: Axios*/) { }
 
   ngOnInit() {
     // Cargamos el usuario autenticado
@@ -95,7 +100,7 @@ export class ListadoProyectosTraductorPage implements OnInit {
   }
 
   /**
-   * Recarga de los mensajes, se llegará aquí tras pulsar una opción del menú lateral
+   * Recarga de los proyectosal cambiar el segment seleccionado
    * @param nuevoTipo 
    */
    recargarListadoProyectos(tipo: number) {
@@ -119,11 +124,14 @@ export class ListadoProyectosTraductorPage implements OnInit {
     //si urgente esta a true cargamos todos, si no, cargamos urgentes
    if(document.getElementsByTagName('ion-segment-button')[0].ariaSelected == "true"){
       this.recargarListadoProyectos(0);
+      this.selected = 0;
       
     } else {
       console.log('Urgente seleccionado');
       this.recargarListadoProyectos(1);
+      this.selected = 1;
     }
+    
   }
 
 
@@ -154,6 +162,20 @@ export class ListadoProyectosTraductorPage implements OnInit {
   }, 500); // Retardo de 500 milisegundos antes de cargar más mensajes.
 }
 
+/*
+quoteOfTheDay(){
+  //this.axios = require("axios").default;
+
+
+
+this.axios.request(options).then(function (response) {
+	console.log(response.data);
+  document.getElementById("quote").innerHTML = response.data;
+}).catch(function (error) {
+	console.error(error);
+});
+} */
+
 /**
  * Metodo para ir a pantalla de inicio de vista traductor
  */
@@ -161,8 +183,19 @@ export class ListadoProyectosTraductorPage implements OnInit {
   this.navController.navigateForward('/listado-proyectos-traductor');
 }
 
-irEditor(){
-  this.navController.navigateForward('/editor')
+/**
+ * Metodo para abrir el editor de traduccion cargando los segmentos del proyecto seleccionado
+ * @param proyeto 
+ */
+irEditor(proyecto: ProyectoG){
+  //navegamos hasta el editor pasando como paramtero el id del proyecto seleccionado
+  this.router.navigate(['/editor', proyecto.id]);
+
+}
+
+irEditorConPrimerProyectoDeLista(){
+  //navegamos hasta el editor pasando como paramtero el id del primer proyecto de la lista
+  this.router.navigate(['/editor', this.proyectos[0].id]);
 }
 
 /**
