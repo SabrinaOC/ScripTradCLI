@@ -8,10 +8,12 @@
         src="{{ usuarioAutenticado != null && usuarioAutenticado.img != null ? 'data:image/png;base64,' + usuarioAutenticado.img : 'assets/img/genericUser.jpg'}}"
         alt="Imagen usuario">
     </ion-avatar>
+    <ion-progress-bar value="0.5" style="color: green;"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
   <!--El id del proyecto seleccionado es  {{idPr}} -->
   <!-- Tarjeta para contener todos los items -->
   <ion-card class="border">
@@ -76,7 +78,7 @@
                 <span style="font-weight: bold;">TM</span>
               </ion-col>
               <ion-col size="3"  class="ion-text-center">
-                <ion-icon name="language-outline"></ion-icon>
+                <ion-icon name="language-outline" class="text-tertiary"></ion-icon>
               </ion-col>
             </ion-row>
 
