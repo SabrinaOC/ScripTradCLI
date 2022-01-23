@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 
-import { ProyectoService } from '../../providers/proyecto.service';
+import { SegmentoService } from '../../providers/segmento.service';
 import { UsuarioService } from '../../providers/usuario.service';
 import { ComunicacionDeAlertasService } from '../../providers/comunicacion-de-alertas.service';
 import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.service';
-import { Usuario, ProyectoG } from 'src/app/interfaces/interfaces';
+import { Usuario, ProyectoG, Segmento } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-editor',
@@ -16,11 +16,14 @@ import { Usuario, ProyectoG } from 'src/app/interfaces/interfaces';
 export class EditorPage implements OnInit {
 
   idPr: string;
+  segmentos: Segmento [] = [];
+  segmentoActual: Segmento;
+  ordenCarga;
 
   //cargamos usuario autenticado para realizar búsqueda de proyectos
   usuarioAutenticado: Usuario;
   constructor(
-    private proyectoService: ProyectoService,
+    private segmentoService: SegmentoService,
     private comunicacionAlertas: ComunicacionDeAlertasService,
     private navController: NavController,
     private usuarioService: UsuarioService,
@@ -37,12 +40,71 @@ export class EditorPage implements OnInit {
 
     //cargamos parametros enviados
     this.route.paramMap.subscribe(params => {
-      var idProyecto = params.get('id');
-      this.idPr = idProyecto;
+      this.idPr = params.get('id');
+    });
+
+    //cargamos segmentos del proyecto
+    this.cargarSegmentosProyecto();
+    
+  }
+
+  /**
+   * Metodo para cargar la lista de segmentos de un proyecto
+   */
+  cargarSegmentosProyecto(){
+    this.comunicacionAlertas.mostrarCargando();
+    this.segmentoService.getAllSegmentosProyecto(parseInt(this.idPr)).subscribe(data => {
+      this.comunicacionAlertas.ocultarCargando();
+      if(data["result"] == "fail"){
+        this.comunicacionAlertas.mostrarAlerta("No se han podido cargar los segmentos de la lengua origen.")
+      } else {
+        data.segmentos.forEach(s => {
+          this.segmentos.push(s);
+        });
+        this.cargarPrimerSegmentoSinTraduccion();
+      }
     })
   }
 
+  /**
+   * Metodo para cargar segmento actual, es decir, primer segmento sin traduccion
+   */
+  cargarPrimerSegmentoSinTraduccion(){
+   
+    for(let i = 0; i < this.segmentos.length; i++){
+          //recorremos la lista de segmentos hasta encontrar el primero sin traduccion
+          //y lo cargamos como actual
+          if(this.segmentos[i].textoLM == null || this.segmentos[i].textoLM == ''){
+            this.segmentoActual = this.segmentos[i];
+            //y salimos del bucle
+            break;
+          }
+        }
+        console.log(this.segmentos);
+    
+    
+    
+  }
 
+  /**
+   * Metodo para navegar a segmento siguiente
+   * @param segmento 
+   */
+  irASiguienteSegmento(segmento: Segmento){
+    for(let i = 0; i < this.segmentos.length; i++){
+      if(segmento.id == this.segmentos[i].id) this.segmentoActual = this.segmentos[i+1];
+    }
+  }
+
+  /**
+   * Metodo para navegar a segmento anterior
+   * @param segmento
+   */
+  irASegmentoAnterior(segmento: Segmento){
+    for(let i = 0; i < this.segmentos.length; i++){
+      if(segmento.id == this.segmentos[i].id) this.segmentoActual = this.segmentos[i-1];
+    }
+  }
 
 
  /**

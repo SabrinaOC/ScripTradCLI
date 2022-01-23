@@ -35,8 +35,8 @@ export class LoginPage implements OnInit {
     //Formgroup para formulario reactivo (validacion)
     this.loginForm = new FormGroup({
       //aqui ponemos los campos del formulario
-      usuario: new FormControl('Aislinn93', [Validators.required]), //lo marcamos como campo obligatorio
-      pass: new FormControl('aislinn', [Validators.required])
+      usuario: new FormControl('Sab94', [Validators.required]), //lo marcamos como campo obligatorio
+      pass: new FormControl('sabrina', [Validators.required])
     });
   }
 

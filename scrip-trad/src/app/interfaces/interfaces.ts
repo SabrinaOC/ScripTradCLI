@@ -59,3 +59,9 @@ export interface Idioma {
     nombre: string;
     img: string;
 }
+
+export interface Segmento {
+    id: number;
+    textoLO: string;
+    textoLM: string;
+}

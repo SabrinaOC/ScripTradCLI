@@ -22,7 +22,7 @@ export class ListadoProyectosTraductorPage implements OnInit {
  //cargamos usuario autenticado para realizar búsqueda de proyectos
  usuarioAutenticado: Usuario;
  //listaProyectos: ListadoProyectos;
- proyectos: ProyectoG[]= [];
+ proyectos: ProyectoG[] = [];
  totalProyectos: number;
  pagina = 0;
  proyectosPorPagina = 25;
@@ -69,8 +69,6 @@ export class ListadoProyectosTraductorPage implements OnInit {
         data.proyectos.forEach(proyecto => this.proyectos.push(proyecto));
         // La próxima vez que se carguen mensajes se cargará la siguiente "página"
         this.pagina++;
-        console.log(this.proyectos);
-        
       }
 
     });

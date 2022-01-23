@@ -1,5 +1,6 @@
 <ion-header>
   <ion-toolbar>
+    <ion-icon button (click)="irInicioTraductor()" name="arrow-back-outline"></ion-icon>
     <ion-title>Editor traducción</ion-title>
     <!--Imagen de usuario logueado-->
     <ion-avatar slot="end" id="usu" button (click)="mostrarMenu()">
@@ -42,7 +43,7 @@
         <!--Segunda fila para segmento TO-->
           <!-- flecha nav, tabla, flecha nav-->
           <ion-row>
-            <ion-col size="1" class="ion-align-self-start ion-text-left"><ion-icon name="chevron-back-outline"></ion-icon></ion-col>
+            <ion-col size="1" class="ion-align-self-start ion-text-left"><ion-icon name="chevron-back-outline" button (click)="irASegmentoAnterior(segmentoActual)"></ion-icon></ion-col>
             <ion-col size="10">
               <table style="width: 100%;">
                 <tr>
@@ -53,7 +54,7 @@
                 <tr>
                   <!-- Espacio para traduccion-->
                   <td size="11">
-                      <ion-textarea placeholder="Segmento que se va a traducir"></ion-textarea>
+                      <ion-label>{{segmentoActual.textoLO}}</ion-label>
                   </td>
                   <td size="1" class="ion-text-center">
                     <!-- Add, delete-->
@@ -63,13 +64,13 @@
                 </tr>
               </table>
             </ion-col>
-            <ion-col size="1" class="ion-align-self-start ion-text-end"><ion-icon name="chevron-forward-outline"></ion-icon></ion-col>
+            <ion-col size="1" class="ion-align-self-start ion-text-end"><ion-icon name="chevron-forward-outline" button (click)="irASiguienteSegmento(segmentoActual)"></ion-icon></ion-col>
           </ion-row>
-        <ion-item-divider></ion-item-divider>
+      <!-- <ion-item-divider></ion-item-divider>-->
         <!-- Tercera fila TM, traduccion-->
         <ion-row>
           <!-- Titulo, cabecera-->
-          <ion-col size="12">
+          <ion-col size="12" style="margin-top: 2%;">
             <ion-row>
               <ion-col size="9" class="ion-text-center">
                 <span style="font-weight: bold;">TM</span>
@@ -78,11 +79,18 @@
                 <ion-icon name="language-outline"></ion-icon>
               </ion-col>
             </ion-row>
-            
+
           </ion-col>
           <!-- Espacio para traduccion-->
           <ion-col size="12">
-            <ion-textarea placeholder="Aqui va la traduccion"></ion-textarea>
+            <div *ngIf="segmentoActual.textoLM != null; else noTrad">
+              <ion-input #trad type="text">{{segmentoActual.textoLM}}</ion-input>
+              
+            </div>
+            <ng-template #noTrad>
+              <ion-input type="text"></ion-input>
+            </ng-template>
+           
           </ion-col>
           <!-- Administracion de personajes-->
           <ion-col size="12">
@@ -116,14 +124,14 @@
   </ion-card>
 </ion-content>
 
-<ion-footer>
+<!--<ion-footer>
   <ion-toolbar>
     <ion-tabs>
 
       <ion-tab-bar slot="bottom" class="ion-justify-content-around">
-        <!-- <ion-tab-button tab="listado-proyectos-gestor" (click)="irEditor();">
+         <ion-tab-button tab="listado-proyectos-gestor" (click)="irEditor();">
           <ion-icon name="pencil-outline"></ion-icon>
-        </ion-tab-button>-->
+        </ion-tab-button>
 
         <ion-tab-button tab="tab2" (click)="irInicioTraductor();">
           <ion-icon name="home-outline"></ion-icon>
@@ -133,4 +141,4 @@
     </ion-tabs>
   </ion-toolbar>
 
-</ion-footer>
+</ion-footer>-->
