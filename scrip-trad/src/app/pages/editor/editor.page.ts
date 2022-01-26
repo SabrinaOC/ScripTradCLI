@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, NavController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { SegmentoService } from '../../providers/segmento.service';
 import { UsuarioService } from '../../providers/usuario.service';
@@ -18,7 +18,7 @@ export class EditorPage implements OnInit {
   idPr: string;
   segmentos: Segmento [] = [];
   segmentoActual: Segmento;
-  ordenCarga;
+  porcentaje: number;
 
   //cargamos usuario autenticado para realizar búsqueda de proyectos
   usuarioAutenticado: Usuario;
@@ -30,6 +30,7 @@ export class EditorPage implements OnInit {
     private actionSheetController: ActionSheetController,
     private autenticacionPorJWT: AutenticadorJwtService,
     private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -70,19 +71,19 @@ export class EditorPage implements OnInit {
    * Metodo para cargar segmento actual, es decir, primer segmento sin traduccion
    */
   cargarPrimerSegmentoSinTraduccion(){
+   console.log('Segmentos list size= ' , this.segmentos.length, '\nSegmento: ' , this.segmentos);
    
     for(let i = 0; i < this.segmentos.length; i++){
           //recorremos la lista de segmentos hasta encontrar el primero sin traduccion
           //y lo cargamos como actual
           if(this.segmentos[i].textoLM == null || this.segmentos[i].textoLM == ''){
             this.segmentoActual = this.segmentos[i];
+            //guardamos posicion de i para calcular porcentaje de traduccion realizada
+            this.porcentaje = i; // i+1
             //y salimos del bucle
             break;
           }
         }
-        console.log(this.segmentos);
-    
-    
     
   }
 
@@ -90,9 +91,21 @@ export class EditorPage implements OnInit {
    * Metodo para navegar a segmento siguiente
    * @param segmento 
    */
-  irASiguienteSegmento(segmento: Segmento){
+  irASiguienteSegmento(){
     for(let i = 0; i < this.segmentos.length; i++){
-      if(segmento.id == this.segmentos[i].id) this.segmentoActual = this.segmentos[i+1];
+      //ultimo segmento
+      if(i == this.segmentos.length-1){
+        this.segmentoActual == this.segmentos[this.segmentos.length];
+        this.porcentaje = this.segmentos.length-1;
+        break;
+      }
+
+      if(this.segmentoActual.id == this.segmentos[i].id && i < this.segmentos.length) { //|| 
+        this.segmentoActual = this.segmentos[i+1];
+        this.porcentaje ++; 
+        break;
+      }
+      
     }
   }
 
@@ -100,9 +113,17 @@ export class EditorPage implements OnInit {
    * Metodo para navegar a segmento anterior
    * @param segmento
    */
-  irASegmentoAnterior(segmento: Segmento){
+  irASegmentoAnterior(){
     for(let i = 0; i < this.segmentos.length; i++){
-      if(segmento.id == this.segmentos[i].id) this.segmentoActual = this.segmentos[i-1];
+      if(this.segmentoActual.id == this.segmentos[0].id){
+        this.porcentaje = 0;
+        break;
+      } 
+      if(this.segmentoActual.id == this.segmentos[i].id && i > 0) {
+        this.segmentoActual = this.segmentos[i-1];
+        this.porcentaje--;
+        break;
+      }
     }
   }
 
@@ -152,11 +173,11 @@ export class EditorPage implements OnInit {
  * Metodo para ir a pantalla de inicio de vista traductor
  */
  irInicioTraductor(){
+   console.log('atras');
+   //this.router.navigate(['/listado-proyectos-traductor']);
   this.navController.navigateForward('/listado-proyectos-traductor');
 }
 
-irEditor(){
-  this.navController.navigateForward('/editor')
-}
+
 }
 

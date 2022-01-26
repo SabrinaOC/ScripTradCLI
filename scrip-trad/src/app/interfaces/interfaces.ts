@@ -25,6 +25,8 @@ export interface ListadoProyectos {
     totalProyectos: number;
 }
 
+
+
 // Datos de un usuario
 export interface Usuario {
     id: number;

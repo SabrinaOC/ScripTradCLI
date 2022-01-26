@@ -1,14 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-icon button (click)="irInicioTraductor()" name="arrow-back-outline"></ion-icon>
+    
     <ion-title>Editor traducción</ion-title>
+    <!--<ion-button (click)="irInicioTraductor();"><ion-icon name="arrow-back-outline"></ion-icon></ion-button> -->
     <!--Imagen de usuario logueado-->
     <ion-avatar slot="end" id="usu" button (click)="mostrarMenu()">
       <img
         src="{{ usuarioAutenticado != null && usuarioAutenticado.img != null ? 'data:image/png;base64,' + usuarioAutenticado.img : 'assets/img/genericUser.jpg'}}"
         alt="Imagen usuario">
     </ion-avatar>
-    <ion-progress-bar value="0.5" style="color: green;"></ion-progress-bar>
+    <ion-progress-bar value="{{porcentaje/(segmentos.length-1)}}"></ion-progress-bar>
   </ion-toolbar>
 </ion-header>
 
@@ -16,7 +17,7 @@
 
   <!--El id del proyecto seleccionado es  {{idPr}} -->
   <!-- Tarjeta para contener todos los items -->
-  <ion-card class="border">
+  <ion-card>
     <ion-card-content>
       <form>
         <!--Primera fila para character matching y boton generar trad-->
@@ -45,7 +46,7 @@
         <!--Segunda fila para segmento TO-->
           <!-- flecha nav, tabla, flecha nav-->
           <ion-row>
-            <ion-col size="1" class="ion-align-self-start ion-text-left"><ion-icon name="chevron-back-outline" button (click)="irASegmentoAnterior(segmentoActual)"></ion-icon></ion-col>
+            <ion-col size="1" class="ion-align-self-start ion-text-left"><ion-icon name="chevron-back-outline" button (click)="irASegmentoAnterior()"></ion-icon></ion-col>
             <ion-col size="10">
               <table style="width: 100%;">
                 <tr>
@@ -66,7 +67,7 @@
                 </tr>
               </table>
             </ion-col>
-            <ion-col size="1" class="ion-align-self-start ion-text-end"><ion-icon name="chevron-forward-outline" button (click)="irASiguienteSegmento(segmentoActual)"></ion-icon></ion-col>
+            <ion-col size="1" class="ion-align-self-start ion-text-end"><ion-icon name="chevron-forward-outline" button (click)="irASiguienteSegmento()" id="siguiente" ></ion-icon></ion-col>
           </ion-row>
       <!-- <ion-item-divider></ion-item-divider>-->
         <!-- Tercera fila TM, traduccion-->
