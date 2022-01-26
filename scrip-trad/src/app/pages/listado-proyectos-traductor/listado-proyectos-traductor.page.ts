@@ -7,7 +7,7 @@ import { ProyectoService } from '../../providers/proyecto.service';
 import { UsuarioService } from '../../providers/usuario.service';
 import { ComunicacionDeAlertasService } from '../../providers/comunicacion-de-alertas.service';
 import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.service';
-import { Usuario, ProyectoG } from 'src/app/interfaces/interfaces';
+import { Usuario, Proyecto } from 'src/app/interfaces/interfaces';
 import { Axios } from 'axios';
 import { Router } from '@angular/router';
 
@@ -22,7 +22,7 @@ export class ListadoProyectosTraductorPage implements OnInit {
  //cargamos usuario autenticado para realizar búsqueda de proyectos
  usuarioAutenticado: Usuario;
  //listaProyectos: ListadoProyectos;
- proyectos: ProyectoG[] = [];
+ proyectos: Proyecto[] = [];
  totalProyectos: number;
  pagina = 0;
  proyectosPorPagina = 25;
@@ -137,7 +137,7 @@ export class ListadoProyectosTraductorPage implements OnInit {
    * Metodo para mostrar informacion de proyecto al hacer clic sobre el
    * @param proyecto 
    */
-   mostrarInformacion(proyecto : ProyectoG){
+   mostrarInformacion(proyecto : Proyecto){
     this.comunicacionAlertas.mostrarAlerta("Encargo: " + proyecto.descripcion + "<br>Traductor: " + proyecto.traductor.nombre
     + "<br>Combinación lingüística: " + proyecto.lo.nombre + "-" + proyecto.lm.nombre)
   }
@@ -185,7 +185,7 @@ this.axios.request(options).then(function (response) {
  * Metodo para abrir el editor de traduccion cargando los segmentos del proyecto seleccionado
  * @param proyeto 
  */
-irEditor(proyecto: ProyectoG){
+irEditor(proyecto: Proyecto){
   //navegamos hasta el editor pasando como paramtero el id del proyecto seleccionado
   this.router.navigate(['/editor', proyecto.id]);
 

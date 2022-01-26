@@ -6,7 +6,7 @@ import { SegmentoService } from '../../providers/segmento.service';
 import { UsuarioService } from '../../providers/usuario.service';
 import { ComunicacionDeAlertasService } from '../../providers/comunicacion-de-alertas.service';
 import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.service';
-import { Usuario, ProyectoG, Segmento } from 'src/app/interfaces/interfaces';
+import { Usuario, Segmento } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-editor',

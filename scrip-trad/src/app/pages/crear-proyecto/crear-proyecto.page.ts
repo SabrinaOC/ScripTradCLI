@@ -6,7 +6,7 @@ import { ProyectoService } from '../../providers/proyecto.service';
 import { UsuarioService } from '../../providers/usuario.service';
 import { ComunicacionDeAlertasService } from '../../providers/comunicacion-de-alertas.service';
 import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.service';
-import { Usuario, ProyectoG, Idioma, UsuarioMinimo } from 'src/app/interfaces/interfaces';
+import { Usuario, Proyecto, Idioma, UsuarioMinimo } from 'src/app/interfaces/interfaces';
 import { IdiomaService } from 'src/app/providers/idioma.service';
 import { format, parseISO } from 'date-fns';
 

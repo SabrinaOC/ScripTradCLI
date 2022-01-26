@@ -7,7 +7,7 @@ import { ProyectoService } from '../../providers/proyecto.service';
 import { UsuarioService } from '../../providers/usuario.service';
 import { ComunicacionDeAlertasService } from '../../providers/comunicacion-de-alertas.service';
 import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.service';
-import { Usuario, ProyectoG } from 'src/app/interfaces/interfaces';
+import { Usuario, Proyecto } from 'src/app/interfaces/interfaces';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class ListadoProyectosGestorPage implements OnInit {
   //cargamos usuario autenticado para realizar búsqueda de proyectos
   usuarioAutenticado: Usuario;
   //listaProyectos: ListadoProyectos;
-  proyectos: ProyectoG[]= [];
+  proyectos: Proyecto[]= [];
   totalProyectos: number;
   pagina = 0;
   proyectosPorPagina = 25;
@@ -81,7 +81,7 @@ export class ListadoProyectosGestorPage implements OnInit {
    * Metodo para mostrar informacion de proyecto al hacer clic sobre el
    * @param proyecto 
    */
-  mostrarInformacion(proyecto : ProyectoG){
+  mostrarInformacion(proyecto : Proyecto){
     this.comunicacionAlertas.mostrarAlerta("Encargo: " + proyecto.descripcion + "<br>Traductor: " + proyecto.traductor.nombre
     + "<br>Combinación lingüística: " + proyecto.lo.nombre + "-" + proyecto.lm.nombre)
   }
@@ -90,7 +90,7 @@ export class ListadoProyectosGestorPage implements OnInit {
    * 
    * @param proyecto 
    */
-  eliminarProytecto(proyecto : ProyectoG){
+  eliminarProytecto(proyecto : Proyecto){
     this.comunicacionAlertas.mostrarConfirmacion(`¿Quieres eliminar el proyecto ${proyecto.titulo}?`, () => {
       //ok function
       //mostramos spinner de carga
@@ -120,7 +120,7 @@ export class ListadoProyectosGestorPage implements OnInit {
    * Metodo para presentar informacion proyecto eliminado con toast
    * @param proyecto 
    */
-  async presentToast(proyecto: ProyectoG) {
+  async presentToast(proyecto: Proyecto) {
     const toast = await this.toast.create({
       message: 'Proyecto ' + proyecto.titulo + ' eliminado correctamente.',
       duration: 2000
@@ -166,7 +166,7 @@ crearNuevoProyecto(){
       this.autenticacionPorJWT.eliminaJWT();
       //Redirigimos a login
       console.log('se ha eliminado el jwt y ahora tendria que ir al login')
-      this.navController.navigateForward('/login'); 
+      this.navController.navigateForward('/login');
     }, () => {
       console.log('cancel');
     });

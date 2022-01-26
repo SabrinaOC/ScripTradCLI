@@ -6,7 +6,7 @@ export interface DatosConJwt {
 
 
 // Datos completos de un proyecto
-export interface ProyectoG {
+export interface Proyecto {
     id: number,
     traductor: Usuario,
     gestor: Usuario,
@@ -21,7 +21,7 @@ export interface ProyectoG {
 
 // Datos de un listado de proyectos, en el que se incluyen el listado y la cantidad total
 export interface ListadoProyectos {
-    proyectos: ProyectoG[];
+    proyectos: Proyecto[];
     totalProyectos: number;
 }
 
