@@ -9,13 +9,12 @@
         src="{{ usuarioAutenticado != null && usuarioAutenticado.img != null ? 'data:image/png;base64,' + usuarioAutenticado.img : 'assets/img/genericUser.jpg'}}"
         alt="Imagen usuario">
     </ion-avatar>
-    <ion-progress-bar value="{{porcentaje/(segmentos.length-1)}}"></ion-progress-bar>
+   
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  <!--El id del proyecto seleccionado es  {{idPr}} -->
+  <ion-progress-bar value="{{porcentaje/(segmentos.length-1)}}"></ion-progress-bar>
   <!-- Tarjeta para contener todos los items -->
   <ion-card>
     <ion-card-content>
@@ -43,6 +42,7 @@
             </ion-button>
           </ion-col>
         </ion-row>
+        <ion-item-divider></ion-item-divider>
         <!--Segunda fila para segmento TO-->
           <!-- flecha nav, tabla, flecha nav-->
           <ion-row>
@@ -69,10 +69,11 @@
             </ion-col>
             <ion-col size="1" class="ion-align-self-start ion-text-end"><ion-icon name="chevron-forward-outline" button (click)="irASiguienteSegmento()" id="siguiente" ></ion-icon></ion-col>
           </ion-row>
-      <!-- <ion-item-divider></ion-item-divider>-->
+       <ion-item-divider></ion-item-divider>
         <!-- Tercera fila TM, traduccion-->
         <ion-row>
           <!-- Titulo, cabecera-->
+          
           <ion-col size="12" style="margin-top: 2%;">
             <ion-row>
               <ion-col size="9" class="ion-text-center">
@@ -85,13 +86,13 @@
 
           </ion-col>
           <!-- Espacio para traduccion-->
-          <ion-col size="12">
+          <ion-col size="9" style="margin-left: 5%;">
             <div *ngIf="segmentoActual.textoLM != null; else noTrad">
-              <ion-input #trad type="text">{{segmentoActual.textoLM}}</ion-input>
+              <ion-input #trad type="text" [contentEditable]="true">{{segmentoActual.textoLM}}</ion-input>
               
             </div>
             <ng-template #noTrad>
-              <ion-input type="text"></ion-input>
+              <ion-input type="text" placeholder="Translate here"></ion-input>
             </ng-template>
            
           </ion-col>
@@ -118,6 +119,34 @@
               <ion-col size="3" class="ion-justify-content-end">
                 <ion-button color="tertiary">OK</ion-button>
               </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        
+        <ion-item-divider></ion-item-divider>
+        <!-- Cuarta fila glosario -->
+        <ion-row>
+          <!-- Busqueda -->
+          <ion-col size="12">
+            <ion-row>
+              <ion-col size="10">
+                <ion-input type="text" placeholder="Buscar en glosario interno"></ion-input>
+              </ion-col>
+              <ion-col size="2">
+                <ion-icon name="search-outline" class="text-tertiary"></ion-icon>
+              </ion-col>
+            </ion-row>
+            
+            
+          </ion-col>
+          <!-- Resultado -->
+          <ion-col size="12">
+            <ion-input placeholder="Aqui va el resultado de la bbdd"></ion-input>
+          </ion-col>
+          <!-- Add new-->
+          <ion-col size="12">
+            <ion-row>
+              <ion-col></ion-col>
             </ion-row>
           </ion-col>
         </ion-row>
