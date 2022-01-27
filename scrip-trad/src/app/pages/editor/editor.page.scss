@@ -9,8 +9,12 @@ ion-icon {
     cursor: pointer;
 }
 
+.borde {
+    border: solid 0.1px rgb(223, 218, 218);
+}
+
 ion-progress-bar {
-    --background: #c1f3a4;
+    --background: #ddf1d2;
     --progress-background: #1c8308;
     --buffer-background: var(--background);
     display: block;
