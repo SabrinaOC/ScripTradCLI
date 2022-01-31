@@ -2,7 +2,7 @@
   <ion-toolbar>
     
     <ion-title>Editor traducción</ion-title>
-    <!--<ion-button (click)="irInicioTraductor();"><ion-icon name="arrow-back-outline"></ion-icon></ion-button> -->
+    <ion-icon name="arrow-back-outline" (click)="irInicioTraductor();"></ion-icon>
     <!--Imagen de usuario logueado-->
     <ion-avatar slot="end" id="usu" button (click)="mostrarMenu()">
       <img
@@ -181,7 +181,7 @@
             </ion-item>
           </ion-col>
           <ion-col size="12">
-            <ion-textarea placeholder="No hay comentarios"></ion-textarea>
+            <ion-textarea placeholder="No hay comentarios" value="{{proyectoActual.comentarios}}"></ion-textarea>
           </ion-col>
         </ion-row>
       </form>

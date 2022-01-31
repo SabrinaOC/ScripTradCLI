@@ -6,7 +6,8 @@ import { SegmentoService } from '../../providers/segmento.service';
 import { UsuarioService } from '../../providers/usuario.service';
 import { ComunicacionDeAlertasService } from '../../providers/comunicacion-de-alertas.service';
 import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.service';
-import { Usuario, Segmento } from 'src/app/interfaces/interfaces';
+import { Usuario, Segmento, Proyecto } from 'src/app/interfaces/interfaces';
+import { ProyectoService } from 'src/app/providers/proyecto.service';
 
 @Component({
   selector: 'app-editor',
@@ -19,11 +20,13 @@ export class EditorPage implements OnInit {
   segmentos: Segmento [] = [];
   segmentoActual: Segmento;
   porcentaje: number;
+  proyectoActual: Proyecto;
 
   //cargamos usuario autenticado para realizar búsqueda de proyectos
   usuarioAutenticado: Usuario;
   constructor(
     private segmentoService: SegmentoService,
+    private proyectoService: ProyectoService,
     private comunicacionAlertas: ComunicacionDeAlertasService,
     private navController: NavController,
     private usuarioService: UsuarioService,
@@ -46,7 +49,25 @@ export class EditorPage implements OnInit {
 
     //cargamos segmentos del proyecto
     this.cargarSegmentosProyecto();
+
+    this.cargarProyectoActual();
     
+  }
+
+  /**
+   * Metodo para cargar proyecto actual, comentarios
+   */
+  cargarProyectoActual(){
+    this.comunicacionAlertas.mostrarCargando();
+    this.proyectoService.getProyectoById(parseInt(this.idPr)).subscribe(data => {
+      this.comunicacionAlertas.ocultarCargando();
+      if(data["result"] == "fail"){
+        this.comunicacionAlertas.mostrarAlerta("No se ha podido cargar el proyecto actual.")
+      } else {
+        this.proyectoActual = data.p;
+        this.cargarPrimerSegmentoSinTraduccion();
+      }
+    })
   }
 
   /**
@@ -175,7 +196,8 @@ export class EditorPage implements OnInit {
  irInicioTraductor(){
    console.log('atras');
    //this.router.navigate(['/listado-proyectos-traductor']);
-  this.navController.navigateForward('/listado-proyectos-traductor');
+  this.navController.navigateForward('');
+  //this.navController.navigateForward('/listado-proyectos-traductor');
 }
 
 

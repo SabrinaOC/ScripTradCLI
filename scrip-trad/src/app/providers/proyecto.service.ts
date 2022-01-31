@@ -42,6 +42,15 @@ export class ProyectoService {
   getProyectosTraductorUrgentes(pagina: number, proyectosPorPagina: number) : Observable<ListadoProyectos> {
     return this.http.get<ListadoProyectos>('/traductorProyectosUrgentes?pagina=' + pagina +'&proyectosPorPagina=' + proyectosPorPagina).pipe();
   }
+
+  /**
+   * 
+   * @param idProyecto 
+   * @returns 
+   */
+   getProyectoById(idProyecto: number) : Observable<any> {
+    return this.http.get<any>('/proyectoById?idProyecto=' + idProyecto).pipe();
+  }
   
   /**
    * 

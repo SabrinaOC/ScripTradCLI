@@ -15,7 +15,7 @@ export interface Proyecto {
     fechaEntrega: Date,
     descripcion: string,
     //fechaEliminacion: Date,
-    //comentarios: string,
+    comentarios: string,
     titulo: string
 }
 
