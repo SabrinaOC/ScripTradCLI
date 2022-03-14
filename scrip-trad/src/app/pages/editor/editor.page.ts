@@ -8,6 +8,7 @@ import { ComunicacionDeAlertasService } from '../../providers/comunicacion-de-al
 import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.service';
 import { Usuario, Segmento, Proyecto } from 'src/app/interfaces/interfaces';
 import { ProyectoService } from 'src/app/providers/proyecto.service';
+import axios from 'axios';
 
 @Component({
   selector: 'app-editor',
@@ -64,7 +65,7 @@ export class EditorPage implements OnInit {
       if(data["result"] == "fail"){
         this.comunicacionAlertas.mostrarAlerta("No se ha podido cargar el proyecto actual.")
       } else {
-        this.proyectoActual = data.p;
+        this.proyectoActual = data['proyecto'];
         this.cargarPrimerSegmentoSinTraduccion();
       }
     })
@@ -146,6 +147,37 @@ export class EditorPage implements OnInit {
         break;
       }
     }
+  }
+
+  /**
+   * Metodo para generar traduccion automatica
+   */
+  async generarTraduccion(){
+
+    //hacemos consulta a api
+    try{
+      let response = await axios.get('https://translated-mymemory---translation-memory.p.rapidapi.com/api/get', 
+      {params: {langpair: `${this.proyectoActual.lo.nombre}|${this.proyectoActual.lm.nombre}`, q: this.segmentoActual.textoLO, mt: '1', onlyprivate: '0', de: 'a@b.c'},
+      headers: {'x-rapidapi-host': 'translated-mymemory---translation-memory.p.rapidapi.com',
+          'x-rapidapi-key': '8e1ab3a4famshcdbf49ea6b00c54p11230ejsnfb424bda1424'}},
+      );
+
+      let jsonResult = await response.data;
+      console.log(jsonResult['responseData']['translatedText']);
+      //guardamos traduccion proporcionada en segmento actual LM
+      this.segmentoActual.textoLM = jsonResult['responseData']['translatedText'];
+
+      
+    }catch{
+      this.comunicacionAlertas.mostrarAlerta('No se ha podido generar una traducción automática. Vuelve a intentarlo pasados unos instantes.')
+      console.log('error traduccion automatica');
+      
+    }
+    
+  console.log('LO proyecto: ', this.proyectoActual.lo.nombre);
+  console.log('LM proyecto: ', this.proyectoActual.lm.nombre);
+  
+
   }
 
 

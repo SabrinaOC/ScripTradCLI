@@ -28,7 +28,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/crear-proyecto/crear-proyecto.module').then( m => m.CrearProyectoPageModule)
   },
   {
-    path: 'editor',
+    path: 'editor/:id',
     loadChildren: () => import('./pages/editor/editor.module').then( m => m.EditorPageModule)
   }
 ];

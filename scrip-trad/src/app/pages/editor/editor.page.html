@@ -79,7 +79,7 @@
                 <span style="font-weight: bold;">TM</span>
               </ion-col>
               <ion-col size="3"  class="ion-text-center">
-                <ion-icon name="language-outline" class="text-tertiary"></ion-icon>
+                <ion-icon name="language-outline" class="text-tertiary" button (click)="generarTraduccion();"></ion-icon>
               </ion-col>
             </ion-row>
 
@@ -87,7 +87,7 @@
           <!-- Espacio para traduccion-->
           <ion-col size="11" style="margin-left: 5%;"> <!--class="borde" -->
             <ion-item>
-            <div *ngIf="segmentoActual.textoLM != null; else noTrad">
+            <div *ngIf="segmentoActual.textoLM != null; else noTrad" id="inputTrad">
               <ion-input #trad type="text" [contentEditable]="true" value="{{segmentoActual.textoLM}}"></ion-input>
               
             </div>
@@ -181,7 +181,10 @@
             </ion-item>
           </ion-col>
           <ion-col size="12">
-            <ion-textarea placeholder="No hay comentarios" value="{{proyectoActual.comentarios}}"></ion-textarea>
+            <p class="ion-padding-horizontal">{{proyectoActual.comentarios}}</p>
+          </ion-col>
+          <ion-col size="12">
+            <ion-textarea placeholder="Anadir comentarios"></ion-textarea>
           </ion-col>
         </ion-row>
       </form>

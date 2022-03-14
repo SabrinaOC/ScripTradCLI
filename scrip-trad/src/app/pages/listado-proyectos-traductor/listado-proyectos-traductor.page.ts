@@ -8,7 +8,7 @@ import { UsuarioService } from '../../providers/usuario.service';
 import { ComunicacionDeAlertasService } from '../../providers/comunicacion-de-alertas.service';
 import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.service';
 import { Usuario, Proyecto } from 'src/app/interfaces/interfaces';
-import { Axios } from 'axios';
+import axios from 'axios';
 import { Router } from '@angular/router';
 
 @Component({
@@ -90,6 +90,12 @@ export class ListadoProyectosTraductorPage implements OnInit {
       } else {
         this.totalProyectos = data.totalProyectos;
         data.proyectos.forEach(proyecto => this.proyectos.push(proyecto));
+
+        if(this.totalProyectos == 0){
+          console.log('Si noy pendientes llamamos api quote of the day');
+          this.quoteOfTheDay();
+          
+        }
         // La próxima vez que se carguen mensajes se cargará la siguiente "página"
         this.pagina++;
       }
@@ -160,19 +166,29 @@ export class ListadoProyectosTraductorPage implements OnInit {
   }, 500); // Retardo de 500 milisegundos antes de cargar más mensajes.
 }
 
-/*
-quoteOfTheDay(){
-  //this.axios = require("axios").default;
+
+async quoteOfTheDay(){
+  //hacemos consulta a api
+  try{
+    let response = await axios.get('https://quotes.rest/qod?category=inspire', 
+    {
+    headers: {'x-rapidapi-host': 'translated-mymemory---translation-memory.p.rapidapi.com',
+        'x-rapidapi-key': '8e1ab3a4famshcdbf49ea6b00c54p11230ejsnfb424bda1424'}},
+    );
+
+    let jsonResult = await response.data;
+    console.log(jsonResult);
+    
+
+    
+  }catch{
+    this.comunicacionAlertas.mostrarAlerta('No se ha podido conectar con quote of the day.')
+    
+  }
 
 
 
-this.axios.request(options).then(function (response) {
-	console.log(response.data);
-  document.getElementById("quote").innerHTML = response.data;
-}).catch(function (error) {
-	console.error(error);
-});
-} */
+} 
 
 /**
  * Metodo para ir a pantalla de inicio de vista traductor
@@ -191,6 +207,9 @@ irEditor(proyecto: Proyecto){
 
 }
 
+/**
+ * Metodo para abrir editor con primer proyecto de lista
+ */
 irEditorConPrimerProyectoDeLista(){
   //navegamos hasta el editor pasando como paramtero el id del primer proyecto de la lista
   this.router.navigate(['/editor', this.proyectos[0].id]);
