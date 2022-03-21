@@ -9,8 +9,9 @@ import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.servi
 import { Usuario, Proyecto, Idioma, UsuarioMinimo } from 'src/app/interfaces/interfaces';
 import { IdiomaService } from 'src/app/providers/idioma.service';
 import { format, parseISO } from 'date-fns';
+import { reader } from 'any-text';
 
-import { getOriginPrivateDirectory, showSaveFilePicker } from 'native-file-system-adapter';
+//import { getOriginPrivateDirectory, showSaveFilePicker } from 'native-file-system-adapter';
 
 
 
@@ -110,12 +111,20 @@ export class CrearProyectoPage implements OnInit {
     this.mostrarCalendario=false;
  }
 
-  mostrarVistaPrevia(){
+ async mostrarVistaPrevia(){
    
    /*
    //cuando detectemos cambio en iput file cargaremos vista previa de archivo seleccionado*/
    let vista = document.getElementById('vistaPrevia'); //.setAttribute('scr', './././assets/temp/pruebaTabla.pdf');
     vista.setAttribute('src', './././assets/temp/pruebaTabla.pdf');
+
+    try{
+      //let res = await reader.getText('./././assets/temp/pruebaTabla.pdf');
+      //console.log(res);
+      
+    } catch {
+      this.comunicacionAlertas.mostrarAlerta('No se ha podido procesar el documento.');
+    }
    
   
  }
