@@ -203,6 +203,7 @@ async quoteOfTheDay(){
  */
 irEditor(proyecto: Proyecto){
   //navegamos hasta el editor pasando como paramtero el id del proyecto seleccionado
+  console.log(proyecto)
   this.router.navigate(['/editor', proyecto.id]);
 
 }

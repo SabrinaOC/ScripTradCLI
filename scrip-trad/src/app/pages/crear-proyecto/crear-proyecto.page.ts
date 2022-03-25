@@ -10,7 +10,7 @@ import { Usuario, Proyecto, Idioma, UsuarioMinimo } from 'src/app/interfaces/int
 import { IdiomaService } from 'src/app/providers/idioma.service';
 import { format, parseISO } from 'date-fns';
 
-import { getOriginPrivateDirectory, showSaveFilePicker } from 'native-file-system-adapter';
+
 
 
 
@@ -33,6 +33,7 @@ export class CrearProyectoPage implements OnInit {
   fechaMostrada = '';
 
   fileHandle;
+  path = "E:\\DAW\\2\\ScripTrad\\wordApi\\docs\\pruebaTabla.docx";
 
 
   constructor(private navController: NavController,
@@ -46,6 +47,8 @@ export class CrearProyectoPage implements OnInit {
   ngOnInit() {
     // Cargamos el usuario autenticado
     this.usuarioService.getUsuarioAutenticado(true).subscribe(usuAutenticado => {
+      console.log(usuAutenticado);
+      
       this.usuarioAutenticado = usuAutenticado;
     });
 
@@ -63,6 +66,7 @@ export class CrearProyectoPage implements OnInit {
       descrProyecto: new FormControl('', [Validators.required]),
     });
    
+    
   }
   
   /**
@@ -116,12 +120,18 @@ export class CrearProyectoPage implements OnInit {
    //cuando detectemos cambio en iput file cargaremos vista previa de archivo seleccionado*/
    let vista = document.getElementById('vistaPrevia'); //.setAttribute('scr', './././assets/temp/pruebaTabla.pdf');
     vista.setAttribute('src', './././assets/temp/pruebaTabla.pdf');
+
+    //prueba para leer doc
+    const inputDoc: any = document.getElementById('doc');
+
    
-  
- }
+    
+  }
 
  
-
+  leerFile(){
+    
+  }
 
 
   /**

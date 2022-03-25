@@ -10,7 +10,6 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { Axios } from 'axios';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +18,7 @@ import { Axios } from 'axios';
   providers: [{provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
     //StatusBar,
     //SplashScreen,
+    
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

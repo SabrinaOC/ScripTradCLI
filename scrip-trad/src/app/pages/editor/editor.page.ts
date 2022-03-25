@@ -46,6 +46,7 @@ export class EditorPage implements OnInit {
     //cargamos parametros enviados
     this.route.paramMap.subscribe(params => {
       this.idPr = params.get('id');
+
     });
 
     //cargamos segmentos del proyecto
@@ -174,10 +175,6 @@ export class EditorPage implements OnInit {
       
     }
     
-  console.log('LO proyecto: ', this.proyectoActual.lo.nombre);
-  console.log('LM proyecto: ', this.proyectoActual.lm.nombre);
-  
-
   }
 
 
