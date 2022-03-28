@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ListadoProyectos } from '../interfaces/interfaces';
 import { Observable } from 'rxjs';
+import { NodeCompatibleEventEmitter } from 'rxjs/internal/observable/fromEvent';
 
 
 
@@ -60,4 +61,31 @@ export class ProyectoService {
   eliminarProyecto(idProyecto: number) : Observable<any> {
     return this.http.get<any>('/eliminarProyecto?idProyecto=' + idProyecto).pipe();
   }
+
+  /**
+   * Método para crear
+   * @param traductor 
+   * @param gestor 
+   * @param idLo 
+   * @param idLm 
+   * @param fechaEntrega 
+   * @param desc 
+   * @param comm 
+   * @param titulo 
+   */
+  crearNuevoProyecto(titulo: string, traductor: number, gestor: number, idLo: number, idLm: number, fechaEntrega: string, desc: string,
+     comm: string){
+      let jsonObject = {
+        titulo : titulo,
+        idTraductor : traductor,
+        idGestor : gestor,
+        idLo : idLo,
+        idLm : idLm,
+        deadline : fechaEntrega,
+        descripcion : desc,
+        comentarios : comm,
+      }
+      // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.
+    return this.http.post<any>('/newProject', jsonObject).toPromise();
+     }
 }

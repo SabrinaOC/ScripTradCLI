@@ -32,8 +32,9 @@ export class CrearProyectoPage implements OnInit {
   fechaEntrega = format(new Date(), 'yyyy-MM-dd');
   fechaMostrada = '';
 
-  fileHandle;
-  path = "E:\\DAW\\2\\ScripTrad\\wordApi\\docs\\pruebaTabla.docx";
+  textoDocumento;
+  textoComm;
+  hayCommentario = null;
 
 
   constructor(private navController: NavController,
@@ -129,8 +130,82 @@ export class CrearProyectoPage implements OnInit {
   }
 
  
-  leerFile(){
-    
+  leoFicheroTexto(){
+    const inputNode: any = document.querySelector('#textFile'); // Obtengo el control etiquetado en Angular como #textFile
+
+    if (typeof (FileReader) !== 'undefined') { // tomo una precaución para comprobar que puedo utilizar el tipo FileReader
+      const reader = new FileReader(); // Instancio un FileReader()
+      console.log("Hay FileReader. Siguiente: comprobamos que hay archivo")
+      console.log("extension: ", inputNode.files[0].type)
+      //comprobamos que es un archivo con formato correcto(txt)
+      if(inputNode.files[0].type == "text/plain"){
+
+        if (inputNode.files[0] != null) {
+          reader.readAsText(inputNode.files[0]);
+          console.log("Entra en primer if")
+        }
+  
+        reader.onload = (e: any) => {
+          console.log(e.target.result);
+          this.textoDocumento = e.target.result;
+        };
+
+      }else {
+        this.comunicacionAlertas.mostrarAlerta("Formato no soportado, por favor, elija un .txt")
+      }
+
+      
+    }
+  }
+
+  /**
+   * Método para leer documento de comentarios
+   */
+  leoComentarios(){
+    const inputNode: any = document.querySelector('#commFile'); // Obtengo el control etiquetado en Angular como #textFile
+
+    if (typeof (FileReader) !== 'undefined') { // tomo una precaución para comprobar que puedo utilizar el tipo FileReader
+      const reader = new FileReader(); // Instancio un FileReader()
+     
+      console.log("extension: ", inputNode.files[0].type)
+      //comprobamos que es un archivo con formato correcto(txt)
+      if(inputNode.files[0].type == "text/plain"){
+
+        if (inputNode.files[0] != null) {
+          reader.readAsText(inputNode.files[0]);
+          console.log("Entra en primer if")
+        }
+  
+        reader.onload = (e: any) => {
+          console.log(e.target.result);
+          this.textoDocumento = e.target.result;
+          //bandera para saber que tenemos que mandar comentario
+          this.hayCommentario = true;
+        };
+
+      }else {
+        this.comunicacionAlertas.mostrarAlerta("Formato no soportado, por favor, elija un .txt")
+      }
+
+      
+    }
+  }
+
+  /**
+   * Método para enviar datos de nuevo proyecto a back
+   */
+  crearProyecto(){
+    console.log("Título: " + this.newProjectForm.controls.nombreProyecto.value)
+    console.log("Traductor: " + this.newProjectForm.controls.trad.value)
+    console.log("Gestor: " + this.usuarioAutenticado.id)
+    console.log("LO: " + this.newProjectForm.controls.lenguaOrigen.value)
+    console.log("LM: " + this.newProjectForm.controls.lenguaMeta.value)
+    console.log("Fecha de entrega: " + this.fechaEntrega)
+    console.log("Descripción: " + this.newProjectForm.controls.descrProyecto)
+    console.log("Comentarios: " + this.textoComm)
+    console.log("Texto LO: " + this.textoDocumento)
+
+
   }
 
 
