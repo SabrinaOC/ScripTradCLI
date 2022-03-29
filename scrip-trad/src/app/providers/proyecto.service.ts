@@ -86,6 +86,6 @@ export class ProyectoService {
         comentarios : comm,
       }
       // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.
-    return this.http.post<any>('/newProject', jsonObject).toPromise();
+    return this.http.post<any>('/nuevoProyecto', jsonObject).toPromise();
      }
 }
