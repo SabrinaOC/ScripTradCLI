@@ -32,13 +32,14 @@ export class CrearProyectoPage implements OnInit {
   fechaEntrega = format(new Date(), 'yyyy-MM-dd');
   fechaMostrada = '';
 
-  textoDocumento;
-  textoComm;
-  hayCommentario = null;
+  textoDocumento: string;
+  textoComm: string;
+  hayCommentario = false;
 
 
   constructor(private navController: NavController,
    private usuarioService: UsuarioService,
+   private proyectoService: ProyectoService,
    private idiomaService: IdiomaService,
    private autenticacionPorJWT: AutenticadorJwtService,
    private comunicacionAlertas: ComunicacionDeAlertasService,
@@ -64,7 +65,7 @@ export class CrearProyectoPage implements OnInit {
       lenguaOrigen: new FormControl,
       lenguaMeta: new FormControl,
       trad: new FormControl,
-      descrProyecto: new FormControl('', [Validators.required]),
+      descripcion: new FormControl('', [Validators.required]),
     });
    
     
@@ -129,7 +130,9 @@ export class CrearProyectoPage implements OnInit {
     
   }
 
- 
+  /**
+   * 
+   */
   leoFicheroTexto(){
     const inputNode: any = document.querySelector('#textFile'); // Obtengo el control etiquetado en Angular como #textFile
 
@@ -146,7 +149,7 @@ export class CrearProyectoPage implements OnInit {
         }
   
         reader.onload = (e: any) => {
-          console.log(e.target.result);
+          //console.log(e.target.result);
           this.textoDocumento = e.target.result;
         };
 
@@ -177,8 +180,8 @@ export class CrearProyectoPage implements OnInit {
         }
   
         reader.onload = (e: any) => {
-          console.log(e.target.result);
-          this.textoDocumento = e.target.result;
+          //console.log(e.target.result);
+          this.textoComm = e.target.result;
           //bandera para saber que tenemos que mandar comentario
           this.hayCommentario = true;
         };
@@ -201,9 +204,25 @@ export class CrearProyectoPage implements OnInit {
     console.log("LO: " + this.newProjectForm.controls.lenguaOrigen.value)
     console.log("LM: " + this.newProjectForm.controls.lenguaMeta.value)
     console.log("Fecha de entrega: " + this.fechaEntrega)
-    console.log("Descripción: " + this.newProjectForm.controls.descrProyecto)
+    console.log("Descripción: " + this.newProjectForm.controls.descripcion.value)
     console.log("Comentarios: " + this.textoComm)
     console.log("Texto LO: " + this.textoDocumento)
+
+    //comprobamos que se ha subido un documento con comentarios
+    if(!this.hayCommentario) this.textoComm = null;
+
+    this.proyectoService.crearNuevoProyecto(this.newProjectForm.controls.nombreProyecto.value,
+      this.newProjectForm.controls.trad.value, this.usuarioAutenticado.id, this.newProjectForm.controls.lenguaOrigen.value,
+      this.newProjectForm.controls.lenguaMeta.value, this.fechaEntrega, this.newProjectForm.controls.descripcion.value,
+      this.textoComm).then(data => {
+        if(data["result"] == "success"){
+          this.comunicacionAlertas.mostrarAlerta("Proyecto creado con éxito.")
+        } else {
+          this.comunicacionAlertas.mostrarAlerta("Se ha producido un error al crear el proyecto, por favor, vuelve a intentarlo más tarde.")
+        }
+      })
+
+    
 
 
   }

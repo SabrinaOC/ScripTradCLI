@@ -87,9 +87,9 @@
     <ion-col size="12">
       <ion-item>
         <ion-label position="floating">Descripción</ion-label>
-        <ion-input type="text" formControlName="descrProyecto" spellcheck="true" placeholder="Ej. Tercer capítulo de la cuarta temporada de la serie Bull"></ion-input>
-        <ng-container *ngIf="newProjectForm.controls.descrProyecto.errors != undefined">
-          <div class="errorEnValidacion" *ngIf="newProjectForm.controls.descrProyecto.errors.required">Campo obligatorio
+        <ion-input type="text" formControlName="descripcion" spellcheck="true" placeholder="Ej. Tercer capítulo de la cuarta temporada de la serie Bull"></ion-input>
+        <ng-container *ngIf="newProjectForm.controls.descripcion.errors != undefined">
+          <div class="errorEnValidacion" *ngIf="newProjectForm.controls.descripcion.errors.required">Campo obligatorio
           </div>
         </ng-container>
       </ion-item>
@@ -114,15 +114,13 @@
         <input (change)="leoComentarios()" type="file" id="commFile" accept=".txt">
       </ion-item>
     </ion-col>
-    <ion-col size="12">
+    <!--<ion-col size="12">
       <embed id="vistaPrevia" src=""  width="100%" height="450" type="application/pdf">
-    </ion-col>
+    </ion-col>-->
 </ion-row>
 <ion-row>
-  <ion-col size="12">
-    <ion-item>
-      <ion-button (click)="crearProyecto();">Crear</ion-button>
-    </ion-item>
+  <ion-col size="12">    
+      <ion-button (click)="crearProyecto();" color="warning">Crear</ion-button>    
   </ion-col>
 </ion-row>
 
