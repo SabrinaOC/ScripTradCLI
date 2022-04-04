@@ -19,4 +19,20 @@ export class SegmentoService {
     return this.http.get<any>('/getSegmentosProyecto?idProyecto=' + idProyecto).pipe();
   }
 
+  /**
+   * 
+   * @param texto 
+   * @param proyecto 
+   * @returns 
+   */
+  insertarSegmentos(texto : string, proyecto: number) {
+    let jsonObject = {
+      textoCompleto : texto,
+      proyecto : proyecto,
+    }
+    // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.
+  return this.http.post<any>('/addSegmentosProyecto', jsonObject).toPromise();
+   
+  }
+
 }

@@ -9,6 +9,7 @@ import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.servi
 import { Usuario, Proyecto, Idioma, UsuarioMinimo } from 'src/app/interfaces/interfaces';
 import { IdiomaService } from 'src/app/providers/idioma.service';
 import { format, parseISO } from 'date-fns';
+import { SegmentoService } from 'src/app/providers/segmento.service';
 
 
 
@@ -41,6 +42,7 @@ export class CrearProyectoPage implements OnInit {
    private usuarioService: UsuarioService,
    private proyectoService: ProyectoService,
    private idiomaService: IdiomaService,
+   private segmentoService: SegmentoService,
    private autenticacionPorJWT: AutenticadorJwtService,
    private comunicacionAlertas: ComunicacionDeAlertasService,
    private actionSheetController: ActionSheetController,
@@ -216,7 +218,14 @@ export class CrearProyectoPage implements OnInit {
       this.newProjectForm.controls.lenguaMeta.value, this.fechaEntrega, this.newProjectForm.controls.descripcion.value,
       this.textoComm).then(data => {
         if(data["result"] == "success"){
-          this.comunicacionAlertas.mostrarAlerta("Proyecto creado con éxito.")
+          
+          //si se ha creado el proyecto correctamente, insertamos los segmentos
+          this.segmentoService.insertarSegmentos(this.textoDocumento, data["proyecto"]).then(data => {
+            if(data["result"] == "success"){
+              this.comunicacionAlertas.mostrarAlerta("Proyecto creado con éxito.");
+            }
+          })
+          
         } else {
           this.comunicacionAlertas.mostrarAlerta("Se ha producido un error al crear el proyecto, por favor, vuelve a intentarlo más tarde.")
         }
