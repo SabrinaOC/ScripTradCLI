@@ -51,9 +51,11 @@ export class CrearProyectoPage implements OnInit {
   ngOnInit() {
     // Cargamos el usuario autenticado
     this.usuarioService.getUsuarioAutenticado(true).subscribe(usuAutenticado => {
-      console.log(usuAutenticado);
-      
-      this.usuarioAutenticado = usuAutenticado;
+      if(usuAutenticado.id) {
+        this.usuarioAutenticado = usuAutenticado;
+      } else {
+        this.navController.navigateForward('');
+      }
     });
 
     //cargamos opciones select

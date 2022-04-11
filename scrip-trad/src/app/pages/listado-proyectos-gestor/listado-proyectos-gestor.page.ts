@@ -51,7 +51,11 @@ export class ListadoProyectosGestorPage implements OnInit {
     this.cargarProyectos();
     // Cargamos el usuario autenticado
     this.usuarioService.getUsuarioAutenticado(true).subscribe(usuAutenticado => {
-      this.usuarioAutenticado = usuAutenticado;
+      if(usuAutenticado.id) {
+        this.usuarioAutenticado = usuAutenticado;
+      } else {
+        this.navController.navigateForward('');
+      }
     })
   }
 

@@ -42,7 +42,11 @@ export class ListadoProyectosTraductorPage implements OnInit {
   ngOnInit() {
     // Cargamos el usuario autenticado
     this.usuarioService.getUsuarioAutenticado(true).subscribe(usuAutenticado => {
-      this.usuarioAutenticado = usuAutenticado;
+      if(usuAutenticado.id) {
+        this.usuarioAutenticado = usuAutenticado;
+      } else {
+        this.navController.navigateForward('');
+      }
     });
     //cargamos proyectos
     //setTimeout(this.cargarProyectosUrgentes, 100);
@@ -91,7 +95,7 @@ export class ListadoProyectosTraductorPage implements OnInit {
 
         if(this.totalProyectos == 0){
           console.log('Si noy pendientes llamamos api quote of the day');
-          this.quoteOfTheDay();
+          //this.quoteOfTheDay();
           
         }
         // La próxima vez que se carguen mensajes se cargará la siguiente "página"
