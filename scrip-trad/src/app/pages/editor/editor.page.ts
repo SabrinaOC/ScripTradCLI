@@ -52,8 +52,10 @@ export class EditorPage implements OnInit {
 
 
     //cargamos segmentos del proyecto
+    //setTimeout(this.cargarSegmentosProyecto, 5000);
     this.cargarSegmentosProyecto();
 
+    //setTimeout(this.cargarProyectoActual, 5000);
     this.cargarProyectoActual();
     
   }
@@ -69,7 +71,7 @@ export class EditorPage implements OnInit {
         this.comunicacionAlertas.mostrarAlerta("No se ha podido cargar el proyecto actual.")
       } else {
         this.proyectoActual = data['proyecto'];
-        this.cargarPrimerSegmentoSinTraduccion();
+        //this.cargarPrimerSegmentoSinTraduccion();
       }
     })
   }
@@ -256,8 +258,8 @@ export class EditorPage implements OnInit {
  irInicioTraductor(){
    console.log('atras');
    //this.router.navigate(['/listado-proyectos-traductor']);
-  this.navController.navigateForward('');
-  //this.navController.navigateForward('/listado-proyectos-traductor');
+  //this.navController.navigateForward('');
+  this.navController.navigateForward('/listado-proyectos-traductor');
 }
 
 

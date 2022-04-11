@@ -37,8 +37,7 @@ export class ListadoProyectosTraductorPage implements OnInit {
     private actionSheetController: ActionSheetController,
     private autenticacionPorJWT: AutenticadorJwtService,
     private toast: ToastController,
-    private router: Router
-    /*private axios: Axios*/) { }
+    private router: Router) { }
 
   ngOnInit() {
     // Cargamos el usuario autenticado
@@ -46,7 +45,7 @@ export class ListadoProyectosTraductorPage implements OnInit {
       this.usuarioAutenticado = usuAutenticado;
     });
     //cargamos proyectos
-    //this.cargarProyectosUrgentes();
+    //setTimeout(this.cargarProyectosUrgentes, 100);
     this.cargarProyectosUrgentes()
   }
 
@@ -81,7 +80,6 @@ export class ListadoProyectosTraductorPage implements OnInit {
     //mostramos spinner carga
     this.comunicacionAlertas.mostrarCargando();
     //limpiamos lista de proyectos para meter los urgentes
-    //this.proyectos.splice(0, this.proyectos.length);
     this.proyectoService.getProyectosTraductorUrgentes(this.pagina, this.proyectosPorPagina).subscribe(data => {
       //ocultamos carga
       this.comunicacionAlertas.ocultarCargando();

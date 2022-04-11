@@ -1,5 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { CrearProyectoPage } from './pages/crear-proyecto/crear-proyecto.page';
+import { EditorPage } from './pages/editor/editor.page';
+import { ListadoProyectosGestorPage } from './pages/listado-proyectos-gestor/listado-proyectos-gestor.page';
+import { ListadoProyectosTraductorPage } from './pages/listado-proyectos-traductor/listado-proyectos-traductor.page';
+import { LoginPageModule } from './pages/login/login.module';
+import { LoginPage } from './pages/login/login.page';
+import { RegistroPage } from './pages/registro/registro.page';
 
 const routes: Routes = [
   {
@@ -34,7 +41,8 @@ const routes: Routes = [
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot( routes, { preloadingStrategy: PreloadAllModules}
+    )
   ],
   exports: [RouterModule]
 })
