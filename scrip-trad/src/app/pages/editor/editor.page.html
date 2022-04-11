@@ -18,112 +18,67 @@
   <!-- Tarjeta para contener todos los items -->
   <ion-card>
     <ion-card-content>
-      <form>
+      <!--<form>-->
         <!--Primera fila para character matching y boton generar trad-->
         <ion-row>
-          <!--Col para character-->
-          <ion-col size-lg="8">
-            <ion-row>
-              <ion-col size="10">
-                <ion-item>
-                  <ion-label position="stacked">Charcter matching</ion-label>
-                  <ion-input type="text" placeholder="Ej. Adam"></ion-input>
-                </ion-item>
-              </ion-col>
-              <ion-col size="1" class="ion-align-self-center ion-text-center">
-                <ion-icon name="color-wand-outline"></ion-icon>
-              </ion-col>
-            </ion-row>
-          </ion-col>
           <!--Col para boton-->
-          <ion-col size-lg="4" class="ion-align-self-center">
+          <ion-col class="ion-align-self-center">
             <ion-button expand="block" color="tertiary"><span class="ion-hide-lg-down">Generar traducción</span>
               <ion-icon name="cloud-download-outline" class="ion-padding-horizontal"></ion-icon>
             </ion-button>
           </ion-col>
         </ion-row>
-        <!--<ion-item-divider></ion-item-divider>-->
         <!--Segunda fila para segmento TO-->
           <!-- flecha nav, tabla, flecha nav-->
           <ion-row style="padding-top: 3%;">
-            <ion-col size="1" class="ion-align-self-start ion-text-left"><ion-icon name="chevron-back-outline" button (click)="irASegmentoAnterior()"></ion-icon></ion-col>
-            <ion-col size="10">
-              <table style="width: 100%;">
-                <tr>
-                  <th size="11">TO</th>
-                  <th size="1">Character</th>
-                </tr>
-
-                <tr >
-                  <!-- Espacio para traduccion-->
-                  <td size="11" style="padding-top: 5%;">
-                      <ion-label>{{segmentoActual.textoLO}}</ion-label>
-                  </td>
-                  <td size="1" class="ion-text-center" style="padding-top: 5%;">
-                    <!-- Add, delete-->
-                    <ion-icon name="add-outline"></ion-icon> <!-- style="color: rgb(28, 124, 28);"  -->
-                    <ion-icon name="close-outline" style="color: rgb(148, 20, 20);"></ion-icon>
-                  </td>
-                </tr>
-              </table>
+            <ion-col size="1" class="ion-align-self-start ion-text-left"><ion-icon name="chevron-back-outline" button (click)="irASegmentoAnterior();"></ion-icon></ion-col>
+            <ion-col size="10" style="display:flex; justify-content:center; font-weight: bold;">
+              TO
             </ion-col>
-            <ion-col size="1" class="ion-align-self-start ion-text-end"><ion-icon name="chevron-forward-outline" button (click)="irASiguienteSegmento()" id="siguiente" ></ion-icon></ion-col>
+            <ion-col size="1" class="ion-align-self-start ion-text-end"><ion-icon name="chevron-forward-outline" button (click)="irASiguienteSegmento();" id="siguiente" ></ion-icon></ion-col>
           </ion-row>
-      <!-- <ion-item-divider></ion-item-divider>-->
+          <ion-row>
+            <ion-col>
+              <ion-item style="background-color: rgb(211, 94, 94);">
+                <ion-textarea
+                  disabled
+                  readonly
+                  value="{{segmentoActual.textoLO}}">
+                </ion-textarea>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
         <!-- Tercera fila TM, traduccion-->
-        <ion-row>
+        <ion-row style="margin-top: 2%;">
           <!-- Titulo, cabecera-->
-          <ion-col size="12" style="margin-top: 2%;">
+          <ion-col size="12" >
             <ion-row>
-              <ion-col size="9" class="ion-text-center">
-                <span style="font-weight: bold;">TM</span>
+              <ion-col size="11" class="ion-text-center">
+                <span style="font-weight: bold; padding-left: 8vw;">TM</span>
               </ion-col>
-              <ion-col size="3"  class="ion-text-center">
+              <ion-col size="1"  class="ion-text-center">
                 <ion-icon name="language-outline" class="text-tertiary" button (click)="generarTraduccion();"></ion-icon>
               </ion-col>
             </ion-row>
+          </ion-col>
+          <!-- Fin titulo, cabecera -->
 
-          </ion-col>
           <!-- Espacio para traduccion-->
-          <ion-col size="11" style="margin-left: 5%;"> <!--class="borde" -->
-            <ion-item>
-            <div *ngIf="segmentoActual.textoLM != null; else noTrad" id="inputTrad">
-              <ion-input #trad type="text" [contentEditable]="true" value="{{segmentoActual.textoLM}}"></ion-input>
-              
-            </div>
-            <ng-template #noTrad>
-              <ion-input type="text" placeholder="Translate here"></ion-input>
-            </ng-template>
-           </ion-item>
+          <ion-col size="12"> <!--class="borde" -->
+            <form id="tmForm">
+              <ion-item>
+                <ion-textarea id="traduccion"
+                  value="{{segmentoActual.textoLM}}">
+                </ion-textarea> 
+              </ion-item>
+            </form>
           </ion-col>
-          <!-- Administracion de personajes-->
-          <ion-col size="12">
-            <!-- Fila pra 1 columna select, 2 columna iconos, 3 columna btn aceptar-->
-            <ion-row>
-              <!-- Select -->
-              <ion-col size="9">
-                <ion-item>
-                  <ion-label>Characters</ion-label>
-                  <ion-select value="rol">
-                    <ion-select-option value="1" selcted>Personaje 1</ion-select-option>
-                    <ion-select-option value="2">Personaje 2</ion-select-option>
-                  </ion-select>
-                </ion-item>
-              </ion-col>
-              <!-- Iconos -->
-              <ion-col size="3" class="ion-align-self-center ion-text-center">
-                <ion-icon name="add-circle"></ion-icon>
-                <ion-icon name="build"></ion-icon>
-              </ion-col>
-              <!-- Btn
-              <ion-col size="3" class="ion-justify-content-end">
-                <ion-button color="tertiary">OK</ion-button>
-              </ion-col> -->
-            </ion-row>
-          </ion-col>
+          <!-- Fin espacio traduccion -->          
         </ion-row>
         
-        <!--<ion-item-divider></ion-item-divider>-->
+        <ion-item-divider></ion-item-divider>
+
         <!-- Cuarta fila glosario -->
         <ion-row class="borde">
           <!-- Busqueda -->
@@ -151,7 +106,7 @@
             <ion-row>
               <ion-col size-lg="">
                 <ion-item>
-                  <ion-label position="floating">Termino LO</ion-label>
+                  <ion-label position="floating">Término LO</ion-label>
                   <ion-input></ion-input>
                 </ion-item>
               </ion-col>
@@ -162,7 +117,7 @@
               </ion-col>
               <ion-col size-lg="">
                 <ion-item>
-                  <ion-label position="floating">Termino LM</ion-label>
+                  <ion-label position="floating">Término LM</ion-label>
                   <ion-input></ion-input>
                 </ion-item>
               </ion-col>
@@ -187,7 +142,7 @@
             <ion-textarea placeholder="Anadir comentarios"></ion-textarea>
           </ion-col>
         </ion-row>
-      </form>
+      <!--</form>-->
 
     </ion-card-content>
   </ion-card>

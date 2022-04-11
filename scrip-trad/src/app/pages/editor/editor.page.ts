@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActionSheetController, NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.servi
 import { Usuario, Segmento, Proyecto } from 'src/app/interfaces/interfaces';
 import { ProyectoService } from 'src/app/providers/proyecto.service';
 import axios from 'axios';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-editor',
@@ -48,6 +49,7 @@ export class EditorPage implements OnInit {
       this.idPr = params.get('id');
 
     });
+
 
     //cargamos segmentos del proyecto
     this.cargarSegmentosProyecto();
@@ -115,6 +117,9 @@ export class EditorPage implements OnInit {
    * @param segmento 
    */
   irASiguienteSegmento(){
+    //antes de cambiar segmento en pantalla, guardamos traduccion (si se ha escrito)
+    this.guardarTraduccionSegmento();
+    
     for(let i = 0; i < this.segmentos.length; i++){
       //ultimo segmento
       if(i == this.segmentos.length-1){
@@ -137,6 +142,9 @@ export class EditorPage implements OnInit {
    * @param segmento
    */
   irASegmentoAnterior(){
+    //antes de cambiar segmento en pantalla, guardamos traduccion
+    this.guardarTraduccionSegmento();
+
     for(let i = 0; i < this.segmentos.length; i++){
       if(this.segmentoActual.id == this.segmentos[0].id){
         this.porcentaje = 0;
@@ -148,6 +156,29 @@ export class EditorPage implements OnInit {
         break;
       }
     }
+  }
+
+  /**
+   * Metodo para llamar al servicio para guardar traduccion del segmento actual
+   */
+  guardarTraduccionSegmento() {
+    let t = (<HTMLTextAreaElement>document.getElementById('traduccion')).value;
+    console.log(t)
+    //si hay contenido en el text area lo ponemos como segmento actual
+    if(t != "") {
+      this.segmentoActual.textoLM = t;
+    }
+
+    //this.segmentoActual.textoLM = 
+    if(this.segmentoActual.textoLM != null){
+      console.log("Guardando traduccion")
+      this.segmentoService.insertarTraduccion(this.segmentoActual.textoLM, this.segmentoActual.id).then(data => {
+        if (data["result"] == "fail"){
+          this.comunicacionAlertas.mostrarAlerta("Ha sucedido un error al guardar la traducción. Vuelve a intentarlo en unos minutos.")
+        }
+      })
+    }
+    
   }
 
   /**

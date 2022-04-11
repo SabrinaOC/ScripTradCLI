@@ -35,4 +35,18 @@ export class SegmentoService {
    
   }
 
+  /**
+   * 
+   * @param texto 
+   * @param id 
+   */
+  insertarTraduccion(texto: string, id: number) {
+    let jsonObject = {
+      idSegmento : id,
+      textoLM : texto,
+    }
+    // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.
+  return this.http.post<any>('/addTraduccion', jsonObject).toPromise();
+  }
+
 }
