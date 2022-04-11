@@ -3,8 +3,6 @@ export interface DatosConJwt {
     jwt: string;
 }
 
-
-
 // Datos completos de un proyecto
 export interface Proyecto {
     id: number,
@@ -25,8 +23,6 @@ export interface ListadoProyectos {
     totalProyectos: number;
 }
 
-
-
 // Datos de un usuario
 export interface Usuario {
     id: number;
@@ -46,14 +42,11 @@ export interface UsuarioMinimo {
     email: string;
 }
 
-
-
 // Datos sobre tipo de usuario, traductor o gestor
 export interface TipoUsuario {
     id: number;
     descripcion: string;
 }
-
 
 // Datos idiomas
 export interface Idioma {
@@ -66,4 +59,10 @@ export interface Segmento {
     id: number;
     textoLO: string;
     textoLM: string;
+}
+
+export interface Glosario {
+    terminoLO: string,
+    terminoLM: string,
+    proyecto: number,
 }

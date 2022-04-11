@@ -6,10 +6,11 @@ import { SegmentoService } from '../../providers/segmento.service';
 import { UsuarioService } from '../../providers/usuario.service';
 import { ComunicacionDeAlertasService } from '../../providers/comunicacion-de-alertas.service';
 import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.service';
-import { Usuario, Segmento, Proyecto } from 'src/app/interfaces/interfaces';
+import { Usuario, Segmento, Proyecto, Glosario } from 'src/app/interfaces/interfaces';
 import { ProyectoService } from 'src/app/providers/proyecto.service';
 import axios from 'axios';
 import { FormControl, FormGroup } from '@angular/forms';
+import { GlosarioService } from 'src/app/providers/glosario.service';
 
 @Component({
   selector: 'app-editor',
@@ -23,12 +24,16 @@ export class EditorPage implements OnInit {
   segmentoActual: Segmento;
   porcentaje: number;
   proyectoActual: Proyecto;
+  glosarioActual: Glosario;
+
+  glosarioForm: FormGroup;
 
   //cargamos usuario autenticado para realizar búsqueda de proyectos
   usuarioAutenticado: Usuario;
   constructor(
     private segmentoService: SegmentoService,
     private proyectoService: ProyectoService,
+    private glosarioService: GlosarioService,
     private comunicacionAlertas: ComunicacionDeAlertasService,
     private navController: NavController,
     private usuarioService: UsuarioService,
@@ -57,12 +62,16 @@ export class EditorPage implements OnInit {
     });
 
 
-    //cargamos segmentos del proyecto
-    //setTimeout(this.cargarSegmentosProyecto, 5000);
+    //cargamos segmentos del proyecto  
     this.cargarSegmentosProyecto();
 
-    //setTimeout(this.cargarProyectoActual, 5000);
     this.cargarProyectoActual();
+
+    //iniciamos formgroup
+    this.glosarioForm = new FormGroup({
+      terminoO: new FormControl(),
+      terminoM: new FormControl()
+    })
     
   }
 
@@ -216,6 +225,31 @@ export class EditorPage implements OnInit {
     
   }
 
+  /**
+   * 
+   */
+  glosarioConfirm() {
+    console.log(this.glosarioForm.controls.terminoO.value)
+    this.comunicacionAlertas.mostrarConfirmacion(`¿Guardar "${this.glosarioForm.controls.terminoO.value}" en el glosario del proyecto?`, 
+    () => {
+      this.insertarEquivalencias();
+    }, () => console.log('cancel'));
+  }
+
+  /**
+   * 
+   */
+  insertarEquivalencias() {
+    // this.glosarioForm.controls.terminoO.value, this.glosarioForm.controls.terminoM.value, this.proyectoActual.id
+    this.glosarioService.insertarTraduccion(this.glosarioForm.controls.terminoO.value, this.glosarioForm.controls.terminoM.value, this.proyectoActual.id).then(data => {
+      if(data["result"] == "fail") {
+        this.comunicacionAlertas.mostrarAlerta('Ha ocurrido un error al intentar guardar la entrada en el glosario. Vuelve a intentarlo pasados unos instantes.')
+      } else {
+        this.comunicacionAlertas.mostrarAlerta('Términos guardados con éxito.')
+      }
+    })
+  }
+
 
  /**
    * Cierra la sesión de usuario, se llega aquí tras la correspondiente opción del menú lateral
@@ -262,9 +296,10 @@ export class EditorPage implements OnInit {
  * Metodo para ir a pantalla de inicio de vista traductor
  */
  irInicioTraductor(){
-   console.log('atras');
-   //this.router.navigate(['/listado-proyectos-traductor']);
-  //this.navController.navigateForward('');
+  //tomamos la precaucion de guardar traduccion de segmento actual
+  
+  this.guardarTraduccionSegmento();
+  //y redirigimos a inicio
   this.navController.navigateForward('/listado-proyectos-traductor');
 }
 
