@@ -15,7 +15,7 @@ export class ProyectoService {
 
 
   /**
-   * 
+   * Metodo para recuperar lista con todos los proyectos de un gestor dado
    * @param pagina 
    * @param proyectosPorPagina 
    * @returns 
@@ -25,7 +25,7 @@ export class ProyectoService {
   }
 
   /**
-   * 
+   * Metodo para recuperar lista con todos los proyectos de un traductor dado
    * @param pagina 
    * @param proyectosPorPagina 
    * @returns 
@@ -35,7 +35,7 @@ export class ProyectoService {
   }
 
   /**
-   * 
+   * Metodo para recuperar lista de proyectos con fecha de entrega en 7 dias
    * @param pagina 
    * @param proyectosPorPagina 
    * @returns 
@@ -45,7 +45,7 @@ export class ProyectoService {
   }
 
   /**
-   * 
+   * Metodo para poder recuperar datos de un proyecto por id
    * @param idProyecto 
    * @returns 
    */
@@ -54,7 +54,7 @@ export class ProyectoService {
   }
   
   /**
-   * 
+   * Metodo para eliminar proyecto
    * @param idProyecto 
    * @returns 
    */
@@ -63,7 +63,7 @@ export class ProyectoService {
   }
 
   /**
-   * Método para crear
+   * Método para crear proyecto
    * @param traductor 
    * @param gestor 
    * @param idLo 
@@ -88,4 +88,19 @@ export class ProyectoService {
       // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.
     return this.http.post<any>('/nuevoProyecto', jsonObject).toPromise();
      }
+
+  /**
+   * 
+   * @param idProyecto 
+   * @param comm 
+   * @returns 
+   */
+  addComentario(idProyecto: number, comm: string): Promise<any> {
+    let jsonObject = {
+      idProyecto : idProyecto,
+      comentarios : comm
+    }
+    // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.
+  return this.http.post<any>('/addComentario', jsonObject).toPromise();
+  }
 }

@@ -289,6 +289,32 @@ export class EditorPage implements OnInit {
     })
   }
 
+  /**
+   * Metodo que pide confirmacion para guardar comentario en bbdd
+   */
+  confirmCom() {
+    let c = (<HTMLTextAreaElement>document.getElementById('textAreaComentarios')).value;
+    console.log(`${this.proyectoActual.comentarios} \n - ${this.usuarioAutenticado.email}: ${c}.`)
+    //pedimos confirmacion
+    this.comunicacionAlertas.mostrarConfirmacion('¿Guardar comentario?', 
+    () => {//mandamos comentario a bbdd
+      this.proyectoService.addComentario(this.proyectoActual.id, `${this.proyectoActual.comentarios} - ${this.usuarioAutenticado.email}: ${c}\n`).then(data => {
+        if(data["result"] == "fail") {
+          this.comunicacionAlertas.mostrarAlerta('Ha ocurrido un error al intentar guardar el comentario. Vuelve a intentarlo pasados unos instantes.');
+        } else {
+          //recargamos datos proyecto
+          this.cargarProyectoActual();
+          
+        }
+      })
+      //limpiamos input
+      c = '';
+    }, 
+    () => {
+      console.log('cancelar');
+    })
+  }
+
 
  /**
    * Cierra la sesión de usuario, se llega aquí tras la correspondiente opción del menú lateral

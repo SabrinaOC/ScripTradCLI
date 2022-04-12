@@ -42,7 +42,7 @@
             <ion-col>
               <ion-item style="background-color: rgb(211, 94, 94);" *ngIf="segmentoActual">
                 <ion-textarea
-                  
+                rows="6"
                   readonly
                   value="{{segmentoActual.textoLO}}">
                 </ion-textarea>
@@ -150,7 +150,10 @@
             <p class="ion-padding-horizontal" *ngIf="proyectoActual">{{proyectoActual.comentarios}}</p>
           </ion-col>
           <ion-col size="12">
-            <ion-textarea placeholder="Anadir comentarios"></ion-textarea>
+            <ion-textarea placeholder="Anadir comentarios" id="textAreaComentarios"></ion-textarea>
+          </ion-col>
+          <ion-col>
+            <ion-button (click)="confirmCom();">Add</ion-button>
           </ion-col>
         </ion-row>
       <!--</form>-->
