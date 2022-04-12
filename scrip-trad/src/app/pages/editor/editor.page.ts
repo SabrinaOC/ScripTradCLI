@@ -25,6 +25,8 @@ export class EditorPage implements OnInit {
   porcentaje: number;
   proyectoActual: Proyecto;
   glosarioActual: Glosario;
+  listaCoincidencias: Glosario [] = [];
+  noCoincidencia: boolean;
 
   glosarioForm: FormGroup;
 
@@ -113,7 +115,7 @@ export class EditorPage implements OnInit {
    * Metodo para cargar segmento actual, es decir, primer segmento sin traduccion
    */
   cargarPrimerSegmentoSinTraduccion(){
-   console.log('Segmentos list size= ' , this.segmentos.length, '\nSegmento: ' , this.segmentos);
+   //console.log('Segmentos list size= ' , this.segmentos.length, '\nSegmento: ' , this.segmentos);
    
     for(let i = 0; i < this.segmentos.length; i++){
           //recorremos la lista de segmentos hasta encontrar el primero sin traduccion
@@ -127,6 +129,34 @@ export class EditorPage implements OnInit {
           }
         }
     
+  }
+
+  /**
+   * 
+   */
+  async buscarEnGlosario() {
+    let input = (<HTMLInputElement>document.getElementById("inputBusquedaGlosario")).value;
+    if(input != '') {
+      this.glosarioService.buscarCoincidencias(this.proyectoActual.id, input).then(data => {
+        if(data["result"]== "success"){
+          console.log(data["equivalencias"])
+          //si no hay coincidencias no mostramos 
+          if(data["equivalencias"].length > 0) {
+            data.equivalencias.forEach((g: Glosario) => {
+              this.listaCoincidencias.push(g);
+              this.glosarioActual = this.listaCoincidencias[0];
+              this.noCoincidencia = false;
+            });
+          } else {
+            this.glosarioActual = null;
+            this.noCoincidencia = true;
+          }
+        }
+      })
+    } else {
+      this.glosarioActual = null;
+      this.noCoincidencia = null;
+    }
   }
 
   /**
@@ -145,7 +175,7 @@ export class EditorPage implements OnInit {
         break;
       }
 
-      if(this.segmentoActual.id == this.segmentos[i].id && i < this.segmentos.length) { //|| 
+      if(this.segmentoActual.id == this.segmentos[i].id && i < this.segmentos.length) { 
         this.segmentoActual = this.segmentos[i+1];
         this.porcentaje ++; 
         break;
@@ -226,7 +256,7 @@ export class EditorPage implements OnInit {
   }
 
   /**
-   * 
+   * Alerta para confirmar insert terminos en glosario
    */
   glosarioConfirm() {
     console.log(this.glosarioForm.controls.terminoO.value)
@@ -237,10 +267,10 @@ export class EditorPage implements OnInit {
   }
 
   /**
-   * 
+   * Llamada al servicio de glosario para hacer insert efectivo
    */
   insertarEquivalencias() {
-    // this.glosarioForm.controls.terminoO.value, this.glosarioForm.controls.terminoM.value, this.proyectoActual.id
+    
     this.glosarioService.insertarTraduccion(this.glosarioForm.controls.terminoO.value, this.glosarioForm.controls.terminoM.value, this.proyectoActual.id).then(data => {
       if(data["result"] == "fail") {
         this.comunicacionAlertas.mostrarAlerta('Ha ocurrido un error al intentar guardar la entrada en el glosario. Vuelve a intentarlo pasados unos instantes.')

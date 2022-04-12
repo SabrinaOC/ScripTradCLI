@@ -24,4 +24,13 @@ export class GlosarioService {
     // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.
   return this.http.post<any>('/addEquivalencias', jsonObject).toPromise();
   }
+
+  /**
+   * 
+   * @param termino 
+   * @returns 
+   */
+  buscarCoincidencias(idProyecto: number, termino: string) : Promise <any> {
+    return this.http.get<any>('/getEquivalencias?idProyecto=' + idProyecto + '&termino=' + termino).toPromise();
+  }
 }
