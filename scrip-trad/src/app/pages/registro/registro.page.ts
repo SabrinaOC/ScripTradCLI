@@ -4,6 +4,7 @@ import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ComunicacionDeAlertasService } from '../../providers/comunicacion-de-alertas.service';
 import { UsuarioService } from '../../providers/usuario.service';
+import { Usuario } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-registro',
@@ -11,7 +12,7 @@ import { UsuarioService } from '../../providers/usuario.service';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
-
+  usuAutenticado: Usuario;
   waiting: boolean = false;
   registerForm: FormGroup; //para comprobaciones formulario html
 
@@ -27,6 +28,14 @@ export class RegistroPage implements OnInit {
     private navControler: NavController) { }
 
   ngOnInit() {
+     // Comprobamos que no hay un usuairo ya autenticado, si es as'i, redirigimos
+     this.usuarioService.getUsuarioAutenticado(true).subscribe(usuAutenticado => {
+      if(usuAutenticado.id) {
+        this.usuAutenticado = usuAutenticado;
+        if(this.usuAutenticado.idTipoUsuario == 1) this.navControler.navigateForward('/listado-proyectos-traductor');
+        if(this.usuAutenticado.idTipoUsuario == 2) this.navControler.navigateForward('/listado-proyectos-gestor');
+      } 
+    });
     //formulario reactivo
     this.registerForm = new FormGroup({
       nombre: new FormControl('Rafael Muñoz',[Validators.required]),

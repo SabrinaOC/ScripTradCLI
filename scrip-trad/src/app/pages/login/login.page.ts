@@ -32,6 +32,15 @@ export class LoginPage implements OnInit {
     ) { } 
 
   ngOnInit() {
+     // Comprobamos que no hay un usuairo ya autenticado, si es as'i, redirigimos
+     this.usuarioService.getUsuarioAutenticado(true).subscribe(usuAutenticado => {
+      if(usuAutenticado.id) {
+        this.usu = usuAutenticado;
+        if(this.usu.idTipoUsuario == 1) this.navControler.navigateForward('/listado-proyectos-traductor');
+        if(this.usu.idTipoUsuario == 2) this.navControler.navigateForward('/listado-proyectos-gestor');
+      } 
+    });
+
     //Formgroup para formulario reactivo (validacion)
     this.loginForm = new FormGroup({
       //aqui ponemos los campos del formulario

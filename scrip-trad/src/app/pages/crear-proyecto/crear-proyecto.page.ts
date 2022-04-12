@@ -53,6 +53,7 @@ export class CrearProyectoPage implements OnInit {
     this.usuarioService.getUsuarioAutenticado(true).subscribe(usuAutenticado => {
       if(usuAutenticado.id) {
         this.usuarioAutenticado = usuAutenticado;
+        if(this.usuarioAutenticado.idTipoUsuario == 1) this.navController.navigateForward('/listado-proyectos-traductor');
       } else {
         this.navController.navigateForward('');
       }

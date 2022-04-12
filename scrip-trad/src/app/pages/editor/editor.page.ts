@@ -51,6 +51,7 @@ export class EditorPage implements OnInit {
       
       if(usuAutenticado.id) {
         this.usuarioAutenticado = usuAutenticado;
+        if(this.usuarioAutenticado.idTipoUsuario == 2) this.navController.navigateForward('/listado-proyectos-gestor');
       } else {
         this.navController.navigateForward('');
       }
@@ -116,47 +117,24 @@ export class EditorPage implements OnInit {
    */
   cargarPrimerSegmentoSinTraduccion(){
    //console.log('Segmentos list size= ' , this.segmentos.length, '\nSegmento: ' , this.segmentos);
+   let isAllTranslated = true;
    
     for(let i = 0; i < this.segmentos.length; i++){
-          //recorremos la lista de segmentos hasta encontrar el primero sin traduccion
-          //y lo cargamos como actual
-          if(this.segmentos[i].textoLM == null || this.segmentos[i].textoLM == ''){
-            this.segmentoActual = this.segmentos[i];
-            //guardamos posicion de i para calcular porcentaje de traduccion realizada
-            this.porcentaje = i; // i+1
-            //y salimos del bucle
-            break;
-          }
-        }
-    
-  }
-
-  /**
-   * 
-   */
-  async buscarEnGlosario() {
-    let input = (<HTMLInputElement>document.getElementById("inputBusquedaGlosario")).value;
-    if(input != '') {
-      this.glosarioService.buscarCoincidencias(this.proyectoActual.id, input).then(data => {
-        if(data["result"]== "success"){
-          console.log(data["equivalencias"])
-          //si no hay coincidencias no mostramos 
-          if(data["equivalencias"].length > 0) {
-            data.equivalencias.forEach((g: Glosario) => {
-              this.listaCoincidencias.push(g);
-              this.glosarioActual = this.listaCoincidencias[0];
-              this.noCoincidencia = false;
-            });
-          } else {
-            this.glosarioActual = null;
-            this.noCoincidencia = true;
-          }
-        }
-      })
-    } else {
-      this.glosarioActual = null;
-      this.noCoincidencia = null;
+      //recorremos la lista de segmentos hasta encontrar el primero sin traduccion
+      //y lo cargamos como actual
+      if(this.segmentos[i].textoLM == null || this.segmentos[i].textoLM == ''){
+        this.segmentoActual = this.segmentos[i];
+        //guardamos posicion de i para calcular porcentaje de traduccion realizada
+        this.porcentaje = i; // i+1
+        isAllTranslated = false;
+        //y salimos del bucle
+        break;
+      }
     }
+    //si no hay ningun segmento pendiente de traduccion cargaremos como actual el ultimo
+    if(isAllTranslated) this.segmentoActual = this.segmentos[this.segmentos.length-1];
+        
+    
   }
 
   /**
@@ -222,7 +200,7 @@ export class EditorPage implements OnInit {
       this.segmentoService.insertarTraduccion(this.segmentoActual.textoLM, this.segmentoActual.id).then(data => {
         if (data["result"] == "fail"){
           this.comunicacionAlertas.mostrarAlerta("Ha sucedido un error al guardar la traducción. Vuelve a intentarlo en unos minutos.")
-        }
+        } 
       })
     }
     
@@ -256,6 +234,36 @@ export class EditorPage implements OnInit {
   }
 
   /**
+   * 
+   */
+   async buscarEnGlosario() {
+    let input = (<HTMLInputElement>document.getElementById("inputBusquedaGlosario")).value;
+    if(input != '') {
+      this.glosarioService.buscarCoincidencias(this.proyectoActual.id, input).then(data => {
+        if(data["result"]== "success"){
+          console.log(data["equivalencias"])
+          //si no hay coincidencias no mostramos 
+          if(data["equivalencias"].length > 0) {
+            //vaciamos posible lista para poner nuevos valores
+            this.listaCoincidencias = [];
+            data.equivalencias.forEach((g: Glosario) => {
+              this.listaCoincidencias.push(g);
+              this.glosarioActual = this.listaCoincidencias[0];
+              this.noCoincidencia = false;
+            });
+          } else {
+            this.glosarioActual = null;
+            this.noCoincidencia = true;
+          }
+        }
+      })
+    } else {
+      this.glosarioActual = null;
+      this.noCoincidencia = null;
+    }
+  }
+
+  /**
    * Alerta para confirmar insert terminos en glosario
    */
   glosarioConfirm() {
@@ -276,6 +284,7 @@ export class EditorPage implements OnInit {
         this.comunicacionAlertas.mostrarAlerta('Ha ocurrido un error al intentar guardar la entrada en el glosario. Vuelve a intentarlo pasados unos instantes.')
       } else {
         this.comunicacionAlertas.mostrarAlerta('Términos guardados con éxito.')
+        this.glosarioForm.reset();
       }
     })
   }
