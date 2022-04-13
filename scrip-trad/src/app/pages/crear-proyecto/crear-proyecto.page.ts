@@ -117,23 +117,9 @@ export class CrearProyectoPage implements OnInit {
     console.log(fecha)
     //this.fechaEntrega = format(fecha, 'MM-d-yyyy');
     this.fechaMostrada = format(parseISO(fecha), 'MM-d-yyyy');
-    console.log('\nFecha para bbdd: ' + this.fechaEntrega)
+    //console.log('\nFecha para bbdd: ' + this.fechaEntrega)
     this.mostrarCalendario=false;
  }
-
-  mostrarVistaPrevia(){
-   
-   /*
-   //cuando detectemos cambio en iput file cargaremos vista previa de archivo seleccionado*/
-   let vista = document.getElementById('vistaPrevia'); //.setAttribute('scr', './././assets/temp/pruebaTabla.pdf');
-    vista.setAttribute('src', './././assets/temp/pruebaTabla.pdf');
-
-    //prueba para leer doc
-    const inputDoc: any = document.getElementById('doc');
-
-   
-    
-  }
 
   /**
    * 
@@ -143,18 +129,14 @@ export class CrearProyectoPage implements OnInit {
 
     if (typeof (FileReader) !== 'undefined') { // tomo una precaución para comprobar que puedo utilizar el tipo FileReader
       const reader = new FileReader(); // Instancio un FileReader()
-      console.log("Hay FileReader. Siguiente: comprobamos que hay archivo")
-      console.log("extension: ", inputNode.files[0].type)
       //comprobamos que es un archivo con formato correcto(txt)
       if(inputNode.files[0].type == "text/plain"){
 
         if (inputNode.files[0] != null) {
           reader.readAsText(inputNode.files[0]);
-          console.log("Entra en primer if")
         }
   
         reader.onload = (e: any) => {
-          //console.log(e.target.result);
           this.textoDocumento = e.target.result;
         };
 
@@ -225,7 +207,11 @@ export class CrearProyectoPage implements OnInit {
           //si se ha creado el proyecto correctamente, insertamos los segmentos
           this.segmentoService.insertarSegmentos(this.textoDocumento, data["proyecto"]).then(data => {
             if(data["result"] == "success"){
-              this.comunicacionAlertas.mostrarAlerta("Proyecto creado con éxito.");
+              this.comunicacionAlertas.mostrarConfirmacion("Proyecto creado con éxito.", ()=> {
+                this.navController.navigateForward('/listado-proyectos-gestor');
+              }, () => {
+                console.log('cancelar')
+              });
             }
           })
           
@@ -283,7 +269,7 @@ export class CrearProyectoPage implements OnInit {
       text: 'Gestionar cuenta',
       icon: 'settings',
       handler: () => {
-        
+        this.navController.navigateForward('/perfil');
       }
     }, {
       text: 'Cerrar sesión',

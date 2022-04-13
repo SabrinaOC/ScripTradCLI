@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Perfil</ion-title>
+    <!--Imagen de usuario logueado-->
+    <ion-avatar slot="end" id="usu" button (click)="mostrarMenu()">
+      <img src="{{ usuarioAutenticado != null && usuarioAutenticado.img != null ? 'data:image/png;base64,' + usuarioAutenticado.img : 'assets/img/genericUser.jpg'}}" alt="Imagen usuario">
+    </ion-avatar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+</ion-content>
+
+<!-- Footer-->
+<ion-footer>
+  <ion-toolbar >
+    <!-- Gestor opciones -->
+    <ion-tabs >
+      <ion-tab-bar slot="bottom" class="ion-justify-content-around">
+        
+    
+        <ion-tab-button (click)="irInicio();">
+          <ion-icon name="home-outline"></ion-icon>
+        </ion-tab-button>
+      
+      </ion-tab-bar>
+    </ion-tabs>
+    <!-- Fin gestor opciones -->
+
+    
+  </ion-toolbar>
+
+</ion-footer>

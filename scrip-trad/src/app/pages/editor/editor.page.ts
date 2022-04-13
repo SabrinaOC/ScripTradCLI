@@ -218,16 +218,11 @@ export class EditorPage implements OnInit {
     //guardamos evento para saber si navegar a siguiente segmento o a anterior
     let i = <HTMLIonIconElement>event.target;
 
-    
-
-    console.log(i.getAttribute("id"))
-
     let t = (<HTMLTextAreaElement>document.getElementById('traduccion')).value;
-    console.log(t)
+    
     //si hay contenido en el text area lo ponemos como segmento actual
     if(t != "") {
       this.segmentoActual.textoLM = t;
-      console.log('contenido input traduccion, ', t);
     }
 
     //this.segmentoActual.textoLM = 
@@ -398,7 +393,7 @@ export class EditorPage implements OnInit {
         text: 'Gestionar cuenta',
         icon: 'settings',
         handler: () => {
-          
+          this.navController.navigateForward('/perfil');
         }
       }, {
         text: 'Cerrar sesión',

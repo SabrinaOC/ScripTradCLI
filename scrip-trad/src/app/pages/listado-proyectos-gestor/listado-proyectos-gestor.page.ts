@@ -73,6 +73,7 @@ export class ListadoProyectosGestorPage implements OnInit {
       if(data["result"] == 'fail'){
         this.comunicacionAlertas.mostrarAlerta('No se ha podido obtener la lista de proyectos.')
       } else {
+        this.proyectos = [];
         this.totalProyectos = data.totalProyectos;
         data.proyectos.forEach(proyecto => this.proyectos.push(proyecto));
         // La próxima vez que se carguen mensajes se cargará la siguiente "página"
@@ -104,13 +105,11 @@ export class ListadoProyectosGestorPage implements OnInit {
         //ocultamos spinner cuando obtenemos respuesta y la mostramos
         this.comunicacionAlertas.ocultarCargando();
         if(data["result"] == "fail") {
-          this.comunicacionAlertas.mostrarAlerta('No se ha podido elimiinar el proyecto ' + proyecto.titulo + '. Vuelve a intentarlo pasados unos minutos');
+          this.comunicacionAlertas.mostrarAlerta('No se ha podido eliminar el proyecto ' + proyecto.titulo + '. Vuelve a intentarlo pasados unos minutos');
         } else {
           //mostramos mensaje
           this.presentToast(proyecto);
-          //recargamos pagina de proyectos
-          this.cargarProyectos();
-          //document.location.reload();
+          
           
         }
       })
@@ -131,6 +130,7 @@ export class ListadoProyectosGestorPage implements OnInit {
       duration: 2000
     });
     toast.present();
+    this.cargarProyectos();
   }
 
   /**
@@ -189,7 +189,7 @@ async mostrarMenu(){
       text: 'Gestionar cuenta',
       icon: 'settings',
       handler: () => {
-        
+        this.navController.navigateForward('/perfil');
       }
     }, {
       text: 'Cerrar sesión',

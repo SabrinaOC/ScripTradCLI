@@ -37,7 +37,11 @@ const routes: Routes = [
   {
     path: 'editor/:id',
     loadChildren: () => import('./pages/editor/editor.module').then( m => m.EditorPageModule)
+  },  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
   }
+
 ];
 @NgModule({
   imports: [

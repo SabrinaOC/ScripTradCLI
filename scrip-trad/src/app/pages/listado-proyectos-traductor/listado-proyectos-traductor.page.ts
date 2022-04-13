@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
-import { ActionSheetController, IonInfiniteScroll, NavController, ToastController } from '@ionic/angular';
+import { ActionSheetController, IonInfiniteScroll, NavController } from '@ionic/angular';
 
 
 import { ProyectoService } from '../../providers/proyecto.service';
@@ -36,7 +36,6 @@ export class ListadoProyectosTraductorPage implements OnInit {
     private usuarioService: UsuarioService,
     private actionSheetController: ActionSheetController,
     private autenticacionPorJWT: AutenticadorJwtService,
-    private toast: ToastController,
     private router: Router) { }
 
   ngOnInit() {
@@ -49,7 +48,6 @@ export class ListadoProyectosTraductorPage implements OnInit {
       }
     });
     //cargamos proyectos
-    //setTimeout(this.cargarProyectosUrgentes, 100);
     this.cargarProyectosUrgentes()
   }
 
@@ -244,7 +242,7 @@ irEditorConPrimerProyectoDeLista(){
       text: 'Gestionar cuenta',
       icon: 'settings',
       handler: () => {
-        
+        this.navController.navigateForward('/perfil');
       }
     }, {
       text: 'Cerrar sesión',
