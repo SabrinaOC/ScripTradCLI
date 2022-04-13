@@ -9,7 +9,7 @@ import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.servi
 import { Usuario, Segmento, Proyecto, Glosario } from 'src/app/interfaces/interfaces';
 import { ProyectoService } from 'src/app/providers/proyecto.service';
 import axios from 'axios';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { GlosarioService } from 'src/app/providers/glosario.service';
 
 @Component({
@@ -26,8 +26,11 @@ export class EditorPage implements OnInit {
   proyectoActual: Proyecto;
   glosarioActual: Glosario;
   listaCoincidencias: Glosario [] = [];
+  listaComentarios: string [] = [];
   noCoincidencia: boolean;
+  isFinished: boolean;
 
+  principalForm: FormGroup;
   glosarioForm: FormGroup;
 
   //cargamos usuario autenticado para realizar búsqueda de proyectos
@@ -72,8 +75,8 @@ export class EditorPage implements OnInit {
 
     //iniciamos formgroup
     this.glosarioForm = new FormGroup({
-      terminoO: new FormControl(),
-      terminoM: new FormControl()
+      terminoO: new FormControl('', Validators['required']),
+      terminoM: new FormControl('', Validators['required']),
     })
     
   }
@@ -89,9 +92,19 @@ export class EditorPage implements OnInit {
         this.comunicacionAlertas.mostrarAlerta("No se ha podido cargar el proyecto actual.")
       } else {
         this.proyectoActual = data['proyecto'];
-        //this.cargarPrimerSegmentoSinTraduccion();
+        //formateamos comentarios
+        this.formatoComentarios();
       }
     })
+  }
+
+  /**
+   * 
+   */
+  formatoComentarios() {
+    console.log('Comentarios proyecto:\n', this.proyectoActual.comentarios);
+    this.listaComentarios = this.proyectoActual.comentarios.split('-');
+    console.log('lista de comentarios: ', this.listaComentarios)
   }
 
   /**
@@ -116,7 +129,6 @@ export class EditorPage implements OnInit {
    * Metodo para cargar segmento actual, es decir, primer segmento sin traduccion
    */
   cargarPrimerSegmentoSinTraduccion(){
-   //console.log('Segmentos list size= ' , this.segmentos.length, '\nSegmento: ' , this.segmentos);
    let isAllTranslated = true;
    
     for(let i = 0; i < this.segmentos.length; i++){
@@ -127,13 +139,18 @@ export class EditorPage implements OnInit {
         //guardamos posicion de i para calcular porcentaje de traduccion realizada
         this.porcentaje = i; // i+1
         isAllTranslated = false;
+        //bandera para activar o desactivar boton de generar traduccion
+        this.isFinished = false;
         //y salimos del bucle
         break;
       }
     }
     //si no hay ningun segmento pendiente de traduccion cargaremos como actual el ultimo
-    if(isAllTranslated) this.segmentoActual = this.segmentos[this.segmentos.length-1];
-        
+    if(isAllTranslated) {
+      this.segmentoActual = this.segmentos[this.segmentos.length-1];
+      //bandera para activar boton de generar traduccion
+      this.isFinished = true;
+    }
     
   }
 
@@ -150,12 +167,14 @@ export class EditorPage implements OnInit {
       if(i == this.segmentos.length-1){
         this.segmentoActual == this.segmentos[this.segmentos.length];
         this.porcentaje = this.segmentos.length-1;
+        this.isFinished = true;
         break;
       }
 
       if(this.segmentoActual.id == this.segmentos[i].id && i < this.segmentos.length) { 
         this.segmentoActual = this.segmentos[i+1];
         this.porcentaje ++; 
+        this.isFinished = false;
         break;
       }
       
@@ -169,6 +188,8 @@ export class EditorPage implements OnInit {
   irASegmentoAnterior(){
     //antes de cambiar segmento en pantalla, guardamos traduccion
     this.guardarTraduccionSegmento();
+    //bandera finished
+    this.isFinished = false;
 
     for(let i = 0; i < this.segmentos.length; i++){
       if(this.segmentoActual.id == this.segmentos[0].id){
@@ -278,15 +299,22 @@ export class EditorPage implements OnInit {
    * Llamada al servicio de glosario para hacer insert efectivo
    */
   insertarEquivalencias() {
-    
-    this.glosarioService.insertarTraduccion(this.glosarioForm.controls.terminoO.value, this.glosarioForm.controls.terminoM.value, this.proyectoActual.id).then(data => {
+    console.log(typeof this.glosarioForm.controls.terminoO.value)
+    //comprobamos que tienen contenido
+    if(!this.glosarioForm.valid) {
+      this.comunicacionAlertas.mostrarAlerta('Escribe primero los términos para poder guardarlos.');
+    } else {
+      this.glosarioService.insertarTraduccion(this.glosarioForm.controls.terminoO.value, this.glosarioForm.controls.terminoM.value, this.proyectoActual.id).then(data => {
       if(data["result"] == "fail") {
         this.comunicacionAlertas.mostrarAlerta('Ha ocurrido un error al intentar guardar la entrada en el glosario. Vuelve a intentarlo pasados unos instantes.')
       } else {
         this.comunicacionAlertas.mostrarAlerta('Términos guardados con éxito.')
-        this.glosarioForm.reset();
+        this.glosarioForm.controls.terminoO.reset();
+        this.glosarioForm.controls.terminoM.reset();
       }
     })
+    }
+    
   }
 
   /**
@@ -294,11 +322,14 @@ export class EditorPage implements OnInit {
    */
   confirmCom() {
     let c = (<HTMLTextAreaElement>document.getElementById('textAreaComentarios')).value;
-    console.log(`${this.proyectoActual.comentarios} \n - ${this.usuarioAutenticado.email}: ${c}.`)
-    //pedimos confirmacion
+    //comprobamos que se ha escrito un mensaje
+    if(c == '') {
+      this.comunicacionAlertas.mostrarAlerta('Escribe primero un mensaje para poder guardarlo.');
+    } else {
+      //pedimos confirmacion
     this.comunicacionAlertas.mostrarConfirmacion('¿Guardar comentario?', 
     () => {//mandamos comentario a bbdd
-      this.proyectoService.addComentario(this.proyectoActual.id, `${this.proyectoActual.comentarios} - ${this.usuarioAutenticado.email}: ${c}\n`).then(data => {
+      this.proyectoService.addComentario(this.proyectoActual.id, `${this.proyectoActual.comentarios} \n- ${this.usuarioAutenticado.email}: ${c}`).then(data => {
         if(data["result"] == "fail") {
           this.comunicacionAlertas.mostrarAlerta('Ha ocurrido un error al intentar guardar el comentario. Vuelve a intentarlo pasados unos instantes.');
         } else {
@@ -307,12 +338,13 @@ export class EditorPage implements OnInit {
           
         }
       })
-      //limpiamos input
-      c = '';
+      
     }, 
     () => {
       console.log('cancelar');
     })
+    }
+    
   }
 
 

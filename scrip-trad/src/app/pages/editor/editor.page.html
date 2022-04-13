@@ -18,17 +18,17 @@
   <!-- Tarjeta para contener todos los items -->
   <ion-card>
     <ion-card-content>
+      <form id="formPrincipal">
       <!--<ion-icon name="arrow-back-outline" (click)="irInicioTraductor();"></ion-icon>-->
-      <!--<form>-->
-        <!--Primera fila para character matching y boton generar trad-->
+        <!--Primera fila para character matching y boton generar trad
         <ion-row>
-          <!--Col para boton-->
+          <!-Col para boton->
           <ion-col class="ion-align-self-center">
             <ion-button expand="block" color="tertiary"><span class="ion-hide-lg-down">Generar traducción</span>
               <ion-icon name="cloud-download-outline" class="ion-padding-horizontal"></ion-icon>
             </ion-button>
           </ion-col>
-        </ion-row>
+        </ion-row>-->
         <!--Segunda fila para segmento TO-->
           <!-- flecha nav, tabla, flecha nav-->
           <ion-row style="padding-top: 3%;">
@@ -42,7 +42,7 @@
             <ion-col>
               <ion-item style="background-color: rgb(211, 94, 94);" *ngIf="segmentoActual">
                 <ion-textarea
-                rows="6"
+                rows="8"
                   readonly
                   value="{{segmentoActual.textoLO}}">
                 </ion-textarea>
@@ -58,8 +58,8 @@
               <ion-col size="11" class="ion-text-center">
                 <span style="font-weight: bold; padding-left: 8vw;">TM</span>
               </ion-col>
-              <ion-col size="1"  class="ion-text-center" style="color: #5260ff">
-                <ion-icon name="language-outline" class="text-tertiary" button (click)="generarTraduccion();"></ion-icon>
+              <ion-col size="1"  class="ion-text-center">
+                <ion-icon name="language-outline" color="secondary" class="text-tertiary" button (click)="generarTraduccion();"></ion-icon>
               </ion-col>
             </ion-row>
           </ion-col>
@@ -70,6 +70,7 @@
             <form id="tmForm">
               <ion-item *ngIf="segmentoActual">
                 <ion-textarea id="traduccion"
+                  rows="8"
                   value="{{segmentoActual.textoLM}}">
                 </ion-textarea> 
               </ion-item>
@@ -85,7 +86,6 @@
           <!-- Busqueda -->
           <ion-col size="12">
             <ion-item>
-              
               <ion-label position="floating">Glosario</ion-label>
               <ion-input id="inputBusquedaGlosario" list="equivalencias" autocorrect="on" autofocus="on" clearInput="true" clearOnEdit="true" inputmode="text" placeholder="Buscar en glosario" required="true"
               (ionChange)="buscarEnGlosario();"></ion-input>
@@ -147,17 +147,26 @@
             </ion-item>
           </ion-col>
           <ion-col size="12">
-            <p class="ion-padding-horizontal" *ngIf="proyectoActual">{{proyectoActual.comentarios}}</p>
+            <!--<p class="ion-padding-horizontal" *ngIf="proyectoActual">{{proyectoActual.comentarios}}</p>-->
+            <p *ngFor="let c of listaComentarios" class="paddingComentarios">{{c}}</p>
           </ion-col>
           <ion-col size="12">
-            <ion-textarea placeholder="Anadir comentarios" id="textAreaComentarios"></ion-textarea>
-          </ion-col>
-          <ion-col>
-            <ion-button (click)="confirmCom();">Add</ion-button>
+            <ion-item>
+              <ion-textarea placeholder="Anadir comentarios" id="textAreaComentarios"></ion-textarea>
+              <ion-icon style="display: flex; justify-self: end;" color="secondary" name="send" class="ion-align-self-center ion-text-lg-center" (click)="confirmCom();"></ion-icon>
+            </ion-item>
           </ion-col>
         </ion-row>
-      <!--</form>-->
 
+      <ion-row>
+        <!--Col para boton-->
+        <ion-col class="ion-align-self-center">
+          <ion-button expand="block" color="success" [disabled]="!isFinished"><span class="ion-hide-lg-down">Generar traducción</span>
+            <ion-icon name="cloud-download-outline" class="ion-padding-horizontal"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      </form>
     </ion-card-content>
   </ion-card>
 </ion-content>
