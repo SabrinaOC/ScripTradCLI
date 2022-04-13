@@ -32,6 +32,7 @@ export class EditorPage implements OnInit {
 
   principalForm: FormGroup;
   glosarioForm: FormGroup;
+  comentarioForm: FormGroup;
 
   //cargamos usuario autenticado para realizar búsqueda de proyectos
   usuarioAutenticado: Usuario;
@@ -77,6 +78,10 @@ export class EditorPage implements OnInit {
     this.glosarioForm = new FormGroup({
       terminoO: new FormControl('', Validators['required']),
       terminoM: new FormControl('', Validators['required']),
+    });
+
+    this.comentarioForm = new FormGroup({
+      comentario: new FormControl('', Validators['required'])
     })
     
   }
@@ -160,7 +165,7 @@ export class EditorPage implements OnInit {
    */
   irASiguienteSegmento(){
     //antes de cambiar segmento en pantalla, guardamos traduccion (si se ha escrito)
-    this.guardarTraduccionSegmento();
+    //this.guardarTraduccionSegmento();
     
     for(let i = 0; i < this.segmentos.length; i++){
       //ultimo segmento
@@ -168,6 +173,7 @@ export class EditorPage implements OnInit {
         this.segmentoActual == this.segmentos[this.segmentos.length];
         this.porcentaje = this.segmentos.length-1;
         this.isFinished = true;
+        console.log('siguiente segmento: ', this.segmentoActual)
         break;
       }
 
@@ -175,6 +181,7 @@ export class EditorPage implements OnInit {
         this.segmentoActual = this.segmentos[i+1];
         this.porcentaje ++; 
         this.isFinished = false;
+        console.log('siguiente segmento: ', this.segmentoActual)
         break;
       }
       
@@ -187,7 +194,7 @@ export class EditorPage implements OnInit {
    */
   irASegmentoAnterior(){
     //antes de cambiar segmento en pantalla, guardamos traduccion
-    this.guardarTraduccionSegmento();
+    //this.guardarTraduccionSegmento();
     //bandera finished
     this.isFinished = false;
 
@@ -208,22 +215,38 @@ export class EditorPage implements OnInit {
    * Metodo para llamar al servicio para guardar traduccion del segmento actual
    */
   guardarTraduccionSegmento() {
+    //guardamos evento para saber si navegar a siguiente segmento o a anterior
+    let i = <HTMLIonIconElement>event.target;
+
+    
+
+    console.log(i.getAttribute("id"))
+
     let t = (<HTMLTextAreaElement>document.getElementById('traduccion')).value;
     console.log(t)
     //si hay contenido en el text area lo ponemos como segmento actual
     if(t != "") {
       this.segmentoActual.textoLM = t;
+      console.log('contenido input traduccion, ', t);
     }
 
     //this.segmentoActual.textoLM = 
-    if(this.segmentoActual.textoLM != null){
-      console.log("Guardando traduccion")
+    if(this.segmentoActual.textoLM != null || this.segmentoActual.textoLM != ''){
+      console.log("Guardando traduccion: ", this.segmentoActual)
       this.segmentoService.insertarTraduccion(this.segmentoActual.textoLM, this.segmentoActual.id).then(data => {
         if (data["result"] == "fail"){
           this.comunicacionAlertas.mostrarAlerta("Ha sucedido un error al guardar la traducción. Vuelve a intentarlo en unos minutos.")
-        } 
+        } else { //avanzamos segmento
+          if(i.getAttribute("id") == 'atras') {
+            this.irASegmentoAnterior();
+          } else {
+            this.irASiguienteSegmento();
+          }
+        }
       })
     }
+
+    
     
   }
 
@@ -255,7 +278,7 @@ export class EditorPage implements OnInit {
   }
 
   /**
-   * 
+   * Metodo para buscar coincidencias en glosario del proyecto en cada cambio de input
    */
    async buscarEnGlosario() {
     let input = (<HTMLInputElement>document.getElementById("inputBusquedaGlosario")).value;
@@ -288,22 +311,23 @@ export class EditorPage implements OnInit {
    * Alerta para confirmar insert terminos en glosario
    */
   glosarioConfirm() {
-    console.log(this.glosarioForm.controls.terminoO.value)
-    this.comunicacionAlertas.mostrarConfirmacion(`¿Guardar "${this.glosarioForm.controls.terminoO.value}" en el glosario del proyecto?`, 
-    () => {
-      this.insertarEquivalencias();
-    }, () => console.log('cancel'));
+    //comprobamos que tienen contenido
+    if(!this.glosarioForm.valid) {
+      this.comunicacionAlertas.mostrarAlerta('Escribe primero los términos para poder guardarlos.');
+    } else {
+      this.comunicacionAlertas.mostrarConfirmacion(`¿Guardar "${this.glosarioForm.controls.terminoO.value}" en el glosario del proyecto?`, 
+        () => {
+          this.insertarEquivalencias();
+        }, () => console.log('cancel'));
+    }
+    
   }
 
   /**
    * Llamada al servicio de glosario para hacer insert efectivo
    */
   insertarEquivalencias() {
-    console.log(typeof this.glosarioForm.controls.terminoO.value)
-    //comprobamos que tienen contenido
-    if(!this.glosarioForm.valid) {
-      this.comunicacionAlertas.mostrarAlerta('Escribe primero los términos para poder guardarlos.');
-    } else {
+    
       this.glosarioService.insertarTraduccion(this.glosarioForm.controls.terminoO.value, this.glosarioForm.controls.terminoM.value, this.proyectoActual.id).then(data => {
       if(data["result"] == "fail") {
         this.comunicacionAlertas.mostrarAlerta('Ha ocurrido un error al intentar guardar la entrada en el glosario. Vuelve a intentarlo pasados unos instantes.')
@@ -313,7 +337,7 @@ export class EditorPage implements OnInit {
         this.glosarioForm.controls.terminoM.reset();
       }
     })
-    }
+    
     
   }
 
@@ -335,7 +359,7 @@ export class EditorPage implements OnInit {
         } else {
           //recargamos datos proyecto
           this.cargarProyectoActual();
-          
+          this.comentarioForm.controls.comentario.reset()
         }
       })
       

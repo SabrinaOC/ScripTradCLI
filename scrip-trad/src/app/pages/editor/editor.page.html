@@ -32,11 +32,11 @@
         <!--Segunda fila para segmento TO-->
           <!-- flecha nav, tabla, flecha nav-->
           <ion-row style="padding-top: 3%;">
-            <ion-col size="1" class="ion-align-self-start ion-text-left"><ion-icon name="chevron-back-outline" button (click)="irASegmentoAnterior();"></ion-icon></ion-col>
+            <ion-col size="1" class="ion-align-self-start ion-text-left"><ion-icon name="chevron-back-outline" id="atras" button (click)="guardarTraduccionSegmento();"></ion-icon></ion-col>
             <ion-col size="10" style="display:flex; justify-content:center; font-weight: bold;">
               TO
             </ion-col>
-            <ion-col size="1" class="ion-align-self-start ion-text-end"><ion-icon name="chevron-forward-outline" button (click)="irASiguienteSegmento();" id="siguiente" ></ion-icon></ion-col>
+            <ion-col size="1" class="ion-align-self-start ion-text-end"><ion-icon name="chevron-forward-outline" button (click)="guardarTraduccionSegmento();" id="siguiente" ></ion-icon></ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
@@ -151,17 +151,19 @@
             <p *ngFor="let c of listaComentarios" class="paddingComentarios">{{c}}</p>
           </ion-col>
           <ion-col size="12">
-            <ion-item>
-              <ion-textarea placeholder="Anadir comentarios" id="textAreaComentarios"></ion-textarea>
-              <ion-icon style="display: flex; justify-self: end;" color="secondary" name="send" class="ion-align-self-center ion-text-lg-center" (click)="confirmCom();"></ion-icon>
-            </ion-item>
+            <form [formGroup]="comentarioForm">
+              <ion-item>
+                <ion-textarea placeholder="Añadir comentarios" id="textAreaComentarios" formControlName="comentario"></ion-textarea>
+                <ion-icon style="display: flex; justify-self: end;" color="secondary" name="send" class="ion-align-self-center ion-text-lg-center" (click)="confirmCom();"></ion-icon>
+              </ion-item>
+            </form>
           </ion-col>
         </ion-row>
 
       <ion-row>
         <!--Col para boton-->
         <ion-col class="ion-align-self-center">
-          <ion-button expand="block" color="success" [disabled]="!isFinished"><span class="ion-hide-lg-down">Generar traducción</span>
+          <ion-button expand="block" color="secondary" [disabled]="!isFinished"><span class="ion-hide-lg-down">Generar traducción</span>
             <ion-icon name="cloud-download-outline" class="ion-padding-horizontal"></ion-icon>
           </ion-button>
         </ion-col>
