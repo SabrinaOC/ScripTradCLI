@@ -21,30 +21,34 @@
         <ion-item>
           <ion-label position="floating">Nombre</ion-label>
           <ion-input type="text" formControlName="nombre" placeholder="Ej. Sabrina Ojea Chapelet"></ion-input>
-          <ng-container *ngIf="registerForm.controls.nombre.errors != undefined">
-            <div class="errorEnValidacion" *ngIf="registerForm.controls.usuario.errors.required">Campo obligatorio
-            </div>
-          </ng-container>
+          <div>
+            <ng-container *ngIf="registerForm.get('nombre').hasError('required') && (registerForm.get('nombre').touched || registerForm.get('nombre').dirty)">
+              Campo obligatorio
+            </ng-container>
+          </div>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">Usuario</ion-label>
           <ion-input type="text" formControlName="usuario" placeholder="Ej. Sab94"></ion-input>
-          <ng-container *ngIf="registerForm.controls.usuario.errors != undefined">
-            <div class="errorEnValidacion" *ngIf="registerForm.controls.usuario.errors.required">Campo obligatorio
-            </div>
-          </ng-container>
+          <div>
+            <ng-container *ngIf="registerForm.get('usuario').hasError('required') && (registerForm.get('usuario').touched || registerForm.get('usuario').dirty)">
+              Campo obligatorio
+            </ng-container>
+          </div>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">Email</ion-label>
           <ion-input type="email" formControlName="email" placeholder="Ej. Sabrina.ojcha@gmail.com"></ion-input>
-          <ng-container *ngIf="registerForm.controls.email.errors != undefined">
-            <div class="errorEnValidacion" *ngIf="registerForm.controls.email.errors.required">Campo obligatorio
-            </div>
-            <div class="errorEnValidacion" *ngIf="registerForm.controls.email.errors.email">Formato email incorrecto
-            </div>
-          </ng-container>
+          <div>
+            <ng-container *ngIf="registerForm.get('email').hasError('required') && (registerForm.get('email').touched || registerForm.get('email').dirty)">
+              Campo obligatorio
+            </ng-container>
+            <ng-container *ngIf="registerForm.get('email').hasError('email') && (registerForm.get('email').touched || registerForm.get('email').dirty)">
+              Formato de correo incorrecto
+            </ng-container>
+          </div>
         </ion-item>
 
         <ion-item>
@@ -53,19 +57,21 @@
             <ion-select-option value="1" selcted>Traductor</ion-select-option>
             <ion-select-option value="2">Gestor</ion-select-option>
           </ion-select>
-        <!--  <ng-container *ngIf="registerForm.controls.idTipoProfesional != undefined">
-            <div class="errorEnValidacion" *ngIf="registerForm.controls.idTipoProfesional.errors.required">Campo obligatorio
-            </div>
-          </ng-container> -->
+          <div>
+            <ng-container *ngIf="registerForm.get('idTipoProfesional').hasError('required') && (registerForm.get('idTipoProfesional').touched || registerForm.get('idTipoProfesional').dirty)">
+              Campo obligatorio
+            </ng-container>
+          </div>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">Contraseña</ion-label>
           <ion-input type="password" formControlName="pass"></ion-input>
-          <ng-container *ngIf="registerForm.controls.pass.errors != undefined">
-            <div class="errorEnValidacion" *ngIf="registerForm.controls.pass.errors.required">Campo obligatorio
-            </div>
-          </ng-container>
+          <div>
+            <ng-container *ngIf="registerForm.get('pass').hasError('required') && (registerForm.get('pass').touched || registerForm.get('pass').dirty)">
+              Campo obligatorio
+            </ng-container>
+          </div>
         </ion-item>
       </form>
       

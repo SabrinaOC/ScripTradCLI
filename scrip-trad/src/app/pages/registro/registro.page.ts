@@ -38,14 +38,17 @@ export class RegistroPage implements OnInit {
     });
     //formulario reactivo
     this.registerForm = new FormGroup({
-      nombre: new FormControl('Rafael Muñoz',[Validators.required]),
-      usuario: new FormControl('Rafa77',[Validators.required]),
-      email: new FormControl('rafa@rafa.com',[Validators.required, Validators.email]),
-      pass: new FormControl('1234', [Validators.required]),
+      nombre: new FormControl('', Validators.required),
+      usuario: new FormControl('', Validators.required),
+      email: new FormControl('',[Validators.required, Validators.email]),
+      pass: new FormControl('', [Validators.required]),
       idTipoProfesional: new FormControl()
     })
   }
 
+  /**
+   * Metodo para llamar a servicio de usuario y registrar uno nuevo
+   */
   registrarUsuario(){
     this.waiting = true;
    
@@ -62,6 +65,9 @@ export class RegistroPage implements OnInit {
       });
   }
 
+  /**
+   * Metodo para volver a login
+   */
   volverLogin(){
     this.navControler.navigateForward("login")
   }

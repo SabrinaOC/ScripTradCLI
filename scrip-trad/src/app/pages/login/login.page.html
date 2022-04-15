@@ -31,19 +31,21 @@
         <ion-item>
           <ion-label position="floating">Usuario</ion-label>
           <ion-input type="text" formControlName="usuario"></ion-input>
-          <ng-container *ngIf="loginForm.controls.usuario.errors != undefined">
-            <div class="errorEnValidacion" *ngIf="loginForm.controls.usuario.errors.required">Campo obligatorio
-            </div>
-          </ng-container>
+          <div>
+            <ng-container *ngIf="loginForm.get('usuario').hasError('required') && (loginForm.get('usuario').touched || loginForm.get('usuario').dirty)">
+              Campo obligatorio
+            </ng-container>
+          </div>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">Contraseña</ion-label>
           <ion-input type="password" formControlName="pass"></ion-input>
-          <ng-container *ngIf="loginForm.controls.pass.errors != undefined">
-            <div class="errorEnValidacion" *ngIf="loginForm.controls.pass.errors.required">Campo obligatorio
-            </div>
-          </ng-container>
+          <div>
+            <ng-container *ngIf="loginForm.get('pass').hasError('required') && (loginForm.get('pass').touched || loginForm.get('pass').dirty)">
+              Campo obligatorio
+            </ng-container>
+          </div>
         </ion-item>
       </form>
       <!--Enlace a enviar email pass-->

@@ -66,14 +66,22 @@ export class CrearProyectoPage implements OnInit {
 
     this.newProjectForm = new FormGroup({
       //aqui ponemos los campos del formulario
-      nombreProyecto: new FormControl('', [Validators.required]), //lo marcamos como campo obligatorio
-      lenguaOrigen: new FormControl,
-      lenguaMeta: new FormControl,
-      trad: new FormControl,
-      descripcion: new FormControl('', [Validators.required]),
-    });
+      nombreProyecto: new FormControl('', Validators.required), //lo marcamos como campo obligatorio
+      lenguaOrigen: new FormControl('', Validators.required),
+      lenguaMeta: new FormControl('', Validators.required),
+      trad: new FormControl('', Validators.required),
+      descripcion: new FormControl('', Validators.required),
+      texto: new FormControl('', Validators.required),
+    },
+    //this.distinctLanguages
+    );
    
     
+  }
+
+  distinctLanguages(frm : FormGroup) {
+    return frm.controls['password'].value === frm.controls['confirmPassword'].value ? null : {'mismatch': true};
+  
   }
   
   /**
@@ -198,7 +206,11 @@ export class CrearProyectoPage implements OnInit {
     //comprobamos que se ha subido un documento con comentarios
     if(!this.hayCommentario) this.textoComm = null;
 
-    this.proyectoService.crearNuevoProyecto(this.newProjectForm.controls.nombreProyecto.value,
+    //comprobamos que se han elegido distintos idiomas para el proyecto, lo / lm
+    if (this.newProjectForm.controls.lenguaOrigen.value == this.newProjectForm.controls.lenguaMeta.value) {
+      this.comunicacionAlertas.mostrarAlerta('Combinación lingüística no válida.');
+    } else {
+      this.proyectoService.crearNuevoProyecto(this.newProjectForm.controls.nombreProyecto.value,
       this.newProjectForm.controls.trad.value, this.usuarioAutenticado.id, this.newProjectForm.controls.lenguaOrigen.value,
       this.newProjectForm.controls.lenguaMeta.value, this.fechaEntrega, this.newProjectForm.controls.descripcion.value,
       this.textoComm).then(data => {
@@ -219,8 +231,7 @@ export class CrearProyectoPage implements OnInit {
           this.comunicacionAlertas.mostrarAlerta("Se ha producido un error al crear el proyecto, por favor, vuelve a intentarlo más tarde.")
         }
       })
-
-    
+    }
 
 
   }
