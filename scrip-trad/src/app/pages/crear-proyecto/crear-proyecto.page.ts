@@ -263,7 +263,7 @@ export class CrearProyectoPage implements OnInit {
   */
   async mostrarMenu(){
   const actionSheet = await this.actionSheetController.create({
-    header: 'Menú',
+    header: this.usuarioAutenticado.email,
   //      cssClass: 'my-custom-class',
     buttons: [{
       text: 'Gestionar cuenta',
