@@ -8,3 +8,20 @@ ion-icon {
     cursor: pointer;
     font-size: 16px;
   }
+
+#imgCard {
+    max-width: 50vw;
+    max-height: 50vh;
+    width: auto;
+    border-radius: 50%;
+    //margin-left: -3%;
+    //margin-bottom: 6%;
+}
+
+#btnImg{
+    max-width: 50vw;
+    max-height: 50vh;
+    //margin-left: 22%;
+    border-radius: 50%;
+   // margin-bottom: 6%;
+}

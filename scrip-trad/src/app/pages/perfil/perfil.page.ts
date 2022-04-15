@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionSheetController, NavController } from '@ionic/angular';
-import { Usuario } from 'src/app/interfaces/interfaces';
+import { TipoUsuario, Usuario } from 'src/app/interfaces/interfaces';
 import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.service';
 import { ComunicacionDeAlertasService } from 'src/app/providers/comunicacion-de-alertas.service';
+import { TipoUsuarioService } from 'src/app/providers/tipo-usuario.service';
 import { UsuarioService } from 'src/app/providers/usuario.service';
 
 @Component({
@@ -12,8 +14,11 @@ import { UsuarioService } from 'src/app/providers/usuario.service';
 })
 export class PerfilPage implements OnInit {
   usuarioAutenticado: Usuario;
+  editForm: FormGroup;
+  tipoUsuario: TipoUsuario;
 
   constructor(private usuarioService: UsuarioService,
+              private tipoUsuarioService: TipoUsuarioService,
               private actionSheetController: ActionSheetController,
               private navController: NavController,
               private comunicacionAlertas: ComunicacionDeAlertasService,
@@ -24,11 +29,87 @@ export class PerfilPage implements OnInit {
     this.usuarioService.getUsuarioAutenticado(true).subscribe(usuAutenticado => {
       if(usuAutenticado.id) {
         this.usuarioAutenticado = usuAutenticado;
+        //una vez tenemos usuario autenticado, cargamos resto de datos
+        this.cargarTipoUsuario();
+        
       } else {
         this.navController.navigateForward('');
       }
     });
+
+    
   }
+
+  /**
+   * Formulario reactivo
+   */
+   formulario(){
+    this.editForm = new FormGroup({
+      nombre: new FormControl(this.usuarioAutenticado.nombre, Validators['required']),
+      usuario: new FormControl(this.usuarioAutenticado.usuario, Validators['required']),
+      tipoUsuario: new FormControl (this.tipoUsuario.descripcion, [Validators.required]),
+      email: new FormControl (this.usuarioAutenticado.email, [Validators.required, Validators.email]),    
+    });
+  }
+
+  /**
+   * 
+   */
+  cargarTipoUsuario() {
+    this.tipoUsuarioService.getTipoUsuario(this.usuarioAutenticado.idTipoUsuario).then(data => {
+      if(data["result"] == "success") {
+        this.tipoUsuario = data["tipoUsuario"];
+        this.formulario();
+      } else {
+        this.comunicacionAlertas.mostrarAlerta("No se ha podido cargar el rol de usuario.")
+      }
+    })
+  }
+
+  /**
+   * Metodo para cambiar imagen usuario de forma instantenea y cambiarla en objeto
+   */
+  seleccionarImagen(){
+     //cojo input file
+     const inputImg: any = document.getElementById('nuevaImg');
+
+     //necesito leer la imagen
+     const reader = new FileReader();
+     reader.readAsArrayBuffer(inputImg.files[0]);
+
+     //disparamos onload y cambiamos imagen de usuario
+     reader.onload = (e : any) => {
+       this.usuarioAutenticado.img = btoa(
+         new Uint8Array(e.target.result).reduce((data, byte) => data + String.fromCharCode(byte), '')
+       );
+     };
+  }
+
+   /**
+     * Metodo para controlar boton registro y proceder a la conexion con spring
+     */
+    editar(){
+     console.log('Nombre: ' , this.editForm.controls.nombre.value)
+     console.log('Usuario: ' , this.editForm.controls.usuario.value)
+     console.log('Email: ' , this.editForm.controls.email.value)
+     
+     //pedimos confirmacion
+     this.comunicacionAlertas.mostrarConfirmacion('¿Confirmar cambios del perfil?', 
+     () => {
+      //llamamos a servicio de usuario
+      this.usuarioService.updateUsuario(this.editForm.controls.nombre.value, this.editForm.controls.email.value, this.editForm.controls.usuario.value).then(data => {
+        if(data["result"] == "success"){
+          this.comunicacionAlertas.mostrarAlerta('Datos de perfil actualizados con éxito.');
+        } else {
+          this.comunicacionAlertas.mostrarAlerta('Se ha producido un error al intentar actualizar los datos de perfil. Vuelve a intentarlo en unos minutos.');
+        }
+      })
+     }, () => {
+       console.log('cancel');
+     })
+      
+        
+    }
 
   /**
    * Metodo para navegar a inicio
@@ -62,7 +143,7 @@ export class PerfilPage implements OnInit {
  */
  async mostrarMenu(){
   const actionSheet = await this.actionSheetController.create({
-    header: 'Menú',
+    header: this.usuarioAutenticado.email,
 //      cssClass: 'my-custom-class',
     buttons: [{
       text: 'Gestionar cuenta',

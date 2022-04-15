@@ -9,7 +9,53 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-content>
+      <div style="display: flex; justify-content:center;">
+    <button mat-button (click)="nuevaImg.click()" id="btnImg">
 
+    <!-- Img usuario -->
+    <ng-template [ngIf]="usuarioAutenticado && usuarioAutenticado.img != null" [ngIfElse]="imgUsuario">
+        <img src="data:image/png;base64,{{usuarioAutenticado.img}}" id="imgCard">
+    </ng-template>
+    <ng-template #imgUsuario>
+        <img  src="assets/images/genericUser.jpg" id="imgCard">
+    </ng-template>
+    </button>
+  </div>
+    
+    <input hidden (change)="seleccionarImagen()" #nuevaImg type="file" id="file" id="nuevaImg">
+    
+    
+      <form [formGroup]="editForm" *ngIf="this.editForm">
+          <!-- Nombre -->
+          <ion-item>
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input type="text" formControlName="nombre"></ion-input>
+          </ion-item>
+
+          <!-- Usuario -->
+          <ion-item>
+            <ion-label position="floating">Usuario</ion-label>
+            <ion-input type="text" formControlName="usuario"></ion-input>
+          </ion-item>
+
+          <!-- Email -->
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="text" formControlName="email"></ion-input>
+          </ion-item>
+
+          <!-- Tipo usuario -->
+          <ion-item *ngIf="tipoUsuario">
+            <ion-label position="floating">Rol</ion-label>
+            <ion-input type="text" readonly disabled formControlName="tipoUsuario"></ion-input>
+          </ion-item>
+          
+          <ion-button color="success" expand="block" [disabled]="editForm.invalid" (click)="editar();">Guardar cambios</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
 
 <!-- Footer-->

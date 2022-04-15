@@ -49,6 +49,21 @@ export class UsuarioService {
 
   }
 
+  /**
+   * 
+   */
+  updateUsuario (nombre: string, email: string, usuario: string) : Promise<any> { 
+   var jsonObject = {
+     nombre: nombre,
+     email: email,
+     usuario: usuario
+   };
+
+   // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.
+   return this.http.post<any>('/usuario/update', jsonObject).toPromise();
+
+ }
+
 
     /**
    * Obtiene los datos de un usuario a partir de su id y da la opción de traer, o no, su imagen
@@ -81,7 +96,11 @@ export class UsuarioService {
   }
 
 
-
+  /**
+   * 
+   * @param idUsuario 
+   * @returns 
+   */
   getUsuarioFromCache(idUsuario: number) {
     for (var i = 0; i < this.cacheUsuarios.length; i++) {
       if (idUsuario == this.cacheUsuarios[i].id) {
