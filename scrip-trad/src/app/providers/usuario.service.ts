@@ -52,11 +52,12 @@ export class UsuarioService {
   /**
    * 
    */
-  updateUsuario (nombre: string, email: string, usuario: string) : Promise<any> { 
+  updateUsuario (nombre: string, email: string, usuario: string, img: string) : Promise<any> { 
    var jsonObject = {
      nombre: nombre,
      email: email,
-     usuario: usuario
+     usuario: usuario,
+     img: img
    };
 
    // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.

@@ -97,7 +97,7 @@ export class PerfilPage implements OnInit {
      this.comunicacionAlertas.mostrarConfirmacion('¿Confirmar cambios del perfil?', 
      () => {
       //llamamos a servicio de usuario
-      this.usuarioService.updateUsuario(this.editForm.controls.nombre.value, this.editForm.controls.email.value, this.editForm.controls.usuario.value).then(data => {
+      this.usuarioService.updateUsuario(this.editForm.controls.nombre.value, this.editForm.controls.email.value, this.editForm.controls.usuario.value, this.usuarioAutenticado.img).then(data => {
         if(data["result"] == "success"){
           this.comunicacionAlertas.mostrarAlerta('Datos de perfil actualizados con éxito.');
         } else {
