@@ -193,7 +193,7 @@ export class CrearProyectoPage implements OnInit {
    * Método para enviar datos de nuevo proyecto a back
    */
   crearProyecto(){
-    console.log("Título: " + this.newProjectForm.controls.nombreProyecto.value)
+    /*console.log("Título: " + this.newProjectForm.controls.nombreProyecto.value)
     console.log("Traductor: " + this.newProjectForm.controls.trad.value)
     console.log("Gestor: " + this.usuarioAutenticado.id)
     console.log("LO: " + this.newProjectForm.controls.lenguaOrigen.value)
@@ -201,7 +201,7 @@ export class CrearProyectoPage implements OnInit {
     console.log("Fecha de entrega: " + this.fechaEntrega)
     console.log("Descripción: " + this.newProjectForm.controls.descripcion.value)
     console.log("Comentarios: " + this.textoComm)
-    console.log("Texto LO: " + this.textoDocumento)
+    console.log("Texto LO: " + this.textoDocumento)*/
 
     //comprobamos que se ha subido un documento con comentarios
     if(!this.hayCommentario) this.textoComm = null;

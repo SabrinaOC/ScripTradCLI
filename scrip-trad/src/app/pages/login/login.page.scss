@@ -1,4 +1,41 @@
-#contra{
+#contra {
     color: rgb(0, 60, 255);
     text-decoration: underline
+}
+
+.iconoOcultarPass {
+    font-size: 16px;
+    padding-top: 2vh;
+}
+
+ion-toolbar {
+    --background: #dad3bcc7;//#c43e50;//#910719;
+    color: #801c2a;
+}
+
+ion-col {
+    padding-inline-end: 0;
+    padding-inline-start: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 3vh;
+}
+
+ion-card {
+    background-color: rgba(245, 245, 245, 0.329);
+}
+
+
+
+ion-item {
+    //--ion-item-background: rgba(245, 245, 245, 0.452);
+    --ion-item-background: transparent;
+}
+
+ion-grid {
+    height: 95vh;
+    background-image: url('../../../assets/img/bgTranslator.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
 }

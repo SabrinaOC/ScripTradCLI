@@ -17,6 +17,7 @@ export class LoginPage implements OnInit {
   waiting: boolean = false;
   loginForm: FormGroup; //para comprobaciones formulario html
   usu: Usuario;
+  isHidden: boolean;
   /**
    * 
    * @param usuarioService 
@@ -47,6 +48,9 @@ export class LoginPage implements OnInit {
       usuario: new FormControl('Sab94', Validators.required), //lo marcamos como campo obligatorio
       pass: new FormControl('sabrina', Validators.required)
     });
+
+    //iniciamos boolean para ocultar o mostrar pass
+    this.isHidden = true;
   }
 
 
