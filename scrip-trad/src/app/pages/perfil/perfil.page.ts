@@ -89,9 +89,6 @@ export class PerfilPage implements OnInit {
      * Metodo para controlar boton registro y proceder a la conexion con spring
      */
     editar(){
-     console.log('Nombre: ' , this.editForm.controls.nombre.value)
-     console.log('Usuario: ' , this.editForm.controls.usuario.value)
-     console.log('Email: ' , this.editForm.controls.email.value)
      
      //pedimos confirmacion
      this.comunicacionAlertas.mostrarConfirmacion('¿Confirmar cambios del perfil?', 
@@ -99,7 +96,10 @@ export class PerfilPage implements OnInit {
       //llamamos a servicio de usuario
       this.usuarioService.updateUsuario(this.editForm.controls.nombre.value, this.editForm.controls.email.value, this.editForm.controls.usuario.value, this.usuarioAutenticado.img).then(data => {
         if(data["result"] == "success"){
-          this.comunicacionAlertas.mostrarAlerta('Datos de perfil actualizados con éxito.');
+          this.comunicacionAlertas.mostrarAlertaAccionOk('Datos de perfil actualizados con éxito.',
+          ()=> {
+            this.irInicio();
+          });
         } else {
           this.comunicacionAlertas.mostrarAlerta('Se ha producido un error al intentar actualizar los datos de perfil. Vuelve a intentarlo en unos minutos.');
         }

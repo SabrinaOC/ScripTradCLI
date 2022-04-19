@@ -66,7 +66,7 @@ export class CambiarPasswordPage implements OnInit {
           } else {
             this.comunicacionAlertas.mostrarAlertaAccionOk('Contraseña actualizada con éxito.', 
             ()=>{
-              this.navController.navigateForward('');
+              this.irInicio();
             })
           }
         })
