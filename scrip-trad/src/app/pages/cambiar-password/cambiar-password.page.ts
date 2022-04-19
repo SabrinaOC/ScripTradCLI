@@ -49,6 +49,33 @@ export class CambiarPasswordPage implements OnInit {
   }
 
   /**
+   * Metodo para actualizar contrasenna
+   */
+  update() {
+    //primero comprobamos que la contraseña actual es correcta
+    this.usuarioService.checkCurrentPass(this.passForm.controls.oldPass.value).then(data => {
+      if(data["result"] == "fail") {
+        this.comunicacionAlertas.mostrarAlertaAccionOk('La contraseña actual intorudica no es la correcta.',
+        ()=> {
+          this.passForm.reset();
+        })
+      } else { //si no ha dado error significa que coincide y podemos proceder a cambiarla
+        this.usuarioService.updatePass(this.passForm.controls.newPass.value).then(data => {
+          if(data["result"] == "fail") {
+            this.comunicacionAlertas.mostrarAlerta('Ha sucedido un error al intentar actualizar la contraseña. Vuelve a intentarlo en unos minutos.')
+          } else {
+            this.comunicacionAlertas.mostrarAlertaAccionOk('Contraseña actualizada con éxito.', 
+            ()=>{
+              this.navController.navigateForward('');
+            })
+          }
+        })
+      }
+    })
+
+  }
+
+  /**
    * Metodo para navegar a inicio
    */
    irInicio() {

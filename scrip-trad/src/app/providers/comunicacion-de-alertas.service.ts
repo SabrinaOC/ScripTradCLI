@@ -40,6 +40,27 @@ export class ComunicacionDeAlertasService {
     await alert.present();
   }
 
+   /**
+   * Método que permite mostrar, en Ionic, un cuadro de diálogo de alerta.
+   * @param infoText 
+   */
+    async mostrarAlertaAccionOk(infoText: string, funcion: Function) {
+      const alert = await this.alertController.create({
+  //      cssClass: 'my-custom-class',
+  //      header: 'Alert',
+  //      subHeader: 'Subtitle',
+        message: infoText,
+        buttons: [{ text: 'Aceptar',
+        
+        handler: () => { // Cuando se pulsa este botón, se llama a la función de "cancel"
+          funcion();
+        }
+      }]
+      });
+  
+      await alert.present();
+    }
+
 
   /**
    * Método para mostrar un pequeño diálogo de carga, una animación

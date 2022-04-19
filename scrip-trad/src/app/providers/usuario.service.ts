@@ -51,6 +51,11 @@ export class UsuarioService {
 
   /**
    * 
+   * @param nombre 
+   * @param email 
+   * @param usuario 
+   * @param img 
+   * @returns 
    */
   updateUsuario (nombre: string, email: string, usuario: string, img: string) : Promise<any> { 
    var jsonObject = {
@@ -64,6 +69,38 @@ export class UsuarioService {
    return this.http.post<any>('/usuario/update', jsonObject).toPromise();
 
  }
+
+ /**
+  * Metodo para comprobar si la pass actual es la correcta
+  * @param pass 
+  * @returns 
+  */
+ checkCurrentPass (pass: string) : Promise<any> { 
+  const md5 = new Md5(); // Creo un objeto que permite codificar en MD5
+  var jsonObject = {
+    password: md5.appendStr(pass).end().toString(),
+  };
+
+  // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.
+  return this.http.post<any>('/usuario/ratificaPassword', jsonObject).toPromise();
+
+}
+
+/**
+  * Metodo para comprobar si la pass actual es la correcta
+  * @param pass 
+  * @returns 
+  */
+ updatePass (pass: string) : Promise<any> { 
+  const md5 = new Md5(); // Creo un objeto que permite codificar en MD5
+  var jsonObject = {
+    password: md5.appendStr(pass).end().toString(),
+  };
+
+  // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.
+  return this.http.post<any>('/usuario/modificaPassword', jsonObject).toPromise();
+
+}
 
 
     /**
