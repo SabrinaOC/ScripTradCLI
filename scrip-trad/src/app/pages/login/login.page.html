@@ -53,15 +53,19 @@
                 </div>
               </ion-item>
             </form>
-            <!--Enlace a enviar email pass-->
+            <!-- Opciones con item ->            
+            <!-Enlace a enviar email pass->
             <ion-item
               button
               (click)="passForgotten()"
-              style="color: rgb(0, 60, 255); text-decoration: underline"
+              
+              class="linkFontSize"
             >
               <ion-label>¿Has olvidado tu contraseña?</ion-label>
+              <!- style="window.innerWidth > '600px' ? font-size = '15px' : font-size = '12px'" ->
             </ion-item>
-            <!--Enlace a registro-->
+
+            <!-Enlace a registro->
             <ion-item
               button
               (click)="irRegistro()"
@@ -69,25 +73,52 @@
             >
               <ion-label>Registrarme</ion-label>
             </ion-item>
+            <!- Fin opciones con item -->
+
+            <!-- Opciones con a -->
+            <div class="ion-text-center ion-margin-top">
+                <a
+                button
+                (click)="passForgotten();"
+                
+                class="linkFontSize "
+              >
+                ¿Has olvidado tu contraseña?
+                
+              </a></div>
+              <div class="ion-text-center ion-margin-bottom">
+              <a
+                button
+                (click)="irRegistro();"
+                
+                class="linkFontSize "
+              >
+              Registrarme
+                
+              </a>
+            </div>
+            
+            <!-- Fin opciones con a -->
             <!--Boton acceso-->
             <ion-button
               [disabled]="waiting || loginForm.invalid"
               (click)="autenticaUsuario()"
               expand="block"
               color="success"
+              class="fontBtn"
               >Acceder <ion-spinner *ngIf="waiting"></ion-spinner>
             </ion-button>
             <!-- <ion-item-divider></ion-item-divider> -->
 
             <!--Botones de inicio con Google y Facebook-->
-            <ion-button expand="block" color="tertiary" style="margin-top: 20px"
+            <ion-button expand="block" color="tertiary" style="margin-top: 20px" class="fontBtn"
               ><ion-icon
                 name="logo-facebook"
                 style="padding-right: 5px"
               ></ion-icon
               >Continuar con Facebook</ion-button
             >
-            <ion-button expand="block" color="primary" style="margin-top: 10px"
+            <ion-button expand="block" color="primary" style="margin-top: 10px" class="fontBtn"
               ><ion-icon
                 name="logo-google"
                 style="padding-right: 5px"

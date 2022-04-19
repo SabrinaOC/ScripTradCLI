@@ -6,6 +6,11 @@
 .iconoOcultarPass {
     font-size: 16px;
     padding-top: 2vh;
+    cursor: pointer;
+}
+
+.fontBtn {
+    font-size: small;
 }
 
 ion-toolbar {
@@ -38,4 +43,15 @@ ion-grid {
     background-repeat: no-repeat;
     background-size: cover;
 
+}
+
+.linkFontSize {
+    color: rgb(0, 60, 255); 
+    text-decoration: underline;
+    font-size: small;
+    cursor: pointer;
+}
+
+a:hover{
+    color: rgb(9, 43, 156);
 }
