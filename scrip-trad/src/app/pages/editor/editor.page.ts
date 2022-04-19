@@ -382,31 +382,37 @@ export class EditorPage implements OnInit {
     });
   }
   
-  /**
-   * Metodo para mostrar menu de opciones con action sheet al clicar sobre la imagen de usuario
-   */
-   async mostrarMenu(){
-    const actionSheet = await this.actionSheetController.create({
-      header: this.usuarioAutenticado.email,
-  //      cssClass: 'my-custom-class',
-      buttons: [{
-        text: 'Gestionar cuenta',
-        icon: 'settings',
-        handler: () => {
-          this.navController.navigateForward('/perfil');
-        }
-      }, {
-        text: 'Cerrar sesión',
-        icon: 'close',
-        role: 'cancel',
-        handler: () => {
-          this.cerrarSesion();
-        }
-      }]
-    });
-    await actionSheet.present();
-  
-  }
+   /**
+ * Metodo para mostrar menu de opciones con action sheet al clicar sobre la imagen de usuario
+ */
+ async mostrarMenu(){
+  const actionSheet = await this.actionSheetController.create({
+    header: this.usuarioAutenticado.email,
+    //cssClass: 'my-action-sheet-class',
+    buttons: [{
+      text: 'Perfil',
+      icon: 'person-outline',
+      handler: () => {
+        this.navController.navigateForward('/perfil');
+      }
+    }, {
+      text: 'Cambiar contraseña',
+      icon: 'key-outline',
+      handler: () => {
+        this.navController.navigateForward('/cambiar-password');
+      }
+    }, {
+      text: 'Cerrar sesión',
+      icon: 'close',
+      role: 'cancel',
+      handler: () => {
+        this.cerrarSesion();
+      }
+    }]
+  });
+  await actionSheet.present();
+
+}
   
 /**
  * Metodo para ir a pantalla de inicio de vista traductor

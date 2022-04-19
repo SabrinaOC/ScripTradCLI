@@ -269,18 +269,24 @@ export class CrearProyectoPage implements OnInit {
   }
 
 
-  /**
-  * Metodo para mostrar menu de opciones con action sheet al clicar sobre la imagen de usuario
-  */
-  async mostrarMenu(){
+   /**
+ * Metodo para mostrar menu de opciones con action sheet al clicar sobre la imagen de usuario
+ */
+ async mostrarMenu(){
   const actionSheet = await this.actionSheetController.create({
     header: this.usuarioAutenticado.email,
-  //      cssClass: 'my-custom-class',
+    //cssClass: 'my-action-sheet-class',
     buttons: [{
-      text: 'Gestionar cuenta',
-      icon: 'settings',
+      text: 'Perfil',
+      icon: 'person-outline',
       handler: () => {
         this.navController.navigateForward('/perfil');
+      }
+    }, {
+      text: 'Cambiar contraseña',
+      icon: 'key-outline',
+      handler: () => {
+        this.navController.navigateForward('/cambiar-password');
       }
     }, {
       text: 'Cerrar sesión',
@@ -293,5 +299,5 @@ export class CrearProyectoPage implements OnInit {
   });
   await actionSheet.present();
 
-  }
+}
 }
