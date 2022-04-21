@@ -102,6 +102,23 @@ export class UsuarioService {
 
 }
 
+/**
+ * Metodo para reestablecer pass con token temporal
+ * @param token 
+ * @param pass 
+ * @returns 
+ */
+  resetPass (token: string, pass: string) : Promise<any> {
+    const md5 = new Md5(); // Creo un objeto que permite codificar en MD5
+    var jsonObject = {
+      password: md5.appendStr(pass).end().toString(),
+      resetPassToken: token
+    };
+  
+    // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.
+    return this.http.post<any>('/usuario/resetPassword', jsonObject).toPromise();
+  }
+
 
     /**
    * Obtiene los datos de un usuario a partir de su id y da la opción de traer, o no, su imagen

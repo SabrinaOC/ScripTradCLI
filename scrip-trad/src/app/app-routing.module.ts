@@ -37,13 +37,18 @@ const routes: Routes = [
   {
     path: 'editor/:id',
     loadChildren: () => import('./pages/editor/editor.module').then( m => m.EditorPageModule)
-  },  {
+  },
+  {
     path: 'perfil',
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
   {
     path: 'cambiar-password',
     loadChildren: () => import('./pages/cambiar-password/cambiar-password.module').then( m => m.CambiarPasswordPageModule)
+  },
+  {
+    path: 'reset-password/:token',
+    loadChildren: () => import('./pages/reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
   }
 
 ];
