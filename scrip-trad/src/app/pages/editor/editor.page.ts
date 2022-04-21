@@ -11,6 +11,7 @@ import { ProyectoService } from 'src/app/providers/proyecto.service';
 import axios from 'axios';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { GlosarioService } from 'src/app/providers/glosario.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-editor',
@@ -21,6 +22,7 @@ export class EditorPage implements OnInit {
 
   idPr: string;
   segmentos: Segmento [] = [];
+  sementosFinal: Segmento [] = [];
   segmentoActual: Segmento;
   porcentaje: number;
   proyectoActual: Proyecto;
@@ -366,6 +368,44 @@ export class EditorPage implements OnInit {
     
   }
 
+  /**
+   * Metodo para general traduccion del documento completo
+   */
+  obtenerTraduccionCompleta() {
+    console.log('TRADUCCION')
+    let texto : string = '';
+    
+    //cargamos todos los segmentos del proyecto
+    this.cargarSegmentosParaTraduccionFinal();
+    
+
+
+    this.sementosFinal.forEach(s => {
+      console.log(s.textoLM);
+      texto += s.textoLM + ' ';
+    });
+    
+    var blob = new Blob([texto],
+                { type: "text/plain;charset=utf-8" });
+    
+     saveAs(blob, `${this.proyectoActual.titulo}.txt`)
+    
+
+  }
+
+  cargarSegmentosParaTraduccionFinal() {
+    this.segmentoService.getAllSegmentosProyecto(parseInt(this.idPr)).subscribe(data => {
+      
+      if(data["result"] == "fail"){
+        this.comunicacionAlertas.mostrarAlerta("No se ha podido cargar la traducción.")
+      } else {
+        data.segmentos.forEach(s => {
+          this.sementosFinal.push(s);
+        });
+      }
+    })
+  }
+
 
  /**
    * Cierra la sesión de usuario, se llega aquí tras la correspondiente opción del menú lateral
@@ -427,4 +467,6 @@ export class EditorPage implements OnInit {
 
 
 }
+
+
 

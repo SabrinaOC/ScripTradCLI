@@ -163,7 +163,7 @@
       <ion-row>
         <!--Col para boton-->
         <ion-col class="ion-align-self-center">
-          <ion-button expand="block" color="secondary" [disabled]="!isFinished"><span class="ion-hide-lg-down">Generar traducción</span>
+          <ion-button expand="block" color="secondary" [disabled]="!isFinished" (click)="obtenerTraduccionCompleta();"><span class="ion-hide-lg-down">Generar traducción</span>
             <ion-icon name="cloud-download-outline" class="ion-padding-horizontal"></ion-icon>
           </ion-button>
         </ion-col>

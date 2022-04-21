@@ -59,6 +59,7 @@ export interface Segmento {
     id: number;
     textoLO: string;
     textoLM: string;
+    cod: number
 }
 
 export interface Glosario {
