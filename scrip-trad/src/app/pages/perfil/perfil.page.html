@@ -1,5 +1,6 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="cabecera ion-text-center">
+    <ion-icon name="home-outline" slot="start" class="inicio" (click)="irInicio();"></ion-icon>
     <ion-title>Perfil</ion-title>
     <!--Imagen de usuario logueado-->
     <ion-avatar slot="end" id="usu" button (click)="mostrarMenu()">
@@ -55,7 +56,7 @@
             <ion-input type="text" readonly disabled formControlName="tipoUsuario"></ion-input>
           </ion-item>
           
-          <ion-button class="btnColor" expand="block" [disabled]="editForm.invalid" (click)="editar();">Guardar cambios</ion-button>
+          <ion-button color="success" expand="block" [disabled]="editForm.invalid" (click)="editar();">Guardar cambios</ion-button>
       </form>
     </ion-card-content>
   </ion-card>
@@ -64,10 +65,10 @@
 </ion-grid>
 </ion-content>
 
-<!-- Footer-->
+<!-- Footer->
 <ion-footer>
   <ion-toolbar >
-    <!-- Gestor opciones -->
+    <!- Gestor opciones ->
     <ion-tabs >
       <ion-tab-bar slot="bottom" class="ion-justify-content-around">
         
@@ -78,9 +79,9 @@
       
       </ion-tab-bar>
     </ion-tabs>
-    <!-- Fin gestor opciones -->
+    <!- Fin gestor opciones 
 
     
   </ion-toolbar>
 
-</ion-footer>
+</ion-footer>-->

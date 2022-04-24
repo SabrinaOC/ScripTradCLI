@@ -1,10 +1,41 @@
 #usu {
     max-width: 40px;
     max-height: 40px;
-    margin: 10px;
+    margin-right: 5vw;
 }
 
 ion-icon {
     cursor: pointer;
     font-size: 16px;
-  }
+}
+
+.cabecera {
+    --background: #cc6b41;
+    color: white;
+}
+
+.inicio {
+   margin-left: 5vw;
+   font-size: 24px;
+}
+
+#note {
+    font-size: smaller; 
+    
+}
+
+.traductores {
+    width: 35px;
+    height: 35px;
+}
+
+@media (min-width: 992px) {
+    #note {
+        font-size: small; 
+        margin-right: 5vw;
+    }
+
+    ion-text {
+        font-size: medium;
+    }
+}

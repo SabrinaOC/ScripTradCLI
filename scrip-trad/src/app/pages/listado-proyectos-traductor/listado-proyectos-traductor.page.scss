@@ -1,12 +1,13 @@
 ion-avatar {
     max-width: 40px;
     max-height: 40px;
-    margin: 10px;
+    margin-right: 5vw;
     
 }
 
 .cabecera {
-    --background: rgba(171, 137, 90, 0.837);//#c43e50;//#910719;
+   // --background: rgba(171, 137, 90, 0.837);//#c43e50;//#910719;
+    --background: #cc6b41;
     color: white//#801c2a;
 }
 
@@ -15,13 +16,56 @@ ion-icon {
     font-size: 16px;
 }
 
+#iconoEdit {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: 2vw;
+    margin-right: 2vw;
+}
+
 ion-thumbnail {
-    max-width: 40px;
-    max-height: 25px;
+    max-width: 35px;
+    max-height: 20px;
 }
 
 .imgIdiomas {
     display: block; 
     border: none;
     border-style: none !important;
+}
+
+.inicio {
+    margin-left: 5vw;
+    font-size: 24px;
+    color: transparent;
+ }
+
+#note {
+    font-size: small;
+}
+
+.infoSize {
+    font-size: smaller;
+}
+
+@media (min-width: 992px) {
+    #note {
+        font-size: medium; 
+        margin-right: 5vw;
+    }
+
+    .infoSize {
+        font-size: medium;
+    }
+
+    #iconoEdit {
+        width: 24px;
+        height: 24px;
+    }
+
+    ion-thumbnail {
+        max-width: 40px;
+        max-height: 25px;
+    }
 }

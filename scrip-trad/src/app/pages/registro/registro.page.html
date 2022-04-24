@@ -1,85 +1,120 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      <ion-icon button (click)="volverLogin()" name="arrow-back-outline" style="padding-right: 5px; color: black;"></ion-icon>
-      Scriptrad</ion-title>
+  <ion-toolbar class="cabecera ion-text-center">
+    
+    <ion-title button (click)="volverLogin();">
+      
+      ScripTrad</ion-title
+    >
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-lg="6">
+        <ion-card class="ion-justify-content-center">
+          <!--background-color: #EBECED;-->
 
-  <ion-card class="ion-justify-content-center"> <!--background-color: #EBECED;-->
+          <ion-card-header>
+            <ion-card-title text-center> Registro </ion-card-title>
+          </ion-card-header>
 
-    <ion-card-header>
-      <ion-card-title text-center>
-        Registro
-      </ion-card-title>
-    </ion-card-header>
+          <ion-card-content>
+            <form [formGroup]="registerForm">
+              <ion-item>
+                <ion-label position="floating">Nombre</ion-label>
+                <ion-input
+                  type="text"
+                  formControlName="nombre"
+                  placeholder="Ej. Sabrina Ojea Chapelet"
+                ></ion-input>
+                <div>
+                  <ng-container
+                    *ngIf="registerForm.get('nombre').hasError('required') && (registerForm.get('nombre').touched || registerForm.get('nombre').dirty)"
+                  >
+                    Campo obligatorio
+                  </ng-container>
+                </div>
+              </ion-item>
 
-    <ion-card-content>
-      <form [formGroup]="registerForm">
-        <ion-item>
-          <ion-label position="floating">Nombre</ion-label>
-          <ion-input type="text" formControlName="nombre" placeholder="Ej. Sabrina Ojea Chapelet"></ion-input>
-          <div>
-            <ng-container *ngIf="registerForm.get('nombre').hasError('required') && (registerForm.get('nombre').touched || registerForm.get('nombre').dirty)">
-              Campo obligatorio
-            </ng-container>
-          </div>
-        </ion-item>
+              <ion-item>
+                <ion-label position="floating">Usuario</ion-label>
+                <ion-input
+                  type="text"
+                  formControlName="usuario"
+                  placeholder="Ej. Sab94"
+                ></ion-input>
+                <div>
+                  <ng-container
+                    *ngIf="registerForm.get('usuario').hasError('required') && (registerForm.get('usuario').touched || registerForm.get('usuario').dirty)"
+                  >
+                    Campo obligatorio
+                  </ng-container>
+                </div>
+              </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Usuario</ion-label>
-          <ion-input type="text" formControlName="usuario" placeholder="Ej. Sab94"></ion-input>
-          <div>
-            <ng-container *ngIf="registerForm.get('usuario').hasError('required') && (registerForm.get('usuario').touched || registerForm.get('usuario').dirty)">
-              Campo obligatorio
-            </ng-container>
-          </div>
-        </ion-item>
+              <ion-item>
+                <ion-label position="floating">Email</ion-label>
+                <ion-input
+                  type="email"
+                  formControlName="email"
+                  placeholder="Ej. Sabrina.ojcha@gmail.com"
+                ></ion-input>
+                <div>
+                  <ng-container
+                    *ngIf="registerForm.get('email').hasError('required') && (registerForm.get('email').touched || registerForm.get('email').dirty)"
+                  >
+                    Campo obligatorio
+                  </ng-container>
+                  <ng-container
+                    *ngIf="registerForm.get('email').hasError('email') && (registerForm.get('email').touched || registerForm.get('email').dirty)"
+                  >
+                    Formato de correo incorrecto
+                  </ng-container>
+                </div>
+              </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Email</ion-label>
-          <ion-input type="email" formControlName="email" placeholder="Ej. Sabrina.ojcha@gmail.com"></ion-input>
-          <div>
-            <ng-container *ngIf="registerForm.get('email').hasError('required') && (registerForm.get('email').touched || registerForm.get('email').dirty)">
-              Campo obligatorio
-            </ng-container>
-            <ng-container *ngIf="registerForm.get('email').hasError('email') && (registerForm.get('email').touched || registerForm.get('email').dirty)">
-              Formato de correo incorrecto
-            </ng-container>
-          </div>
-        </ion-item>
+              <ion-item>
+                <ion-label>Rol</ion-label>
+                <ion-select value="rol" formControlName="idTipoProfesional">
+                  <ion-select-option value="1" selcted
+                    >Traductor</ion-select-option
+                  >
+                  <ion-select-option value="2">Gestor</ion-select-option>
+                </ion-select>
+                <div>
+                  <ng-container
+                    *ngIf="registerForm.get('idTipoProfesional').hasError('required') && (registerForm.get('idTipoProfesional').touched || registerForm.get('idTipoProfesional').dirty)"
+                  >
+                    Campo obligatorio
+                  </ng-container>
+                </div>
+              </ion-item>
 
-        <ion-item>
-          <ion-label>Rol</ion-label>
-          <ion-select value="rol"  formControlName="idTipoProfesional">
-            <ion-select-option value="1" selcted>Traductor</ion-select-option>
-            <ion-select-option value="2">Gestor</ion-select-option>
-          </ion-select>
-          <div>
-            <ng-container *ngIf="registerForm.get('idTipoProfesional').hasError('required') && (registerForm.get('idTipoProfesional').touched || registerForm.get('idTipoProfesional').dirty)">
-              Campo obligatorio
-            </ng-container>
-          </div>
-        </ion-item>
+              <ion-item>
+                <ion-label position="floating">Contraseña</ion-label>
+                <ion-input type="password" formControlName="pass"></ion-input>
+                <div>
+                  <ng-container
+                    *ngIf="registerForm.get('pass').hasError('required') && (registerForm.get('pass').touched || registerForm.get('pass').dirty)"
+                  >
+                    Campo obligatorio
+                  </ng-container>
+                </div>
+              </ion-item>
+            </form>
 
-        <ion-item>
-          <ion-label position="floating">Contraseña</ion-label>
-          <ion-input type="password" formControlName="pass"></ion-input>
-          <div>
-            <ng-container *ngIf="registerForm.get('pass').hasError('required') && (registerForm.get('pass').touched || registerForm.get('pass').dirty)">
-              Campo obligatorio
-            </ng-container>
-          </div>
-        </ion-item>
-      </form>
-      
-      <!--Boton registro -->
-      <ion-button [disabled]="waiting || registerForm.invalid" (click)="registrarUsuario();" expand="block" color="primary">Registrarme<ion-spinner *ngIf="waiting"
-          ></ion-spinner>
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
-
+            <!--Boton registro -->
+            <ion-button
+              [disabled]="waiting || registerForm.invalid"
+              (click)="registrarUsuario();"
+              expand="block"
+              color="success"
+              >Registrarme<ion-spinner *ngIf="waiting"></ion-spinner>
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

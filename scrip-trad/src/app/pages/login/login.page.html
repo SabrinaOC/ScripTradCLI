@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="ion-text-center">
     <ion-title>ScripTrad </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,7 +14,7 @@
           </div>
 
           <ion-card-header>
-            <ion-card-title text-center> Login </ion-card-title>
+            <ion-card-title> Login </ion-card-title>
           </ion-card-header>
 
           <ion-card-content>
@@ -53,27 +53,6 @@
                 </div>
               </ion-item>
             </form>
-            <!-- Opciones con item ->            
-            <!-Enlace a enviar email pass->
-            <ion-item
-              button
-              (click)="passForgotten()"
-              
-              class="linkFontSize"
-            >
-              <ion-label>¿Has olvidado tu contraseña?</ion-label>
-              <!- style="window.innerWidth > '600px' ? font-size = '15px' : font-size = '12px'" ->
-            </ion-item>
-
-            <!-Enlace a registro->
-            <ion-item
-              button
-              (click)="irRegistro()"
-              style="color: rgb(0, 60, 255); text-decoration: underline"
-            >
-              <ion-label>Registrarme</ion-label>
-            </ion-item>
-            <!- Fin opciones con item -->
 
             <!-- Opciones con a -->
             <div class="ion-text-center ion-margin-top">
@@ -110,18 +89,18 @@
             </ion-button>
             <!-- <ion-item-divider></ion-item-divider> -->
 
-            <!--Botones de inicio con Google y Facebook-->
+            <!--Botones de inicio con Google y Facebook
             <ion-button expand="block" color="tertiary" style="margin-top: 20px" class="fontBtn"
               ><ion-icon
                 name="logo-facebook"
                 style="padding-right: 5px"
               ></ion-icon
               >Continuar con Facebook</ion-button
-            >
-            <ion-button expand="block" color="primary" style="margin-top: 10px" class="fontBtn"
+            >-->
+            <ion-button expand="block" class="fontBtn"
               ><ion-icon
                 name="logo-google"
-                style="padding-right: 5px"
+                style="padding-right: 5px;"
               ></ion-icon
               >Continuar con Google</ion-button
             >

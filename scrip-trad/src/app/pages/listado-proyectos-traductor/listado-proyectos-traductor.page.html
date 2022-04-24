@@ -1,5 +1,6 @@
 <ion-header>
-  <ion-toolbar class="cabecer">
+  <ion-toolbar class="cabecera ion-text-center">
+    <ion-icon name="add" slot="start" class="inicio"></ion-icon>
     <ion-title>Encargos</ion-title>
     <!--Imagen de usuario logueado-->
     <ion-avatar slot="end" id="usu" button (click)="mostrarMenu()">
@@ -33,7 +34,7 @@
   <ion-item *ngFor="let proyecto of proyectos" >
     <!--Imagenes de los idiomas involucrados en la traduccion-->
     <div class="ion-wrap" >
-      <ion-thumbnail slot="start" style="margin-bottom: 1%;">
+      <ion-thumbnail slot="start" style="margin-right: 2vw;">
         <img src="{{ proyecto.lo.img != null ? 'data:image/png;base64,' + proyecto.lo.img : 'assets/img/genericUser.jpg'}}" alt="">
       </ion-thumbnail>
       
@@ -43,23 +44,33 @@
       </ion-thumbnail>
     </div>
     
-    <ion-label id="label" button (click)="mostrarInformacion(proyecto)">
-      <ion-text >
+    <ion-label class="infoSize" button (click)="mostrarInformacion(proyecto)">
+      <ion-text>
         <ion-label>{{proyecto.titulo}}</ion-label>
         <ion-label style="color: rgba(46, 46, 48, 0.788); font-weight: bold;">Info</ion-label>
         
       </ion-text>
   </ion-label>
-  <ion-row class="ion-text-center">
-      <!-- Utilizo un pipe de tipo date para la fecha del mensaje -->
+  <div class="ion-text-center">
+    <!-- Utilizo un pipe de tipo date para la fecha del mensaje -->
+    
+      <ion-note id="note" >{{proyecto.fechaEntrega | date:'dd/MM/YY'}}</ion-note>
+  
+      <!--<ion-icon name="pencil-outline" style="padding-left: 5px;" (click)="irEditor(proyecto)"></ion-icon>-->
+      <img src="../../../assets/icon/edit2.png" alt="traducir" button (click)="irEditor(proyecto);" id="iconoEdit">
+    
+    
+  </div>
+ <!-- <ion-row class="ion-text-center">
+      <!- Utilizo un pipe de tipo date para la fecha del mensaje ->
       <ion-col size-lg="6">
-        <ion-note id="note" >{{proyecto.fechaEntrega | date:'dd MMM YYYY'}}</ion-note>
+        <ion-note id="note" >{{proyecto.fechaEntrega | date:'dd/MM/YY'}}</ion-note>
       </ion-col>
       <ion-col size-lg="6">
         <ion-icon name="pencil-outline" style="padding-left: 2%; margin-left: 2%;" (click)="irEditor(proyecto)"></ion-icon>
       </ion-col>
       
-  </ion-row>
+  </ion-row>-->
   </ion-item>
 </ion-list>
 
@@ -73,7 +84,7 @@
   </ion-infinite-scroll>
 </ion-content>
 
-
+<!--
 <ion-footer>
   <ion-toolbar>
     <ion-tabs>
@@ -81,11 +92,11 @@
         <ion-tab-button (click)="irEditorConPrimerProyectoDeLista();">
           <ion-icon name="pencil-outline"></ion-icon>
         </ion-tab-button>
-        <!---->
+        
         <ion-tab-button (click)="irInicioTraductor();">
           <ion-icon name="home-outline"></ion-icon>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
   </ion-toolbar>
-</ion-footer>
+</ion-footer>-->

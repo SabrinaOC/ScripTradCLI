@@ -11,6 +11,8 @@
 
 .fontBtn {
     font-size: small;
+    margin-top: 10px; 
+    --background: #bd283c;
 }
 
 ion-toolbar {
@@ -28,7 +30,7 @@ ion-col {
 }
 
 ion-card {
-    background-color: rgba(245, 245, 245, 0.329);
+    background-color: rgba(245, 245, 245, 0.527);
 }
 
 

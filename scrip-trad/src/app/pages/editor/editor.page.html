@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar>
-    
+  <ion-toolbar class="cabecera ion-text-center">
+    <ion-icon name="home-outline" slot="start" class="inicio" (click)="irInicioTraductor();"></ion-icon>
     <ion-title>Traducción</ion-title>
     
     <!--Imagen de usuario logueado-->
@@ -19,17 +19,7 @@
   <ion-card>
     <ion-card-content>
       <form id="formPrincipal">
-      <!--<ion-icon name="arrow-back-outline" (click)="irInicioTraductor();"></ion-icon>-->
-        <!--Primera fila para character matching y boton generar trad
-        <ion-row>
-          <!-Col para boton->
-          <ion-col class="ion-align-self-center">
-            <ion-button expand="block" color="tertiary"><span class="ion-hide-lg-down">Generar traducción</span>
-              <ion-icon name="cloud-download-outline" class="ion-padding-horizontal"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>-->
-        <!--Segunda fila para segmento TO-->
+     
           <!-- flecha nav, tabla, flecha nav-->
           <ion-row style="padding-top: 3%;">
             <ion-col size="1" class="ion-align-self-start ion-text-left"><ion-icon name="chevron-back-outline" id="atras" button (click)="guardarTraduccionSegmento();"></ion-icon></ion-col>
@@ -59,7 +49,8 @@
                 <span style="font-weight: bold; padding-left: 8vw;">TM</span>
               </ion-col>
               <ion-col size="1"  class="ion-text-center">
-                <ion-icon name="language-outline" style="color: #cc6b41" class="text-tertiary" button (click)="generarTraduccion();"></ion-icon>
+               <!--<ion-icon name="language-outline" style="color: #cc6b41" class="text-tertiary" button (click)="generarTraduccion();"></ion-icon>--> 
+                <img src="../../../assets/icon/translate.png" alt="traduccion automatica" button (click)="generarTraduccion();" id="iconoTrad">
               </ion-col>
             </ion-row>
           </ion-col>
@@ -163,7 +154,7 @@
       <ion-row>
         <!--Col para boton-->
         <ion-col class="ion-align-self-center">
-          <ion-button expand="block" class="btnColor" [disabled]="!isFinished" (click)="obtenerTraduccionCompleta();"><span class="ion-hide-lg-down">Generar traducción</span>
+          <ion-button expand="block" color="success" [disabled]="!isFinished" (click)="obtenerTraduccionCompleta();"><span class="ion-hide-lg-down">Generar traducción</span>
             <ion-icon name="cloud-download-outline" class="ion-padding-horizontal"></ion-icon>
           </ion-button>
         </ion-col>
@@ -173,6 +164,7 @@
   </ion-card>
 </ion-content>
 
+<!--
 <ion-footer>
   <ion-toolbar>
     <ion-tabs>
@@ -190,4 +182,4 @@
     </ion-tabs>
   </ion-toolbar>
 
-</ion-footer>
+</ion-footer>-->

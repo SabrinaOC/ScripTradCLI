@@ -1,6 +1,7 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title slot="start">Historial</ion-title>
+  <ion-toolbar class="cabecera ion-text-center">
+    <ion-icon name="add" slot="start" class="inicio" (click)="crearNuevoProyecto();"></ion-icon>
+    <ion-title>Historial</ion-title>
     <!--Imagen de usuario logueado-->
     <ion-avatar slot="end" id="usu" button (click)="mostrarMenu()">
       <img src="{{ usuarioAutenticado != null && usuarioAutenticado.img != null ? 'data:image/png;base64,' + usuarioAutenticado.img : 'assets/img/genericUser.jpg'}}" alt="Imagen usuario">
@@ -9,27 +10,25 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-<!-- <ion-badge slot="end" class="ion-margin-end">{{totalProyectos}}</ion-badge>-->
 <!-- Creo un ion-list, cada mensaje será un ion-item -->
 <ion-list *ngIf="totalProyectos > 0" id="list">
   <!-- Creo un ion-item por cada elemento del array "mensajes" //  (click)="detalleMensaje(mensaje)" class="{{mensaje.leido ? '' : 'noLeido'}}"-->
   <ion-item *ngFor="let proyecto of proyectos" >
     <!-- Llamada al componente de imagen de usuario
     <app-imagen-usuario [idUsuario]="mensaje.remitente.id"></app-imagen-usuario>-->
-    <ion-avatar slot="start">
-      <img src="{{ proyecto.traductor.img != null ? 'data:image/png;base64,' + proyecto.traductor.img : 'assets/img/genericUser.jpg'}}" alt="">
+    <ion-avatar slot="start" class="traductores">
+      <img src="{{ proyecto.traductor.img != null ? 'data:image/png;base64,' + proyecto.traductor.img : 'assets/img/genericUser.jpg'}}" alt="{{proyecto.traductor.nombre}}">
     </ion-avatar>
     <ion-label id="label" button (click)="mostrarInformacion(proyecto)">
-      <ion-text >
+      <ion-text>
         <ion-label>{{proyecto.titulo}}</ion-label>
-        <ion-label style="color: rgba(46, 46, 48, 0.788); font-weight: bold;">Info</ion-label>
-        
+        <ion-label style="color: rgba(46, 46, 48, 0.788); font-weight: bold;">Info</ion-label>   
       </ion-text>
   </ion-label>
   <div class="ion-text-center">
       <!-- Utilizo un pipe de tipo date para la fecha del mensaje -->
-      <ion-note id="note" >{{proyecto.fechaEntrega | date:'dd MMM YYYY'}}</ion-note>
-      <ion-icon name="trash-outline" style="padding-left: 5px;" (click)="eliminarProytecto(proyecto)"></ion-icon>
+      <ion-note id="note" >{{proyecto.fechaEntrega | date:'dd/MM/YY'}}</ion-note>
+      <ion-icon name="trash-outline" color="primary" style="padding-left: 5px;" (click)="eliminarProytecto(proyecto)"></ion-icon>
   </div>
   </ion-item>
 </ion-list>
@@ -42,6 +41,7 @@
   </ion-infinite-scroll>
 </ion-content>
 
+<!--
 <ion-footer>
   <ion-toolbar >
     <ion-tabs>
@@ -60,4 +60,4 @@
     </ion-tabs>
   </ion-toolbar>
 
-</ion-footer>
+</ion-footer>-->

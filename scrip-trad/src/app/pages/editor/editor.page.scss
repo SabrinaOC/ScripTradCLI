@@ -38,14 +38,26 @@ ion-item-divider {
     padding-right: 3vw;
 }
 
-.btnColor {
-    --background: #cc6b41;
-}
-
 .iconoEnviar {
     display: flex; 
     justify-self: end;
     color: #cc6b41;
+}
+
+#iconoTrad {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.cabecera {
+    --background: #cc6b41;
+    color: white;
+}
+
+.inicio {
+   margin-left: 5vw;
+   font-size: 24px;
 }
 
 
