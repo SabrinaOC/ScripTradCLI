@@ -59,7 +59,7 @@
                 <span style="font-weight: bold; padding-left: 8vw;">TM</span>
               </ion-col>
               <ion-col size="1"  class="ion-text-center">
-                <ion-icon name="language-outline" color="secondary" class="text-tertiary" button (click)="generarTraduccion();"></ion-icon>
+                <ion-icon name="language-outline" style="color: #cc6b41" class="text-tertiary" button (click)="generarTraduccion();"></ion-icon>
               </ion-col>
             </ion-row>
           </ion-col>
@@ -154,7 +154,7 @@
             <form [formGroup]="comentarioForm">
               <ion-item>
                 <ion-textarea placeholder="Añadir comentarios" id="textAreaComentarios" formControlName="comentario"></ion-textarea>
-                <ion-icon style="display: flex; justify-self: end;" color="secondary" name="send" class="ion-align-self-center ion-text-lg-center" (click)="confirmCom();"></ion-icon>
+                <ion-icon class="iconoEnviar" name="send" class="ion-align-self-center ion-text-lg-center" (click)="confirmCom();"></ion-icon>
               </ion-item>
             </form>
           </ion-col>
@@ -163,7 +163,7 @@
       <ion-row>
         <!--Col para boton-->
         <ion-col class="ion-align-self-center">
-          <ion-button expand="block" color="secondary" [disabled]="!isFinished" (click)="obtenerTraduccionCompleta();"><span class="ion-hide-lg-down">Generar traducción</span>
+          <ion-button expand="block" class="btnColor" [disabled]="!isFinished" (click)="obtenerTraduccionCompleta();"><span class="ion-hide-lg-down">Generar traducción</span>
             <ion-icon name="cloud-download-outline" class="ion-padding-horizontal"></ion-icon>
           </ion-button>
         </ion-col>

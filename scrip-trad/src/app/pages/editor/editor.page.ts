@@ -382,7 +382,7 @@ export class EditorPage implements OnInit {
 
     this.sementosFinal.forEach(s => {
       console.log(s.textoLM);
-      texto += s.textoLM + ' ';
+      texto += s.textoLM + ' \n';
     });
     
     var blob = new Blob([texto],
