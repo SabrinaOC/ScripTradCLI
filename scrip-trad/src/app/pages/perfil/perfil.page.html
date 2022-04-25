@@ -1,10 +1,18 @@
 <ion-header>
   <ion-toolbar class="cabecera ion-text-center">
-    <ion-icon name="home-outline" slot="start" class="inicio" (click)="irInicio();"></ion-icon>
+    <ion-icon
+      name="home-outline"
+      slot="start"
+      class="inicio"
+      (click)="irInicio();"
+    ></ion-icon>
     <ion-title>Perfil</ion-title>
     <!--Imagen de usuario logueado-->
     <ion-avatar slot="end" id="usu" button (click)="mostrarMenu()">
-      <img src="{{ usuarioAutenticado != null && usuarioAutenticado.img != null ? 'data:image/png;base64,' + usuarioAutenticado.img : 'assets/img/genericUser.jpg'}}" alt="Imagen usuario">
+      <img
+        src="{{ usuarioAutenticado != null && usuarioAutenticado.img != null ? 'data:image/png;base64,' + usuarioAutenticado.img : 'assets/img/genericUser.jpg'}}"
+        alt="Imagen usuario"
+      />
     </ion-avatar>
   </ion-toolbar>
 </ion-header>
@@ -13,56 +21,87 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center ion-margin-top">
       <ion-col size-lg="8">
-  <ion-card>
-    <ion-card-content>
-      <div style="display: flex; justify-content:center;">
-    <button mat-button (click)="nuevaImg.click()" id="btnImg">
+        <ion-card>
+          <ion-card-content>
+            <div style="display: flex; justify-content: center; margin-bottom: 2vh;">
+              <button mat-button (click)="nuevaImg.click()" id="btnImg">
+                <!-- Img usuario -->
+                <ng-template
+                  [ngIf]="usuarioAutenticado && usuarioAutenticado.img != null"
+                  [ngIfElse]="imgUsuario"
+                >
+                  <img
+                    src="data:image/png;base64,{{usuarioAutenticado.img}}"
+                    id="imgCard"
+                  />
+                </ng-template>
+                <ng-template #imgUsuario>
+                  <img src="assets/img/genericUser.jpg" id="imgCard" />
+                </ng-template>
+              </button>
+            </div>
 
-    <!-- Img usuario -->
-    <ng-template [ngIf]="usuarioAutenticado && usuarioAutenticado.img != null" [ngIfElse]="imgUsuario">
-        <img src="data:image/png;base64,{{usuarioAutenticado.img}}" id="imgCard">
-    </ng-template>
-    <ng-template #imgUsuario>
-        <img  src="assets/img/genericUser.jpg" id="imgCard">
-    </ng-template>
-    </button>
-  </div>
-    
-    <input hidden (change)="seleccionarImagen()" #nuevaImg type="file" id="file" id="nuevaImg">
-    
-    
-      <form [formGroup]="editForm" *ngIf="this.editForm">
-          <!-- Nombre -->
-          <ion-item>
-            <ion-label position="floating">Nombre</ion-label>
-            <ion-input type="text" formControlName="nombre"></ion-input>
-          </ion-item>
+            
+            <div class="ion-text-center" style="background-color: aqua;">
+              
+                  <ion-icon name="camera" class="ion-hide-lg-down"></ion-icon>
+                
+              <span style="font-size: smaller; margin-left: 1vw;">Toca la imagen para cambiarla</span>
+            </div>
+            
 
-          <!-- Usuario -->
-          <ion-item>
-            <ion-label position="floating">Usuario</ion-label>
-            <ion-input type="text" formControlName="usuario"></ion-input>
-          </ion-item>
+            <input
+              hidden
+              (change)="seleccionarImagen();"
+              #nuevaImg
+              type="file"
+              id="file"
+              id="nuevaImg"
+            />
 
-          <!-- Email -->
-          <ion-item>
-            <ion-label position="floating">Email</ion-label>
-            <ion-input type="text" formControlName="email"></ion-input>
-          </ion-item>
+            <form [formGroup]="editForm" *ngIf="this.editForm">
+              <!-- Nombre -->
+              <ion-item>
+                <ion-label position="floating">Nombre</ion-label>
+                <ion-input type="text" formControlName="nombre"></ion-input>
+              </ion-item>
 
-          <!-- Tipo usuario -->
-          <ion-item *ngIf="tipoUsuario">
-            <ion-label position="floating">Rol</ion-label>
-            <ion-input type="text" readonly disabled formControlName="tipoUsuario"></ion-input>
-          </ion-item>
-          
-          <ion-button color="success" expand="block" [disabled]="editForm.invalid" (click)="editar();">Guardar cambios</ion-button>
-      </form>
-    </ion-card-content>
-  </ion-card>
-</ion-col>
-</ion-row>
-</ion-grid>
+              <!-- Usuario -->
+              <ion-item>
+                <ion-label position="floating">Usuario</ion-label>
+                <ion-input type="text" formControlName="usuario"></ion-input>
+              </ion-item>
+
+              <!-- Email -->
+              <ion-item>
+                <ion-label position="floating">Email</ion-label>
+                <ion-input type="text" formControlName="email"></ion-input>
+              </ion-item>
+
+              <!-- Tipo usuario -->
+              <ion-item *ngIf="tipoUsuario">
+                <ion-label position="floating">Rol</ion-label>
+                <ion-input
+                  type="text"
+                  readonly
+                  disabled
+                  formControlName="tipoUsuario"
+                ></ion-input>
+              </ion-item>
+
+              <ion-button
+                color="success"
+                expand="block"
+                [disabled]="editForm.invalid"
+                (click)="editar();"
+                >Guardar cambios</ion-button
+              >
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 
 <!-- Footer->

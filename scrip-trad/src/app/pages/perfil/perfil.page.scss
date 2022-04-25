@@ -39,3 +39,26 @@ ion-icon {
    margin-left: 5vw;
    font-size: 20px;
 }
+
+.fabIcon {
+    margin-top: -20vh;
+    
+}
+
+.fabCirculo {
+    width: 8vw; 
+    height: 4vh;
+}
+
+@media (min-width: 992px) {
+    .fabCirculo {
+        width: 3vw; 
+        height: 5vh;
+    }
+
+    .fabIcon {
+        margin-top: 3vh;
+        //margin-left: 8vw;
+        
+    }
+}
