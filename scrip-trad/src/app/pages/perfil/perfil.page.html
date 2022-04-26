@@ -24,7 +24,7 @@
         <ion-card>
           <ion-card-content>
             <div style="display: flex; justify-content: center; margin-bottom: 2vh;">
-              <button mat-button (click)="nuevaImg.click()" id="btnImg">
+              <button button (click)="nuevaImg.click()" id="btnImg">
                 <!-- Img usuario -->
                 <ng-template
                   [ngIf]="usuarioAutenticado && usuarioAutenticado.img != null"
@@ -42,11 +42,11 @@
             </div>
 
             
-            <div class="ion-text-center" style="background-color: aqua;">
+            <div class="ion-text-center" style="cursor: pointer;" button (click)="nuevaImg.click()">
               
                   <ion-icon name="camera" class="ion-hide-lg-down"></ion-icon>
                 
-              <span style="font-size: smaller; margin-left: 1vw;">Toca la imagen para cambiarla</span>
+              <span style="font-size: smaller; margin-left: 1vw;" >Toca la imagen para cambiarla</span>
             </div>
             
 
