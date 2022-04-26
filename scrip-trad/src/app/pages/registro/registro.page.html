@@ -13,12 +13,10 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size-lg="6">
         <ion-card class="ion-justify-content-center">
-          <!--background-color: #EBECED;-->
-
           <ion-card-header>
             <ion-card-title text-center> Registro </ion-card-title>
           </ion-card-header>
-
+          <!-- Nombre -->
           <ion-card-content>
             <form [formGroup]="registerForm">
               <ion-item>
@@ -36,7 +34,7 @@
                   </ng-container>
                 </div>
               </ion-item>
-
+              <!-- Usuario -->
               <ion-item>
                 <ion-label position="floating">Usuario</ion-label>
                 <ion-input
@@ -52,7 +50,7 @@
                   </ng-container>
                 </div>
               </ion-item>
-
+              <!-- Email -->
               <ion-item>
                 <ion-label position="floating">Email</ion-label>
                 <ion-input
@@ -73,7 +71,7 @@
                   </ng-container>
                 </div>
               </ion-item>
-
+              <!-- Rol -->
               <ion-item>
                 <ion-label>Rol</ion-label>
                 <ion-select value="rol" formControlName="idTipoProfesional">
@@ -90,13 +88,37 @@
                   </ng-container>
                 </div>
               </ion-item>
-
+              <!-- Pass -->
               <ion-item>
                 <ion-label position="floating">Contraseña</ion-label>
-                <ion-input type="password" formControlName="pass"></ion-input>
+                <ion-input [type]="isHidden1 ? 'password' : 'text'" formControlName="pass"></ion-input>
+                <ion-icon
+                  [name]="isHidden1 ? 'eye' : 'eye-off'"
+                  slot="end"
+                  (click)="isHidden1 = !isHidden1"
+                  class="iconoOcultarPass"
+                ></ion-icon>
                 <div>
                   <ng-container
                     *ngIf="registerForm.get('pass').hasError('required') && (registerForm.get('pass').touched || registerForm.get('pass').dirty)"
+                  >
+                    Campo obligatorio
+                  </ng-container>
+                </div>
+              </ion-item>
+              <!-- Confirm pass -->
+              <ion-item>
+                <ion-label position="floating">Confirmar contraseña</ion-label>
+                <ion-input [type]="isHidden2 ? 'password' : 'text'" formControlName="confirmPass"></ion-input>
+                <ion-icon
+                  [name]="isHidden2 ? 'eye' : 'eye-off'"
+                  slot="end"
+                  (click)="isHidden2 = !isHidden2"
+                  class="iconoOcultarPass"
+                ></ion-icon>
+                <div>
+                  <ng-container
+                    *ngIf="registerForm.get('confirmPass').hasError('required') && (registerForm.get('confirmPass').touched || registerForm.get('confirmPass').dirty)"
                   >
                     Campo obligatorio
                   </ng-container>

@@ -13,12 +13,13 @@ ion-col {
     padding-inline-start: 0;
     padding-left: 0;
     padding-right: 0;
-    margin-top: 3vh;
+    //margin-top: 2vh;
 }
 
 
 ion-card {
     background-color: rgba(245, 245, 245, 0.644);
+    font-size: small;
 }
 
 
@@ -29,9 +30,32 @@ ion-item {
 }
 
 ion-grid {
-    height: 95vh;
+    //height: 100vh;
     background-image: url('../../../assets/img/bgRegistro2.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 
+}
+
+.iconoOcultarPass {
+    font-size: 16px;
+    padding-top: 4vh;
+    cursor: pointer;
+}
+
+@media (min-width: 992px) {
+    .iconoOcultarPass {
+        font-size: 16px;
+        padding-top: 3vh;
+        cursor: pointer;
+    }
+
+    ion-col {        
+        margin-top: 3vh;
+    }
+
+    ion-grid {
+        height: 95vh;
+    
+    }
 }

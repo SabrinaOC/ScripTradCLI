@@ -15,6 +15,8 @@ export class RegistroPage implements OnInit {
   usuAutenticado: Usuario;
   waiting: boolean = false;
   registerForm: FormGroup; //para comprobaciones formulario html
+  isHidden1: boolean = true;
+  isHidden2: boolean = true;
 
   /**
    * 
@@ -42,6 +44,7 @@ export class RegistroPage implements OnInit {
       usuario: new FormControl('', Validators.required),
       email: new FormControl('',[Validators.required, Validators.email]),
       pass: new FormControl('', [Validators.required]),
+      confirmPass: new FormControl ('', Validators['required']),
       idTipoProfesional: new FormControl()
     })
   }
@@ -51,8 +54,9 @@ export class RegistroPage implements OnInit {
    */
   registrarUsuario(){
     this.waiting = true;
-   
-    this.usuarioService.registroUsuario(this.registerForm.controls.nombre.value,
+   //comprobamos que las contrase;as coinciden
+   if(this.registerForm.controls.pass.value == this.registerForm.controls.confirmPass.value) {
+     this.usuarioService.registroUsuario(this.registerForm.controls.nombre.value,
       this.registerForm.controls.email.value, this.registerForm.controls.pass.value,
       this.registerForm.controls.usuario.value, this.registerForm.controls.idTipoProfesional.value). then(data => {
         this.waiting = false;
@@ -63,6 +67,11 @@ export class RegistroPage implements OnInit {
           this.comunicacionAlertas.mostrarAlerta('Usuario ya registrado, elige otro nombre');
         }
       });
+   } else {
+     this.comunicacionAlertas.mostrarAlerta('Las contraseñas introducidas no coinciden.');
+     this.waiting = false;
+   }
+    
   }
 
   /**

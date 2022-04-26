@@ -15,6 +15,9 @@ import { UsuarioService } from 'src/app/providers/usuario.service';
 export class CambiarPasswordPage implements OnInit {
   usuarioAutenticado: Usuario;
   passForm: FormGroup;
+  isHidden1: boolean = true;
+  isHidden2: boolean = true;
+  isHidden3: boolean = true;
 
   constructor(private usuarioService: UsuarioService,
     private tipoUsuarioService: TipoUsuarioService,
@@ -44,6 +47,7 @@ export class CambiarPasswordPage implements OnInit {
     this.passForm = new FormGroup({
       oldPass: new FormControl('', Validators['required']),
       newPass: new FormControl('', Validators['required']),
+      confirmPass: new FormControl ('', Validators['required'])
     });
   
   }
@@ -55,21 +59,28 @@ export class CambiarPasswordPage implements OnInit {
     //primero comprobamos que la contraseña actual es correcta
     this.usuarioService.checkCurrentPass(this.passForm.controls.oldPass.value).then(data => {
       if(data["result"] == "fail") {
-        this.comunicacionAlertas.mostrarAlertaAccionOk('La contraseña actual intorudica no es la correcta.',
+        this.comunicacionAlertas.mostrarAlertaAccionOk('La contraseña actual introducida no es la correcta.',
         ()=> {
           this.passForm.reset();
         })
       } else { //si no ha dado error significa que coincide y podemos proceder a cambiarla
-        this.usuarioService.updatePass(this.passForm.controls.newPass.value).then(data => {
-          if(data["result"] == "fail") {
-            this.comunicacionAlertas.mostrarAlerta('Ha sucedido un error al intentar actualizar la contraseña. Vuelve a intentarlo en unos minutos.')
-          } else {
-            this.comunicacionAlertas.mostrarAlertaAccionOk('Contraseña actualizada con éxito.', 
-            ()=>{
-              this.irInicio();
-            })
-          }
-        })
+        //ahora comprobamos que las contrase;as coinciden
+        if(this.passForm.controls.newPass.value == this.passForm.controls.confirmPass.value) {
+          this.usuarioService.updatePass(this.passForm.controls.newPass.value).then(data => {
+            if(data["result"] == "fail") {
+              this.comunicacionAlertas.mostrarAlerta('Ha sucedido un error al intentar actualizar la contraseña. Vuelve a intentarlo en unos minutos.')
+            } else {
+              this.comunicacionAlertas.mostrarAlertaAccionOk('Contraseña actualizada con éxito.', 
+              ()=>{
+                this.passForm.reset()
+                this.irInicio();
+              })
+            }
+          });
+        } else {
+          this.comunicacionAlertas.mostrarAlerta('Las contraseñas no coinciden.')
+        }
+        
       }
     })
 

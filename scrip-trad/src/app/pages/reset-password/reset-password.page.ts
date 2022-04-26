@@ -17,6 +17,8 @@ export class ResetPasswordPage implements OnInit {
   usuarioAutenticado: Usuario;
   passForm: FormGroup;
   token: string;
+  isHidden1: boolean = true;
+  isHidden2: boolean = true;
 
   constructor(private usuarioService: UsuarioService,
     private route: ActivatedRoute,
