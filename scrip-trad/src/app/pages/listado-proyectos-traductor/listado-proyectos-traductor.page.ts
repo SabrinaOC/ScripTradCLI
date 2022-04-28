@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
-import { ActionSheetController, IonInfiniteScroll, NavController } from '@ionic/angular';
+import { ActionSheetController, IonInfiniteScroll, isPlatform, NavController } from '@ionic/angular';
 
 
 import { ProyectoService } from '../../providers/proyecto.service';
@@ -10,6 +10,7 @@ import { AutenticadorJwtService } from 'src/app/providers/autenticador-jwt.servi
 import { Usuario, Proyecto } from 'src/app/interfaces/interfaces';
 import axios from 'axios';
 import { Router } from '@angular/router';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 
 @Component({
   selector: 'app-listado-proyectos-traductor',
@@ -49,6 +50,10 @@ export class ListadoProyectosTraductorPage implements OnInit {
     });
     //cargamos proyectos
     this.cargarProyectosUrgentes()
+
+    if(!isPlatform('capacitor')) {
+      GoogleAuth.initialize();
+    }
   }
 
   /**
@@ -189,6 +194,12 @@ async quoteOfTheDay(){
 
 
 } 
+
+refreshGoogle() {
+  GoogleAuth.signOut().then(data => {
+    this.navController.navigateForward('');
+  })
+}
 
 /**
  * Metodo para ir a pantalla de inicio de vista traductor

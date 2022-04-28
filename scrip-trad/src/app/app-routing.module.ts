@@ -49,7 +49,11 @@ const routes: Routes = [
   {
     path: 'reset-password/:token',
     loadChildren: () => import('./pages/reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
+  },  {
+    path: 'elegir-rol',
+    loadChildren: () => import('./pages/elegir-rol/elegir-rol.module').then( m => m.ElegirRolPageModule)
   }
+
 
 ];
 @NgModule({

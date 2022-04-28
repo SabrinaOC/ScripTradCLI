@@ -29,6 +29,21 @@ export class UsuarioService {
 
   }
 
+  /**
+   * Metodo para comprobar si el correo proporcionado con google esta registrado
+   * @param email 
+   * @returns 
+   */
+  signInGoogle (email: string) : Promise<DatosConJwt> {
+    var jsonObject = {
+      email: email     
+    };
+
+    // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.
+    return this.http.post<DatosConJwt>('/usuario/signinGoogle', jsonObject).toPromise();
+
+  }
+
 
   /**
    * Método para registrar nuevo usuario, recibiendo todos sus datos.
@@ -48,6 +63,29 @@ export class UsuarioService {
     return this.http.post<any>('/usuario/registro', jsonObject).toPromise();
 
   }
+
+  /**
+   * Metodo para registrar usuario con datos de google
+   * @param nombre 
+   * @param email 
+   * @param usuario 
+   * @param idTipoUsuario 
+   * @returns 
+   */
+  registroUsuarioGoogle (nombre: string, email: string, usuario: string, idTipoUsuario: number) : Promise<any> {
+    console.log('entra en usuario service registro Google')
+   
+   var jsonObject = {
+     nombre: nombre,
+     email: email,
+     usuario: usuario,
+     idTipoUsuario: idTipoUsuario
+   };
+
+   // Envío la petición http y devuelvo el Observable, para que cualquiera pueda subscribirse.
+   return this.http.post<any>('/usuario/registroGoogle', jsonObject).toPromise();
+
+ }
 
   /**
    * 

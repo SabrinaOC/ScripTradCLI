@@ -2,5 +2,12 @@
 	"appId": "io.ionic.starter",
 	"appName": "ScripTrad",
 	"webDir": "www",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"plugins": {
+		"GoogleAuth": {
+		"scopes": ["profile","email"],
+		"serverClientId": "823313773564-nvjd2qfl421okiotcpljc5imdssbvqpj.apps.googleusercontent.com",
+		"forceCodeForRefreshToken": true
+		}
+		}
 }

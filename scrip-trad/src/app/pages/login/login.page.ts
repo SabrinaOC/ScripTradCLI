@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from '../../providers/usuario.service';
-import { NavController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { isPlatform, NavController } from '@ionic/angular';
+import { Router, NavigationExtras } from '@angular/router';
 import { AutenticadorJwtService } from '../../providers/autenticador-jwt.service';
 import { ComunicacionDeAlertasService } from '../../providers/comunicacion-de-alertas.service';
 import { Usuario } from 'src/app/interfaces/interfaces';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginPage implements OnInit {
   waiting: boolean = false;
   loginForm: FormGroup; //para comprobaciones formulario html
   usu: Usuario;
-  isHidden: boolean;
+  isHidden: boolean = true;
   /**
    * 
    * @param usuarioService 
@@ -49,8 +50,11 @@ export class LoginPage implements OnInit {
       pass: new FormControl('sabrina', Validators.required)
     });
 
-    //iniciamos boolean para ocultar o mostrar pass
-    this.isHidden = true;
+    if(!isPlatform('capacitor')) {
+      GoogleAuth.initialize();
+    }
+
+
   }
 
 
@@ -88,13 +92,64 @@ export class LoginPage implements OnInit {
   }
 
   /**
+   * Metodo para iniciar sesion o registrarse con google
+   */
+  loginGoogle() {
+    GoogleAuth.signIn().then(dataG => {
+      console.log(dataG)
+      //una vez que tenemos los datos comprobamos si ese usuario esta registrado y le damos acceso
+      this.usuarioService.signInGoogle(dataG.email).then(data => {
+        //si existe se nos mandara un jwt que guardaremos y redirigiremos
+        if (data.jwt != undefined) {
+          this.autenticadorJwtService.almacenaJWT(data.jwt); // Almaceno un nuevo JWT
+          //dependiendo del tipo de usuario redirigiremos a un sitio u otro
+          this.usuarioService.getUsuarioAutenticado(true).subscribe(usuAutenticado => {
+            this.usu = usuAutenticado;
+            console.log(this.usu);
+            if(this.usu.idTipoUsuario===1){
+              this.navControler.navigateForward('/listado-proyectos-traductor'); // Navego hasta el listado de mensajes
+            } else {
+              this.navControler.navigateForward('/listado-proyectos-gestor'); // Navego hasta el listado de mensajes
+            }
+          })
+          
+        }
+        else {
+          console.log(dataG)
+          //redirigimos para completar el perfil 
+          let navigationExtras: NavigationExtras = { state: { user: dataG } };
+          this.router.navigate(['/elegir-rol'], navigationExtras);
+        }
+      }).catch(error => { // Se ha producido algún tipo de error en el acceso al servidor o el servidor ha devuelto un error.
+        this.waiting = false;
+        this.comunicacionAlertas.mostrarAlerta('Error en acceso al servidor');
+      });
+
+    })
+  }
+
+  /**
+   * 
+   */
+  signOutGoogle() {
+    GoogleAuth.signOut().then(data => {
+      console.log(data)
+    }).catch(err => {
+      console.log('error: ', err)
+    })
+
+    
+    
+  }
+
+  /**
    * Funcion para recuperar contrasena
    */
-  passForgotten(){
+  passForgotten() {
     this.comunicacionAlertas.mostrarMensajeConInput("Introduce el mismo email que has usado para registrarte para cambiar tu contraseña.")
   }
 
-  irRegistro(){
+  irRegistro() {
     this.navControler.navigateForward('registro');
   }
 

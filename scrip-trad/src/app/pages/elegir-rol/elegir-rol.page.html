@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar class="cabecera ion-text-center">
+    
+    <ion-title button (click)="volverLogin();">
+      
+      ScripTrad</ion-title
+    >
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-lg="6">
+        <ion-card class="ion-justify-content-center">
+          <ion-card-header>
+            <ion-card-title text-center> Completa tu perfil </ion-card-title>
+            <ion-card-subtitle>Completa la configuración de tu perfil para poder comenzar a disfrutar de la aplicación.</ion-card-subtitle>
+          </ion-card-header>
+          <!-- Nombre -->
+          <ion-card-content>
+            <form [formGroup]="registerForm">
+              
+              <!-- Usuario -->
+              <ion-item>
+                <ion-label position="floating">Usuario</ion-label>
+                <ion-input
+                  type="text"
+                  formControlName="usuario"
+                  placeholder="Ej. Sab94"
+                ></ion-input>
+                <div>
+                  <ng-container
+                    *ngIf="registerForm.get('usuario').hasError('required') && (registerForm.get('usuario').touched || registerForm.get('usuario').dirty)"
+                  >
+                    Campo obligatorio
+                  </ng-container>
+                </div>
+              </ion-item>
+              
+              <!-- Rol -->
+              <ion-item>
+                <ion-label>Rol</ion-label>
+                <ion-select value="rol" formControlName="idTipoProfesional">
+                  <ion-select-option value="1" selcted
+                    >Traductor</ion-select-option
+                  >
+                  <ion-select-option value="2">Gestor</ion-select-option>
+                </ion-select>
+                <div>
+                  <ng-container
+                    *ngIf="registerForm.get('idTipoProfesional').hasError('required') && (registerForm.get('idTipoProfesional').touched || registerForm.get('idTipoProfesional').dirty)"
+                  >
+                    Campo obligatorio
+                  </ng-container>
+                </div>
+              </ion-item>
+              
+            </form>
+
+            <!--Boton registro -->
+            <ion-button
+              [disabled]="waiting || registerForm.invalid"
+              (click)="registrarUsuario();"
+              expand="block"
+              color="success"
+              >Continuar<ion-spinner *ngIf="waiting"></ion-spinner>
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
