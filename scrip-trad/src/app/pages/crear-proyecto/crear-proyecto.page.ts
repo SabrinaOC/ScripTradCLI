@@ -114,7 +114,7 @@ export class CrearProyectoPage implements OnInit {
    * Cargamos fecha de hoy en calendario
    */
   cargarHoy(){
-    this.fechaMostrada = format(parseISO(format(new Date(), 'yyyy-MM-dd')), 'MM-d-yyyy');
+    this.fechaMostrada = format(parseISO(format(new Date(), 'yyyy-MM-dd')), 'yyyy-MM-dd');//MM-d-yyyy
   }
 
   /**
@@ -124,8 +124,9 @@ export class CrearProyectoPage implements OnInit {
  elegirFecha(fecha){
     console.log(fecha)
     //this.fechaEntrega = format(fecha, 'MM-d-yyyy');
-    this.fechaMostrada = format(parseISO(fecha), 'MM-d-yyyy');
+    this.fechaMostrada = format(parseISO(fecha), 'yyyy-MM-dd');//MM-dd-yyyy
     //console.log('\nFecha para bbdd: ' + this.fechaEntrega)
+    this.fechaEntrega = this.fechaMostrada;
     this.mostrarCalendario=false;
  }
 
@@ -197,11 +198,11 @@ export class CrearProyectoPage implements OnInit {
     console.log("Traductor: " + this.newProjectForm.controls.trad.value)
     console.log("Gestor: " + this.usuarioAutenticado.id)
     console.log("LO: " + this.newProjectForm.controls.lenguaOrigen.value)
-    console.log("LM: " + this.newProjectForm.controls.lenguaMeta.value)
-    console.log("Fecha de entrega: " + this.fechaEntrega)
-    console.log("Descripción: " + this.newProjectForm.controls.descripcion.value)
-    console.log("Comentarios: " + this.textoComm)
-    console.log("Texto LO: " + this.textoDocumento)*/
+    console.log("LM: " + this.newProjectForm.controls.lenguaMeta.value)*/
+    //console.log("Fecha de entrega: " + this.fechaEntrega)
+    //console.log("Descripción: " + this.newProjectForm.controls.descripcion.value)
+    //console.log("Comentarios: " + this.textoComm)
+    //console.log("Texto LO: " + this.textoDocumento)
 
     //comprobamos que se ha subido un documento con comentarios
     if(!this.hayCommentario) this.textoComm = null;
@@ -244,12 +245,7 @@ export class CrearProyectoPage implements OnInit {
     this.navController.navigateForward('/listado-proyectos-gestor');
     
   }
-  /**
-   * Redireccionamiento
-   */
-  crearNuevoProyecto(){
-    this.navController.navigateForward('crear-proyecto');
-  }
+ 
 
   //Metodos para menu y cerrar sesion
 

@@ -30,7 +30,7 @@ ion-item {
 }
 
 ion-grid {
-    //height: 100vh;
+    height: 100vh;
     background-image: url('../../../assets/img/bgRegistro2.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -44,12 +44,7 @@ ion-grid {
 }
 
 @media (min-width: 992px) {
-    .iconoOcultarPass {
-        font-size: 16px;
-        padding-top: 3vh;
-        cursor: pointer;
-    }
-
+  
     ion-col {        
         margin-top: 3vh;
     }

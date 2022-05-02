@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar class="cabecera ion-text-center">
     
-    <ion-title button (click)="volverLogin();">
+    <ion-title button (click)="irALogin();">
       
       ScripTrad</ion-title
     >
@@ -65,6 +65,12 @@
               expand="block"
               color="success"
               >Continuar<ion-spinner *ngIf="waiting"></ion-spinner>
+            </ion-button>
+            <ion-button
+              (click)="irALogin();"
+              expand="block"
+              color="rise"
+              >Cancelar<ion-spinner *ngIf="waiting"></ion-spinner>
             </ion-button>
           </ion-card-content>
         </ion-card>

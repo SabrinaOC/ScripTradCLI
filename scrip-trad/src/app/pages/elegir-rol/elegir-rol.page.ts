@@ -91,5 +91,12 @@ export class ElegirRolPage implements OnInit {
       
   }
 
+  /**
+   * Metodo para cancelar proceso de registro y volver a login
+   */
+  irALogin() {
+    this.navControler.navigateForward('');
+  }
+
 }
 

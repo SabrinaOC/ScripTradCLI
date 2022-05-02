@@ -22,7 +22,6 @@ export class EditorPage implements OnInit {
 
   idPr: string;
   segmentos: Segmento [] = [];
-  sementosFinal: Segmento [] = [];
   segmentoActual: Segmento;
   porcentaje: number;
   proyectoActual: Proyecto;
@@ -31,6 +30,7 @@ export class EditorPage implements OnInit {
   listaComentarios: string [] = [];
   noCoincidencia: boolean;
   isFinished: boolean;
+  textoTraducido: string = '';
 
   principalForm: FormGroup;
   glosarioForm: FormGroup;
@@ -139,6 +139,7 @@ export class EditorPage implements OnInit {
    let isAllTranslated = true;
    
     for(let i = 0; i < this.segmentos.length; i++){
+      console.log('Vuelta i = ', i , ' traduccion = ', this.segmentos[i].textoLM)
       //recorremos la lista de segmentos hasta encontrar el primero sin traduccion
       //y lo cargamos como actual
       if(this.segmentos[i].textoLM == null || this.segmentos[i].textoLM == ''){
@@ -372,38 +373,24 @@ export class EditorPage implements OnInit {
    * Metodo para general traduccion del documento completo
    */
   obtenerTraduccionCompleta() {
-    console.log('TRADUCCION')
-    let texto : string = '';
-    
-    //cargamos todos los segmentos del proyecto
-    this.cargarSegmentosParaTraduccionFinal();
-    
-
-
-    this.sementosFinal.forEach(s => {
-      console.log(s.textoLM);
-      texto += s.textoLM + ' \n';
-    });
-    
-    var blob = new Blob([texto],
-                { type: "text/plain;charset=utf-8" });
-    
-     saveAs(blob, `${this.proyectoActual.titulo}.txt`)
-    
-
-  }
-
-  cargarSegmentosParaTraduccionFinal() {
     this.segmentoService.getAllSegmentosProyecto(parseInt(this.idPr)).subscribe(data => {
       
       if(data["result"] == "fail"){
         this.comunicacionAlertas.mostrarAlerta("No se ha podido cargar la traducción.")
       } else {
         data.segmentos.forEach(s => {
-          this.sementosFinal.push(s);
+         // this.sementosFinal.push(s);
+          this.textoTraducido += s.textoLM + ' \n';
         });
+        //tras cargar todos los segmentos, guardamos en doc
+          var blob = new Blob([this.textoTraducido],
+            { type: "text/plain;charset=utf-8" });
+
+          saveAs(blob, `${this.proyectoActual.titulo}.txt`)
       }
-    })
+    });
+    //por ultimo vaciamos el contenido del texto para posteriores descargas
+    this.textoTraducido = '';
   }
 
 

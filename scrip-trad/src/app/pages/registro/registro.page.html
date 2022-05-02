@@ -134,6 +134,14 @@
               color="success"
               >Registrarme<ion-spinner *ngIf="waiting"></ion-spinner>
             </ion-button>
+
+            <!--Boton cancelar -->
+            <ion-button
+              (click)="volverLogin();"
+              expand="block"
+              color="light"
+              >Cancelar
+            </ion-button>
           </ion-card-content>
         </ion-card>
       </ion-col>
