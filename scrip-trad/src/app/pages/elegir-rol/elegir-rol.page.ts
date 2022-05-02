@@ -59,12 +59,12 @@ export class ElegirRolPage implements OnInit {
    */
   registrarUsuario(){
     console.log('Nombre: ', this.user.givenName, ' ', this.user.familyName)
-    console.log('Email: ', this.user.email)
+    console.log('Datos google: ', this.user.imageUrl)
     let nombre = this.user.givenName + ' ' + this.user.familyName
     
     console.log('DATOS FORM:\n usuario:', this.registerForm.controls.usuario.value, '\n rol: ', this.registerForm.controls.idTipoProfesional.value)
     
-    //registramos usuario con estos datos
+    /*registramos usuario con estos datos*/
     this.usuarioService.registroUsuarioGoogle(nombre, this.user.email, this.registerForm.controls.usuario.value, this.registerForm.controls.idTipoProfesional.value).then(data => {
       if(data["result"] === "success") {
         this.usuarioService.signInGoogle(this.user.email).then(data => {
@@ -86,7 +86,7 @@ export class ElegirRolPage implements OnInit {
         this.comunicacionAlertas.mostrarAlerta('Ha habido un error en el registro. Vuelve a intentarlo en unos minutos.')
       }
     
-    })
+    }) 
   
       
   }
@@ -95,7 +95,7 @@ export class ElegirRolPage implements OnInit {
    * Metodo para cancelar proceso de registro y volver a login
    */
   irALogin() {
-    this.navControler.navigateForward('');
+    this.navControler.navigateForward('')
   }
 
 }

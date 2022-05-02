@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
 import { EmailService } from './email.service';
 
@@ -22,7 +21,8 @@ export class ComunicacionDeAlertasService {
   // Necesito un componente de tipo MatDialog (de Angular) para mostrar en pantalla un diálogo
   constructor(public alertController: AlertController,
     private loadingController: LoadingController,
-    private emailService: EmailService){}
+    private emailService: EmailService,
+    private navController: NavController){}
 
   /**
    * Método que permite mostrar, en Ionic, un cuadro de diálogo de alerta.
@@ -137,9 +137,7 @@ export class ComunicacionDeAlertasService {
           text: 'No',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: () => { // Cuando se pulsa este botón, se llama a la función de "cancel"
-            //cancelFunction();
-          }
+          
         }, {
           text: 'Sí',
           handler: (alertData) => { // Al pulsar sobre este botón se llama al email service
@@ -147,8 +145,11 @@ export class ComunicacionDeAlertasService {
             //le pasamos el el valor del input para enviar mensaje
             this.emailService.sendEmailPassForgotten(alertData.emailUsuario).then(data => {
               if(data.result == "success"){
+                
                 console.log('correo enviado correctamente')
-                this.mostrarAlerta('Correo enviado con éxito, comprueba tu bandeja de entrada');
+                this.navController.navigateForward('');
+                
+                //this.mostrarAlerta('Correo enviado con éxito, comprueba tu bandeja de entrada');
                 
               } else {
                 console.log('error al enviar el correo')

@@ -146,9 +146,13 @@ export class LoginPage implements OnInit {
    * Funcion para recuperar contrasena
    */
   passForgotten() {
-    this.comunicacionAlertas.mostrarMensajeConInput("Introduce el mismo email que has usado para registrarte para cambiar tu contraseña.")
+    this.comunicacionAlertas.mostrarMensajeConInput("Introduce el mismo email que has usado para registrarte. Se te enviará un correo para reestablecer la contraseña.")
   }
 
+
+/**
+ * Metodo para ir a pagina de registro
+ */
   irRegistro() {
     this.navControler.navigateForward('registro');
   }
