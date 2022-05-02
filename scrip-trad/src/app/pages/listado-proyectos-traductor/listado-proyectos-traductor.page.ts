@@ -30,6 +30,9 @@ export class ListadoProyectosTraductorPage implements OnInit {
  tipoProyecto = 1; //1 urgente, 0 todos
  selected = 1; //1 urgente, 0 todos
 
+ quote: string;
+ author: string;
+
 
   constructor(private proyectoService: ProyectoService,
     private comunicacionAlertas: ComunicacionDeAlertasService,
@@ -98,7 +101,7 @@ export class ListadoProyectosTraductorPage implements OnInit {
 
         if(this.totalProyectos == 0){
           console.log('Si noy pendientes llamamos api quote of the day');
-          //this.quoteOfTheDay();
+          this.quoteOfTheDay();
           
         }
         // La próxima vez que se carguen mensajes se cargará la siguiente "página"
@@ -175,19 +178,25 @@ export class ListadoProyectosTraductorPage implements OnInit {
 async quoteOfTheDay(){
   //hacemos consulta a api
   try{
-    let response = await axios.get('https://quotes.rest/qod?category=inspire', 
+    let response = await axios.get('https://quotes15.p.rapidapi.com/quotes/random/', 
     {
-    headers: {'x-rapidapi-host': 'translated-mymemory---translation-memory.p.rapidapi.com',
-        'x-rapidapi-key': '8e1ab3a4famshcdbf49ea6b00c54p11230ejsnfb424bda1424'}},
+      headers: {
+        'X-RapidAPI-Host': 'quotes15.p.rapidapi.com',
+        'X-RapidAPI-Key': '8e1ab3a4famshcdbf49ea6b00c54p11230ejsnfb424bda1424'
+      }},
     );
 
     let jsonResult = await response.data;
+     this.quote = jsonResult.content;
+     this.author = jsonResult.originator.name;
+    //console.log(jsonResult);
     console.log(jsonResult);
+     
     
 
     
   }catch{
-    this.comunicacionAlertas.mostrarAlerta('No se ha podido conectar con quote of the day.')
+    console.log('No se ha podido conectar con quote of the day.')
     
   }
 

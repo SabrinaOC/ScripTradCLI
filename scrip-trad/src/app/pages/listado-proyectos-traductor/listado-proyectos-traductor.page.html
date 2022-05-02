@@ -24,8 +24,12 @@
 
 
   <div *ngIf="totalProyectos == 0 && selected == 1" class="ion-text-center ion-padding-horizontal ion-padding-top">   
-    <h2>No hay traducciones urgentes pendientes, ¡buen trabajo!</h2>
-    <p id="quote"></p>
+    <h3>¡No hay traducciones urgentes!</h3>
+    <div class="quote ion-text-center">
+      <p>"{{quote}}"</p>
+      <p>—{{author}}</p>
+    </div>
+    
   </div>
 
   <!-- Creo un ion-list, cada mensaje será un ion-item -->
