@@ -168,7 +168,7 @@ export class EditorPage implements OnInit {
    */
   irASiguienteSegmento(){
     //antes de cambiar segmento en pantalla, guardamos traduccion (si se ha escrito)
-    //this.guardarTraduccionSegmento();
+    this.guardarTraduccionSegmento();
     
     for(let i = 0; i < this.segmentos.length; i++){
       //ultimo segmento

@@ -98,7 +98,8 @@ export class PerfilPage implements OnInit {
         if(data["result"] == "success"){
           this.comunicacionAlertas.mostrarAlertaAccionOk('Datos de perfil actualizados con éxito.',
           ()=> {
-            this.irInicio();
+            //this.irInicio();
+            console.log("Datos perfil actualizados");
           });
         } else {
           this.comunicacionAlertas.mostrarAlerta('Se ha producido un error al intentar actualizar los datos de perfil. Vuelve a intentarlo en unos minutos.');

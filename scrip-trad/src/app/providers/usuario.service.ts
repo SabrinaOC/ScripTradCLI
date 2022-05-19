@@ -49,7 +49,7 @@ export class UsuarioService {
    * Método para registrar nuevo usuario, recibiendo todos sus datos.
    */
    registroUsuario (nombre: string, email: string, pass: string, usuario: string, idTipoUsuario: number) : Promise<any> {
-     console.log('entra en usuario service registro')
+     
     const md5 = new Md5(); // Creo un objeto que permite codificar en MD5
     var jsonObject = {
       nombre: nombre,

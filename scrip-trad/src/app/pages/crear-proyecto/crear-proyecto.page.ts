@@ -220,10 +220,8 @@ export class CrearProyectoPage implements OnInit {
           //si se ha creado el proyecto correctamente, insertamos los segmentos
           this.segmentoService.insertarSegmentos(this.textoDocumento, data["proyecto"]).then(data => {
             if(data["result"] == "success"){
-              this.comunicacionAlertas.mostrarConfirmacion("Proyecto creado con éxito.", ()=> {
+              this.comunicacionAlertas.mostrarAlertaAccionOk("Proyecto creado con éxito.", ()=> {
                 this.navController.navigateForward('/listado-proyectos-gestor');
-              }, () => {
-                console.log('cancelar')
               });
             }
           })

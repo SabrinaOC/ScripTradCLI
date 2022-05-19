@@ -58,7 +58,7 @@ export class RegistroPage implements OnInit {
    if(this.registerForm.controls.pass.value == this.registerForm.controls.confirmPass.value) {
      this.usuarioService.registroUsuario(this.registerForm.controls.nombre.value,
       this.registerForm.controls.email.value, this.registerForm.controls.pass.value,
-      this.registerForm.controls.usuario.value, this.registerForm.controls.idTipoProfesional.value). then(data => {
+      this.registerForm.controls.usuario.value, this.registerForm.controls.idTipoProfesional.value).then(data => {
         this.waiting = false;
         if(data.result == "success"){
           //si el resultado es success, se ha registrado el usuario correctamente
