@@ -81,11 +81,11 @@ export class LoginPage implements OnInit {
           
         }
         else {
-          this.comunicacionAlertas.mostrarAlerta("Usuario y/o contraseña incorrecta");
+          this.comunicacionAlertas.mostrarAlerta("Usuario y/o contraseña incorrecta.");
         }
       }).catch(error => { // Se ha producido algún tipo de error en el acceso al servidor o el servidor ha devuelto un error.
         this.waiting = false;
-        this.comunicacionAlertas.mostrarAlerta('Error en acceso al servidor');
+        this.comunicacionAlertas.mostrarAlerta('Error en acceso al servidor.');
       });
 
 
@@ -122,7 +122,7 @@ export class LoginPage implements OnInit {
         }
       }).catch(error => { // Se ha producido algún tipo de error en el acceso al servidor o el servidor ha devuelto un error.
         this.waiting = false;
-        this.comunicacionAlertas.mostrarAlerta('Error en acceso al servidor');
+        this.comunicacionAlertas.mostrarAlerta('Error en acceso al servidor.');
       });
 
     })
