@@ -1,15 +1,15 @@
-# Aplicación web híbrida de asistencia a la traducción
-<p>Aplicación web desarrollada con Ionic, un framework gratuito y open source para desarrollar aplicaciones híbridas multiplataforma 
-que utiliza HTML5, CSS (generado por SASS) y Cordova como base.</p>
-<p>Este proyecto surge del deseo de aunar mis dos mundos o pasiones, la programación y la traducción; y con el objeto de dar respuesta 
-a las necesidades del traductor para el desempeño de su trabajo.</p>
-<p>La idea general era crear una aplicación que hiciera las veces de herramienta de gesión a la par que de traducción y, por ello,
-está enfocada en dos perfiles principales, gestor de proyecto y traductor, cada uno de los cuales tendrá unas funcionalidades específicas.</p>
+# COMPUTER ASSISTED TRANSLATION CROSS-PLATFORM APP
+<p> App developed using Ionic, an open source framework which provides tools and services for developing hybrid mobile, 
+desktop, and progressive web apps based on modern web development technologies and practices, using Web technologies like CSS, HTML5, and Sass.</p>
+
+<p>This project was designed from my own experience as a translator, thinking on those things 
+I would have like to have to make translation easier and faster, I wanted to build something useful and user friendly.</p>
+
+<p>It is not only a translation, but a management app as it covers two of the most important roles in translation process, translator and project manager.</p>
 
 
 ## LOGIN
-* Página de inicio de inicio de sesión (con opción de Google login y sign in) compartida para traductores y gestores. Como se trata de una app multiplataforma, 
-contamos con vistas tanto para navegador como para Android e iOS.
+* Log in page with Google sign in option. As it is a cross platform app it is available for iOS, Android and browsers.
 <p align="center">
   <img width="630" src="./img/inicioWeb.PNG"/>
 </p>
@@ -18,9 +18,8 @@ contamos con vistas tanto para navegador como para Android e iOS.
 </p>
 
 
-## REGISTRO
-* Vista de registro si es la primera vez que se accede a la app. 
-Si se prefiere hacer mediante Google se realizará un registro en dos pasos para completar el perfil del usuario.
+## REGISTER
+* Register page for those using the app for the very first time. If using Google, there is a two steps registration to complete the user profile.
 <p align="center">
   <img width="630" src="./img/registerWeb.PNG"/>
 </p>
@@ -29,36 +28,33 @@ Si se prefiere hacer mediante Google se realizará un registro en dos pasos para
 </p>
 
 
-## GESTOR
-### INICIO GESTOR
-* Página de inicio para usuario con rol gestor. Historial de proyectos del usuario y opciones para desplegar un menú
-o crear nuevos proyectos.
+## PROJECT PAMAGER
+### HOME
+* Project manager homepage. Projects history and access to different options including menu and create projects.
 <p align="center">
   <img width="330" src="./img/homeGestor.PNG"/>
 </p>
 
-### CREAR PROYECTO
-* Vista para crear nuevos proyectos de traducción y asignarlos a los traductores disponibles en BBDD.
+### NEW PROJECT
+* Page for project managers to create and assign projects to available translators in DB.
 <p align="center">
   <img width="330" src="./img/createProjectGestor.PNG"/>
 </p>
 
-## TRADUCTOR
-### INICIO TRADUCTOR
-* Página de inicio para traductores. Historial de proyectos del usuario y opciones para desplegar un menú
-o acceder a la vista propia de traducción para la realización del trabajo.
+## TRANSLATOR
+### HOME
+* Translator homepage. Projects history and access to different options including translation page itself.
 <p align="center">
   <img width="330" src="./img/homeTraductor.PNG"/>
 </p>
 
-### TRADUCCIÓN
-Vista para crear desarrollar el trabajo de traducción. Destaca:
-* Una barra de progreso en la parte superior para
-que de golpe de vista se pueda ver en qué punto del proceso se encuentra.
-* Segmentación del texto para agilizar el proceso.
-* Posibilidad de solicitar una traducción automática editable.
-* Glosario propio asociado al proyecto.
-* Sección para comentarios. Un espacio para que el traductor pueda comunicar sus decisiones traductologicas o aspectos relevantes que considere necesario.
+### TRANSLATION
+Translator main page. Key features:
+* Progress bar for the translator to easily see the the amount of work already done and how much there is still to do. 
+* Segmented text to speed up the process.
+* Option to generate an automatic translation based on the project languages.
+* Glossary associated exclusively to that project.
+* Comments section. A place for the translator to communicate relevant translation strategies and decisions.
 <p align="center">
   <img width="330" src="./img/translationSegments.PNG"/>
 </p>
@@ -67,21 +63,22 @@ que de golpe de vista se pueda ver en qué punto del proceso se encuentra.
   <img width="330" src="./img/translation.PNG"/>
 </p>
 
-## MENÚ
-* Menú compartido para ambos roles desde donde se puede editar los datos de perfil o cambiar las contraseñas de acceso.
+## MENU
+* Shared menu for both roles to edit the user profile or change their password. 
 <p align="center">
   <img width="330" src="./img/menuOptions.PNG"/>
 </p>
 
-## PERFIL
-* Vista para editar los datos del usuario (nombre, nombre de usuario, imagen...).
+## USER PROFILE
+* Page to edit profile information, e.g., username, name, photo.
 <p align="center">
   <img width="330" src="./img/profileEditor.PNG"/>
 </p>
 
 ## PASSWORD
-* Página que permite cambiar la contraseña, en dos pasos, primero corroborando que la contraseña actual indicada es correcta y 
-después comprobando que la confirmación de la nueva contraseña es correcta para evitar errores de typo.
+* It allows the logged user to change their password. For security matters, this is a two steps process:
+first the user needs to type their current password; second, if the first step is successfull, it will ask the user to introduce
+and confirm the new password in order to avoid possible typos.
 <p align="center">
   <img width="330" src="./img/passwordChange.PNG"/>
 </p>
